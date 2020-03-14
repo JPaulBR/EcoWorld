@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-button (click)="toggleMenu()">
+        <ion-icon slot="icon-only" name="menu" style="color: white;"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Top</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let i of users">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src={{i.img}}>
+      </ion-avatar>
+      <ion-label>
+        <h3>{{i.lugar}}</h3>
+        <p>{{i.nombre}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+</ion-content>

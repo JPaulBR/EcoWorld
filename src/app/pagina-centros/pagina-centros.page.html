@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-button (click)="toggleMenu()">
+        <ion-icon slot="icon-only" name="menu" style="color: white;"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Campaings</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div *ngIf="hide">
+    <ion-card class="card" style="margin-top: 30%;">
+    <img class="centrar" src="assets/images/informacion.png" alt="ion">
+    <ion-card-header>
+      <ion-card-title>Information</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>If you like create a new campaing just contact us. Send email in this mail: jpbr25@yahoo.com</ion-card-content>
+    </ion-card>
+  </div>
+  <div *ngIf="hide2" style="padding: 3%;" [routerLink]="['/','detalle-centro']">
+    <ion-card *ngFor="let i of houses">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src={{i.img}}>
+        </ion-avatar>
+        <ion-label>
+          <h3>{{i.lugar}}</h3>
+          <p>{{i.horario}}</p>
+          <p>{{i.material}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">  
+    <ion-fab-button color="success" [routerLink]="['/','agregar-centro']">  
+      <ion-icon name="add"></ion-icon>  
+    </ion-fab-button>  
+  </ion-fab>  
+</ion-content>

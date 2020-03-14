@@ -1,0 +1,28 @@
+<ion-header no-border>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-button (click)="toggleMenu()">
+        <ion-icon slot="icon-only" name="menu" style="color: white;"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-card *ngFor="let i of listaNoticias" [routerLink]="['/','detalle-noticias']">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src={{i.imagenEmpresa}}>
+        </ion-avatar>
+        <ion-label>
+          <h3>{{i.nombreEmpresa}}</h3>
+          <p>{{i.fecha}}</p>
+        </ion-label>
+      </ion-item>
+      <img src={{i.img}} alt="ion">
+      <ion-card-header>
+        <ion-card-title>{{i.titulo}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>{{i.descripcion}}</ion-card-content>
+    </ion-card>
+</ion-content>

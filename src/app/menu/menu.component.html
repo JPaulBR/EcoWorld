@@ -1,0 +1,41 @@
+<ion-menu side="start" menuId="first" contentId="main">
+  <ion-header>
+    <ion-toolbar color="success">
+      <ion-title>EcoWorld</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-menu-toggle>
+        <ion-item [routerLink]="['/','pagina-principal']">
+          <ion-icon name="home-outline" slot="start"></ion-icon>
+          <ion-label>Home</ion-label>
+        </ion-item>
+        <ion-item [routerLink]="['/','pagina-reciclaje']">
+          <ion-icon name="bulb-outline" slot="start"></ion-icon>
+          <ion-label>Recycle</ion-label>
+        </ion-item>
+        <ion-item [routerLink]="['/','pagina-centros']">
+          <ion-icon name="flag-outline" slot="start"></ion-icon>
+          <ion-label>Campaigns</ion-label>
+        </ion-item>
+        <ion-item [routerLink]="['/','top']">
+          <ion-icon name="medal-outline" slot="start"></ion-icon>
+          <ion-label>Top</ion-label>
+        </ion-item>
+        <ion-item [routerLink]="['/','profile']">
+          <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+          <ion-label>Profile</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="alert-circle-outline" slot="start"></ion-icon>
+          <ion-label>About us</ion-label>
+        </ion-item>
+        <ion-item [routerLink]="['/','home']">
+          <ion-icon name="exit-outline" slot="start"></ion-icon>
+          <ion-label>Log out</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+</ion-menu>

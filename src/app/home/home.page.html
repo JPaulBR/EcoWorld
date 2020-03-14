@@ -1,0 +1,42 @@
+<!--<ion-content class="caja">
+  <ion-title style="text-align: center;">EcoWorld</ion-title>
+  <ion-list>
+    <ion-item>
+      <ion-input placeholder="Username"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="Password" type="password"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="block" color="success">Log in</ion-button>
+  <ion-button expand="block" color="light">Register</ion-button>
+</ion-content>-->
+<ion-header no-border>
+  <div class="login-header ion-padding">
+    <img class="logo-img" src="assets/images/image.png">
+  </div>
+</ion-header>
+<ion-content>
+  <div class="center">
+    <div heading-column-lr>
+      <h1 big-heading>Login</h1>
+      <h2 small-heading (click)="register()">SIGN UP</h2>
+    </div>
+    <ion-label>Enter your credentials to access the content</ion-label>
+    <ion-item transparent>
+      <img icon-small src= "assets/images/user.png">
+      <ion-input [(ngModel)]="user" placeholder="Username" type="text" ion-padding></ion-input>
+    </ion-item>
+    <ion-item transparent>
+      <img icon-small src= "assets/images/candado.png">
+      <ion-input [(ngModel)]="pass" placeholder="Password" type="Password"></ion-input>
+    </ion-item>
+    <ion-label class="forget-password">Forget password</ion-label>
+    <div linespace></div>
+    <ion-button color="dark" class="ion-button-class" shape="round" fill="solid" size="large" expand="block"
+    (click)="login()">LOGIN</ion-button>
+    <ion-label style="margin-top: 5%;" class="ion-text-center">
+      <u (click)="register()">Don´t have account? Sign up</u>
+    </ion-label>
+  </div>
+</ion-content>
