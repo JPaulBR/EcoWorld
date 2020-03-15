@@ -1,7 +1,6 @@
 import { Component, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonSlides, NavController } from '@ionic/angular';
-import { RegisterPage } from '../register/register.page';
 
 
 @Component({

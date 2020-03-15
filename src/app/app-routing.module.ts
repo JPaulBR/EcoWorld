@@ -8,7 +8,6 @@ import {GoogleMapsComponent} from './google-maps/google-maps.component';
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full' },
   {path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
-  {path: 'register',loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)},
   {path: 'pagina-principal',loadChildren: () => import('./pagina-principal/pagina-principal.module').then( m => m.PaginaPrincipalPageModule)},
   {path: 'pagina-reciclaje',loadChildren: () => import('./pagina-reciclaje/pagina-reciclaje.module').then( m => m.PaginaReciclajePageModule)},
   {path: 'pagina-centros',loadChildren: () => import('./pagina-centros/pagina-centros.module').then( m => m.PaginaCentrosPageModule)},
