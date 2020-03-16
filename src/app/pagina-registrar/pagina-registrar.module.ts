@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { PaginaRegistrarPageRoutingModule } from './pagina-registrar-routing.module';
@@ -13,6 +12,7 @@ import { PaginaRegistrarPage } from './pagina-registrar.page';
     CommonModule,
     FormsModule,
     IonicModule,
+    ReactiveFormsModule,
     PaginaRegistrarPageRoutingModule
   ],
   declarations: [PaginaRegistrarPage]
