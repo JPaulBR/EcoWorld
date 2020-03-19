@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { UsuarioService } from './../tablas/usuarios/usuario.service';
+import {Appointment} from './../tablas/usuarios/usuario';
+import {Observable} from 'rxjs';
 /*import {AngularFireDatabase} from 'angularfire2/database';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase';
@@ -22,6 +24,7 @@ export class PaginaRegistrarPage implements OnInit {
   //ref= firebase.database().ref('items/');
   nombre:string = '';
   bookingForm: FormGroup;
+  Bookings = [];
   //profile = {} as Profile;
   //bookingListRef: AngularFireList<any>;
 
@@ -32,7 +35,8 @@ export class PaginaRegistrarPage implements OnInit {
     /*this.ref.on('value', resp=>{
       this.items = snapshotToArray(resp);
     });*/
-    this.getData();
+    console.log(this.getData());
+    console.log("imprime");
    }
 
   ngOnInit() {
@@ -43,6 +47,17 @@ export class PaginaRegistrarPage implements OnInit {
       email: [''],
       contra: ['']
     })
+    /*let bookingRes = this.aptService.getBookingList();
+    bookingRes.snapshotChanges().subscribe(res => {
+      this.Bookings = [];
+      res.forEach(item => {
+        let a = item.payload.toJSON();
+        a['$key'] = item.key;
+        this.Bookings.push(a as Appointment);
+      })
+    })
+    console.log('fdfd')
+    console.log(this.Bookings);*/
   }
 
   formSubmit() {
@@ -50,7 +65,7 @@ export class PaginaRegistrarPage implements OnInit {
       return false;
     } else {
       //this.bookingForm.value.nombre con esto obtengo el nombre
-      this.aptService.createUser(this.bookingForm.value).then(res => {
+      this.aptService.addUser(this.bookingForm.value).then(res => {
         console.log(res)
         this.bookingForm.reset();
         this.router.navigate(['/home']);
@@ -66,6 +81,7 @@ export class PaginaRegistrarPage implements OnInit {
   }
 
   getData(){
+    return this.aptService.getUsers();
     //this.afDatabase.object.name.toString;
     /*this.afDatabase.database.ref('usuario/'+id).once('value').then(function(data){
       alert(JSON.stringify(data.val().items));
