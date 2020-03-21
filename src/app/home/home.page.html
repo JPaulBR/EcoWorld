@@ -1,7 +1,4 @@
 <ion-header no-border>
-  <!--<div class="login-header ion-padding">
-    <img class="logo-img" src="assets/images/trash.svg">
-  </div>-->
 </ion-header>
 <ion-content>
   <div class="center">
@@ -20,7 +17,7 @@
         <ion-icon name="lock-closed" color="medium"></ion-icon>
         <ion-input [(ngModel)]="pass" placeholder="Password" type="Password"></ion-input>
       </ion-item>
-      <ion-label class="forget-password">Forget password</ion-label>
+      <ion-label class="forget-password" (click)="presentPrompt()">Forget password</ion-label>
       <div linespace></div>
       <ion-button id="btn" expand="block" (click)="login()"><strong>LOGIN</strong></ion-button>
       <ion-label style="margin-top: 5%;" class="ion-text-center">
