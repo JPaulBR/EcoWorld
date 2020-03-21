@@ -111,10 +111,21 @@ ion-label{
 }
 
 .center{
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#btn{
+  color:#fff;
+  --background: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+}
+/*.center{
   position: absolute;
   left: 50%;
   top: 40%;
   -webkit-transform: (-49%,-49%);
   transform: translate(-49%,-49%);
   width: 90%;
-}
+}*/
