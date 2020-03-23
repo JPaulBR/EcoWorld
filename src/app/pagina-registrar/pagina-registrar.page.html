@@ -11,10 +11,10 @@
 <ion-content class="ion-padding">
   <form [formGroup]="bookingForm" (ngSubmit)="formSubmit()">
     <ion-avatar style="margin: auto;">
-      <img src="https://image.flaticon.com/icons/svg/1177/1177568.svg">
+      <img [src]="image" *ngIf="image">
     </ion-avatar>
     <div class="ion-text-center">
-      <h5>Change photo</h5>
+      <h5 (click)="presentPopover($event)">Change photo</h5>
     </div>
     <ion-item>
       <ion-label position="floating">Id</ion-label>
@@ -44,7 +44,7 @@
       <ion-label position="floating">Password</ion-label>
       <ion-input formControlName="contra" type="password"></ion-input>
     </ion-item>
-    <ion-button type="submit" style="margin-top: 7%;"color="danger" class="ion-button-class" shape="block" fill="solid" size="large" expand="block">
+    <ion-button type="submit" style="margin-top: 7%;" shape="block" fill="solid" expand="block" id="btn">
       SIGN UP
     </ion-button>
   </form>

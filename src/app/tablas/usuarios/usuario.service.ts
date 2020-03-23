@@ -21,7 +21,7 @@ export class UsuarioService {
     db2.collection("usuario").get().toPromise().then(function(querySnapshot){
       querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
+        console.log(doc.id, " => ", doc.data().apellido);
       });
     });
     this.usuarios = this.listaUsuarios.snapshotChanges().pipe(map(
