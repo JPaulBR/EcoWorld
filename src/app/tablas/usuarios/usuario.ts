@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+
 export class Appointment {
     $key: string;
     id: number;
@@ -5,4 +7,5 @@ export class Appointment {
     apellido: string;
     email: string;
     contra: string;
+    urlFoto: string;
 }

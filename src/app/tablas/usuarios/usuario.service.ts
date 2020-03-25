@@ -55,7 +55,8 @@ export class UsuarioService {
       nombre: apt.nombre,
       apellido: apt.apellido,
       email: apt.email,
-      contra: apt.contra
+      contra: apt.contra,
+      url: apt.urlFoto
     })
   }
 
