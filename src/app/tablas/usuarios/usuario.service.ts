@@ -14,16 +14,11 @@ export class UsuarioService {
   bookingListRef: AngularFireList<any>;
   bookingRef: AngularFireObject<any>;
   listaUsuarios: AngularFirestoreCollection<Appointment>;
+  listaUsuario: AngularFirestoreCollection<Appointment>;
   usuarios: Observable<Appointment[]>;
 
   constructor(private db: AngularFireDatabase,private firebase:AngularFireDatabase,private db2: AngularFirestore) { 
     this.listaUsuarios = db2.collection<Appointment>('usuario');
-    db2.collection("usuario").get().toPromise().then(function(querySnapshot){
-      querySnapshot.forEach(function(doc) {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data().apellido);
-      });
-    });
     this.usuarios = this.listaUsuarios.snapshotChanges().pipe(map(
       actions=>{
         return actions.map(a =>{
@@ -35,12 +30,56 @@ export class UsuarioService {
     ));
   }
 
-  getUsers(){
-    return this.usuarios;
+  getUserById(id:number){
+    var listaUsuarios = this.db2.collection<any>('usuario',ref => ref.where('id', '==', id));
+    var usuarios = listaUsuarios.snapshotChanges().pipe(map(
+      actions=>{
+        return actions.map(a =>{
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return {id, ...data};
+        });
+      }
+    ));
+    return usuarios;
   }
 
-  getUsuario(id: string){
-    return this.listaUsuarios.doc<Appointment>(id).valueChanges();
+  getUserByEmail(email:string){
+    var listaUsuarios = this.db2.collection<any>('usuario',ref => ref.where('email', '==', email));
+    var usuarios = listaUsuarios.snapshotChanges().pipe(map(
+      actions=>{
+        return actions.map(a =>{
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return {id, ...data};
+        });
+      }
+    ));
+    return usuarios;
+  }
+  /*getUserById(id:number){
+    var valor = false;
+    this.db2.collection("usuario", ref => ref.where('id', '==', id)).get().toPromise().then(function(querySnapshot){
+      querySnapshot.forEach(function(doc) {
+        console.log(doc.id, " => ", doc.data().apellido);
+        valor = true;
+      });
+    });
+    return valor;
+  }*/
+
+  getUserByCredential(email:string,password:string){
+    var listaUsuarios = this.db2.collection<any>('usuario',ref => ref.where('email', '==', email).where('contra', '==', password));
+    var usuarios = listaUsuarios.snapshotChanges().pipe(map(
+      actions=>{
+        return actions.map(a =>{
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return {id, ...data};
+        });
+      }
+    ));
+    return usuarios;
   }
 
   addUser(apt:Appointment){

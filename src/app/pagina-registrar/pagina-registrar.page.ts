@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { UsuarioService } from './../tablas/usuarios/usuario.service';
 import {Observable} from 'rxjs';
 import { ToastController, AlertController, PopoverController, Platform } from '@ionic/angular';
 import { Camera } from '@ionic-native/camera/ngx';
 import { PopupComponent } from '../popup/popup.component';
 import {AngularFireStorage} from '@angular/fire/storage';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pagina-registrar',
@@ -16,7 +17,7 @@ import {AngularFireStorage} from '@angular/fire/storage';
 export class PaginaRegistrarPage implements OnInit {
 
   nombre:string = '';
-  bookingForm: FormGroup;
+  userForm: FormGroup;
   Bookings = [];
   image: any;
   urlImage: string;
@@ -31,36 +32,64 @@ export class PaginaRegistrarPage implements OnInit {
     private storage: AngularFireStorage,
     public fb: FormBuilder) {
     this.image = "https://image.flaticon.com/icons/svg/1177/1177568.svg";
+    this.userForm = new FormGroup({
+      id: new FormControl('',[Validators.required]),
+      nombre: new FormControl('',Validators.required),
+      apellido: new FormControl('',Validators.required),
+      email: new FormControl('',[Validators.required,Validators.email,Validators.pattern(".+\@.+\..+")]),
+      contra: new FormControl('',[Validators.required,Validators.minLength(4)]),
+      urlFoto: new FormControl('')
+    })
    }
 
   ngOnInit() {
-    this.bookingForm = this.fb.group({
-      id: [''],
-      nombre: [''],
-      apellido: [''],
-      email: [''],
-      contra: [''], 
-      urlFoto: ['']
-    })
   }
 
   formSubmit() {
-    var id : number =  this.bookingForm.value.id;
-    var nombre : string =  this.bookingForm.value.nombre;
-    var apellido: string =  this.bookingForm.value.apellido;
-    var email: string =  this.bookingForm.value.email;
-    var contra: string = this.bookingForm.value.contra;
+    var id : number =  this.userForm.value.id;
+    var nombre : string =  this.userForm.value.nombre;
+    var apellido: string =  this.userForm.value.apellido;
+    var email: string =  this.userForm.value.email;
+    var contra: string = this.userForm.value.contra;
     if (id===undefined || nombre==='' || apellido==='' || email===''){
       this.verSnackBar("Empty fields","danger");
     }
     else{
-      this.subirImagen(id);
-      this.bookingForm.value.urlFoto = this.urlImage;
-      this.aptService.addUser(this.bookingForm.value).then(res => {
-        this.bookingForm.reset();
-        this.router.navigate(['/home']);
-      })
-        .catch(error => console.log(error));
+      this.aptService.getUserById(id).subscribe(data=>{
+        if (data.length>0){
+          this.verSnackBar("Id is already exists","danger");
+        }
+        else{
+          this.aptService.getUserByEmail(email).subscribe(dato=>{
+            if (dato.length>0){
+              this.verSnackBar("Email is already exists","danger");
+            }
+            else{
+              this.subirImagen(id);
+              this.userForm.value.urlFoto = this.urlImage;
+              this.aptService.addUser(this.userForm.value).then(res => {
+              this.userForm.reset();
+              this.verSnackBar("Sign up successfully","success");
+              this.router.navigate(['/home']);
+              }).catch(error => console.log(error));
+            }
+          });
+        }
+      });
+    }
+  }
+
+  validateEmail(email:string) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
+  existeId(id: number){
+    if (this.aptService.getUserById(id)){
+      return true;
+    }
+    else{
+      return false;
     }
   }
 
@@ -87,18 +116,6 @@ export class PaginaRegistrarPage implements OnInit {
     else{
       this.urlImage = "null";
     }
-  }
-
-  createProfile(){
-    
-  }
-
-  getData(){
-    return this.aptService.getUsers();
-    //this.afDatabase.object.name.toString;
-    /*this.afDatabase.database.ref('usuario/'+id).once('value').then(function(data){
-      alert(JSON.stringify(data.val().items));
-    })*/
   }
 
   sacarCamara(){

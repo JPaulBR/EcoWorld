@@ -2,7 +2,10 @@ import { Component, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonSlides, NavController, AlertController, ToastController } from '@ionic/angular';
 import { stringify } from 'querystring';
-import { reduce } from 'rxjs/operators';
+import { reduce, map, tap } from 'rxjs/operators';
+import { UsuarioService } from '../tablas/usuarios/usuario.service';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { database } from 'firebase';
 
 
 @Component({
@@ -13,16 +16,26 @@ import { reduce } from 'rxjs/operators';
 export class HomePage {
 
   user: string;
-  pass: string; 
+  pass: string;
+  num: number;
+  r1: any;
 
-  constructor(public route:Router, private alertCtrl:AlertController, public toastCtrl: ToastController) {
+  constructor(public route:Router, private alertCtrl:AlertController,
+    public toastCtrl: ToastController,private aptService: UsuarioService,
+    private db2: AngularFirestore) {
     console.log("App started");
+    this.num = 0;
   }
 
   login(){
-    console.log("User: "+this.user);
-    console.log("pass: "+this.pass);
-    this.route.navigate(['/pagina-principal']);
+    this.aptService.getUserByCredential(this.user,this.pass).subscribe(data=>{
+      if (data.length>0){
+        this.route.navigate(['/pagina-principal'])
+      }
+      else{
+        this.verSnackBar("Not found user","danger");
+      }
+    });
   }
 
   register(){
