@@ -21,7 +21,9 @@ export class PaginaRegistrarPage implements OnInit {
   Bookings = [];
   image: any;
   urlImage: string;
+  textoBoton: string = "Sign up";
   cambioImagenPerfil: boolean = false;
+  spinner: boolean;
 
   constructor(private aptService: UsuarioService,
     public toastCtrl: ToastController,
@@ -40,12 +42,15 @@ export class PaginaRegistrarPage implements OnInit {
       contra: new FormControl('',[Validators.required,Validators.minLength(4)]),
       urlFoto: new FormControl('')
     })
+    this.spinner = false;
    }
 
   ngOnInit() {
   }
 
   formSubmit() {
+    this.spinner = true;
+    this.textoBoton = " ";
     var id : number =  this.userForm.value.id;
     var nombre : string =  this.userForm.value.nombre;
     var apellido: string =  this.userForm.value.apellido;
@@ -53,21 +58,33 @@ export class PaginaRegistrarPage implements OnInit {
     var contra: string = this.userForm.value.contra;
     if (id===undefined || nombre==='' || apellido==='' || email===''){
       this.verSnackBar("Empty fields","danger");
+      this.spinner = false;
+      this.textoBoton = "Sign up";
+    }
+    else if (!this.validateEmail(email)){
+      this.verSnackBar("Invalid email","danger");
+      this.spinner = false;
+      this.textoBoton = "Sign up";
     }
     else{
-      this.aptService.getUserById(id).subscribe(data=>{
+      this.aptService.getUserByEmail(email).subscribe(data=>{
         if (data.length>0){
-          this.verSnackBar("Id is already exists","danger");
+          this.verSnackBar("Email is already exists","danger");
+          this.spinner = false;
+          this.textoBoton = "Sign up";
         }
         else{
-          this.aptService.getUserByEmail(email).subscribe(dato=>{
-            if (dato.length>0){
-              this.verSnackBar("Email is already exists","danger");
+          this.aptService.getUserById(id).subscribe(data=>{
+            if (data.length>0){
+              this.verSnackBar("Id is already exists","danger");
+              this.spinner = false;
+              this.textoBoton = "Sign up";
             }
             else{
               this.subirImagen(id);
               this.userForm.value.urlFoto = this.urlImage;
               this.aptService.addUser(this.userForm.value).then(res => {
+              this.spinner = false;
               this.userForm.reset();
               this.verSnackBar("Sign up successfully","success");
               this.router.navigate(['/home']);
@@ -82,15 +99,6 @@ export class PaginaRegistrarPage implements OnInit {
   validateEmail(email:string) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
-  }
-
-  existeId(id: number){
-    if (this.aptService.getUserById(id)){
-      return true;
-    }
-    else{
-      return false;
-    }
   }
 
   async verSnackBar(msj,tColor){

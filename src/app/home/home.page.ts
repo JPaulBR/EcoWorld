@@ -19,23 +19,37 @@ export class HomePage {
   pass: string;
   num: number;
   r1: any;
+  spinner: boolean;
+  textoBoton: string = "LOGIN";
 
   constructor(public route:Router, private alertCtrl:AlertController,
     public toastCtrl: ToastController,private aptService: UsuarioService,
     private db2: AngularFirestore) {
     console.log("App started");
     this.num = 0;
+    this.spinner = false;
   }
 
   login(){
-    this.aptService.getUserByCredential(this.user,this.pass).subscribe(data=>{
-      if (data.length>0){
-        this.route.navigate(['/pagina-principal'])
-      }
-      else{
-        this.verSnackBar("Not found user","danger");
-      }
-    });
+    this.spinner = true;
+    this.textoBoton = "";
+    if (this.user==="" || this.pass==="" || this.pass===undefined || this.user===undefined){
+      this.verSnackBar("Empty fields","danger");
+      this.spinner = false;
+      this.textoBoton = "LOGIN";
+    }
+    else{
+      this.aptService.getUserByCredential(this.user,this.pass).subscribe(data=>{
+        if (data.length>0){
+          this.route.navigate(['/pagina-principal'])
+        }
+        else{
+          this.verSnackBar("Not found user","danger");
+          this.spinner = false;
+          this.textoBoton = "LOGIN";
+        }
+      });
+    }
   }
 
   register(){

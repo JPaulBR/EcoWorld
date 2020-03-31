@@ -30,8 +30,8 @@ export class UsuarioService {
     ));
   }
 
-  getUserById(id:number){
-    var listaUsuarios = this.db2.collection<any>('usuario',ref => ref.where('id', '==', id));
+  getUserByEmail(email:string){
+    var listaUsuarios = this.db2.collection<any>('usuario',ref => ref.where('email', '==', email));
     var usuarios = listaUsuarios.snapshotChanges().pipe(map(
       actions=>{
         return actions.map(a =>{
@@ -44,8 +44,8 @@ export class UsuarioService {
     return usuarios;
   }
 
-  getUserByEmail(email:string){
-    var listaUsuarios = this.db2.collection<any>('usuario',ref => ref.where('email', '==', email));
+  getUserById(id:number){
+    var listaUsuarios = this.db2.collection<any>('usuario',ref => ref.where('id', '==', id));
     var usuarios = listaUsuarios.snapshotChanges().pipe(map(
       actions=>{
         return actions.map(a =>{

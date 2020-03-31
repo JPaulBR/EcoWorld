@@ -11,7 +11,7 @@
       </div>
       <ion-item transparent>
         <ion-icon name="person" color="medium"></ion-icon>
-        <ion-input [(ngModel)]="user" placeholder="Username" type="text" ion-padding></ion-input>
+        <ion-input [(ngModel)]="user" placeholder="Email" type="text" ion-padding></ion-input>
       </ion-item>
       <ion-item transparent>
         <ion-icon name="lock-closed" color="medium"></ion-icon>
@@ -19,7 +19,10 @@
       </ion-item>
       <ion-label class="forget-password" (click)="presentPrompt()">Forget password</ion-label>
       <div linespace></div>
-      <ion-button id="btn" expand="block" (click)="login()"><strong>LOGIN</strong></ion-button>
+      <ion-button id="btn" expand="block" (click)="login()">
+        {{textoBoton}}
+        <ion-spinner name="circles" *ngIf="spinner"></ion-spinner>
+      </ion-button>
       <ion-label style="margin-top: 5%;" class="ion-text-center">
         <u (click)="register()">Don´t have account? Sign up</u>
       </ion-label>
