@@ -9,20 +9,16 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" *ngIf="listNew">
   <ion-item>
     <ion-label>
-      <h2>Ambientados regresa de nuevo</h2>
-      <p>Dec 10, 2019</p>
+      <h2>{{listNew.titulo}}</h2>
+      <p>{{listNew.fecha}}</p>
     </ion-label>
   </ion-item>
   <div style="margin: auto;">
-    <ion-img src="https://t1.ev.ltmcdn.com/es/posts/3/0/3/como_ensenar_a_los_ninos_a_reciclar_la_basura_1303_600.jpg"></ion-img>
+    <ion-img src={{listNew.fotoNoticia}}></ion-img>
   </div>
-  <p>Será este jueves 7 y viernes 8 de marzo cuando 26 centros de acopio recibirán material a partir de las 6 a.m. hasta las 6 p.m., sin embargo, el puesto de Teletica, ubicado en Sabana oeste, cerrará a las 4 p.m.
-
-    Recuerde que puede reciclar papel, aluminio, cartón, plástico, vidrio y tetra pak; el material valorizable debe estar limpio, seco y separado.
-    
-    La lista completa de los puntos de recolección está en el Facebook de Ambientados.</p>
-    <p>Fuente: <a>https://www.teletica.com/219421_esta-semana-se-realizara-la-campana-ambientados-del-mes-de-marzo</a></p>
+  <p>{{listNew.descripcion}}</p>
+  <p>Fuente: <a (click)="openLink(listNew.fuente)">{{listNew.fuente}} </a></p>
 </ion-content>

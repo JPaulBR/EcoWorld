@@ -1,7 +1,5 @@
-import { Observable } from 'rxjs';
-
 export class Appointment {
-    $key: string;
+    key: string;
     id: number;
     nombre: string;
     apellido: string;

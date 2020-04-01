@@ -67,32 +67,32 @@ export class PaginaRegistrarPage implements OnInit {
       this.textoBoton = "Sign up";
     }
     else{
-      this.aptService.getUserByEmail(email).subscribe(data=>{
-        if (data.length>0){
-          this.verSnackBar("Email is already exists","danger");
+      this.aptService.getUsers().subscribe(async res=>{
+        var flag: boolean = false
+        res.forEach(element=>{
+          if (element.id===id || element.email === email){
+            flag= true;
+          }
+        })
+        if (!flag){
+          this.subirImagen(id);
+          this.userForm.value.urlFoto = this.urlImage;
+          this.aptService.addUser(this.userForm.value).then(res => {
           this.spinner = false;
-          this.textoBoton = "Sign up";
+          this.userForm.reset();
+          this.verSnackBar("Sign up successfully","success");
+          this.router.navigate(['/home']);
+          }).catch(error => console.log(error));
         }
         else{
-          this.aptService.getUserById(id).subscribe(data=>{
-            if (data.length>0){
-              this.verSnackBar("Id is already exists","danger");
-              this.spinner = false;
-              this.textoBoton = "Sign up";
-            }
-            else{
-              this.subirImagen(id);
-              this.userForm.value.urlFoto = this.urlImage;
-              this.aptService.addUser(this.userForm.value).then(res => {
-              this.spinner = false;
-              this.userForm.reset();
-              this.verSnackBar("Sign up successfully","success");
-              this.router.navigate(['/home']);
-              }).catch(error => console.log(error));
-            }
-          });
+          if(flag){
+            this.verSnackBar("Email or id is already exists","danger");
+            this.spinner = false;
+            this.textoBoton = "Sign up";
+          }
         }
-      });
+      })
+      
     }
   }
 

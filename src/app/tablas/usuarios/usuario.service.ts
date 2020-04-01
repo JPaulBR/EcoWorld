@@ -30,6 +30,18 @@ export class UsuarioService {
     ));
   }
 
+  getUsers(){
+    return this.db2.collection<Appointment>('usuario').snapshotChanges().pipe(map(
+      actions=>{
+        return actions.map(a =>{
+          const data = a.payload.doc.data() as Appointment;
+          const key = a.payload.doc.id;
+          return {key, ...data};
+        });
+      }
+    ));
+  }
+
   getUserByEmail(email:string){
     var listaUsuarios = this.db2.collection<any>('usuario',ref => ref.where('email', '==', email));
     var usuarios = listaUsuarios.snapshotChanges().pipe(map(
@@ -97,12 +109,6 @@ export class UsuarioService {
       contra: apt.contra,
       url: apt.urlFoto
     })
-  }
-
-  // Get Single
-  getUser(id: string) {
-    this.bookingRef = this.db.object('/usuario/' + id);
-    return this.bookingRef;
   }
 
   // Get List

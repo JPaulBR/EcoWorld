@@ -9,20 +9,21 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-card *ngFor="let i of listaNoticias" [routerLink]="['/','detalle-noticias']">
-      <ion-item>
+  <ion-spinner name="circles" *ngIf="spinner"></ion-spinner>
+    <ion-card *ngFor="let i of listNews" [routerLink]="['/detalleN',i.key]">
+      <ion-item no-lines color="success">
         <ion-avatar slot="start">
-          <img src={{i.imagenEmpresa}}>
+          <img src={{i.fotoEmpresa}}>
         </ion-avatar>
         <ion-label>
-          <h3>{{i.nombreEmpresa}}</h3>
-          <p>{{i.fecha}}</p>
+          <h3><strong>{{i.nombreEmpresa}}</strong></h3>
+          <p><strong>{{i.fecha}}</strong></p>
         </ion-label>
       </ion-item>
-      <img src={{i.img}} alt="ion">
+      <img src={{i.fotoNoticia}} alt="ion">
       <ion-card-header>
         <ion-card-title>{{i.titulo}}</ion-card-title>
       </ion-card-header>
-      <ion-card-content>{{i.descripcion}}</ion-card-content>
+      <ion-card-content>{{i.miniDescripcion}}</ion-card-content>
     </ion-card>
 </ion-content>

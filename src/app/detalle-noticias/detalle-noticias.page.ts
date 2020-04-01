@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NoticiasService } from '../tablas/noticias/noticias.service';
 
 @Component({
   selector: 'app-detalle-noticias',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetalleNoticiasPage implements OnInit {
 
-  constructor() { }
+  id: string;
+  listNew: any;
+
+
+  constructor(private route:ActivatedRoute,private apt:NoticiasService) { }
 
   ngOnInit() {
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.apt.getNew(this.id).subscribe(res=>{
+      this.listNew = res;
+    });
+  }
+
+  openLink(link:string){
+    window.open(link,'_system');
   }
 
 }
