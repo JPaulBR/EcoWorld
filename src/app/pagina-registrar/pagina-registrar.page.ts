@@ -24,6 +24,7 @@ export class PaginaRegistrarPage implements OnInit {
   textoBoton: string = "Sign up";
   cambioImagenPerfil: boolean = false;
   spinner: boolean;
+  presentarSnack: boolean;
 
   constructor(private aptService: UsuarioService,
     public toastCtrl: ToastController,
@@ -40,9 +41,12 @@ export class PaginaRegistrarPage implements OnInit {
       apellido: new FormControl('',Validators.required),
       email: new FormControl('',[Validators.required,Validators.email,Validators.pattern(".+\@.+\..+")]),
       contra: new FormControl('',[Validators.required,Validators.minLength(4)]),
-      urlFoto: new FormControl('')
+      urlFoto: new FormControl(''),
+      permiso: new FormControl('')
     })
+    this.presentarSnack = false;
     this.spinner = false;
+    this.urlImage = "null";
    }
 
   ngOnInit() {
@@ -68,31 +72,30 @@ export class PaginaRegistrarPage implements OnInit {
     }
     else{
       this.aptService.getUsers().subscribe(async res=>{
-        var flag: boolean = false
+        var flag: boolean = true
         res.forEach(element=>{
           if (element.id===id || element.email === email){
-            flag= true;
+            flag= false;
+            return;
           }
-        })
-        if (!flag){
-          this.subirImagen(id);
+        });
+        if (flag){
           this.userForm.value.urlFoto = this.urlImage;
+          this.userForm.value.permiso = false;
+          //this.userForm.reset();
           this.aptService.addUser(this.userForm.value).then(res => {
-          this.spinner = false;
-          this.userForm.reset();
-          this.verSnackBar("Sign up successfully","success");
-          this.router.navigate(['/home']);
-          }).catch(error => console.log(error));
-        }
-        else{
-          if(flag){
-            this.verSnackBar("Email or id is already exists","danger");
+            this.verSnackBar("Sign up successfully","success");
+            this.router.navigate(['/home']);
             this.spinner = false;
-            this.textoBoton = "Sign up";
-          }
+          }).catch(error => console.log(error));
+          this.presentarSnack = true;
         }
-      })
-      
+        else if (!flag){
+          this.verSnackBar2("Email or id is already exists","danger",this.presentarSnack);
+          this.spinner = false;
+          this.textoBoton = "Sign up";
+        }
+      });
     }
   }
 
@@ -110,7 +113,18 @@ export class PaginaRegistrarPage implements OnInit {
     toast.present();
   }
 
-  subirImagen(ide:number){
+  async verSnackBar2(msj:string,tColor:string,flag:boolean){
+    if (!flag){
+      let toast = this.toastCtrl.create({
+        message: msj,
+        duration: 3000,
+        color: tColor
+      });
+      (await toast).present();
+    }
+  }
+
+  subirImagen(ide:string){
     if (this.cambioImagenPerfil){
       const file = this.image;
       const filePath = 'imagenes/'+ide;
@@ -141,6 +155,7 @@ export class PaginaRegistrarPage implements OnInit {
     }).then(resultado =>{
       this.image = "data:image/jpeg;base64,"+resultado;
       this.cambioImagenPerfil = true;
+      this.subirImagen(this.makeid(10));
     }).catch(error =>{
       console.log(error);
     })
@@ -161,6 +176,7 @@ export class PaginaRegistrarPage implements OnInit {
     }).then(resultado =>{
       this.image = "data:image/jpeg;base64,"+resultado;
       this.cambioImagenPerfil = true;
+      this.subirImagen(this.makeid(10));
     }).catch(error =>{
       console.log(error);
     })
@@ -185,5 +201,15 @@ export class PaginaRegistrarPage implements OnInit {
       //nothing
     }
   }
+
+  makeid(length:number) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+ }
 
 }

@@ -1,6 +1,12 @@
 .centrar{
-  margin-top: 4%;
   margin-left: auto;
   margin-right: auto;
   display: block;
+}
+
+.center{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

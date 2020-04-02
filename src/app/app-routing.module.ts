@@ -18,6 +18,7 @@ const routes: Routes = [
   {path: 'detalle-centro',loadChildren: () => import('./detalle-centro/detalle-centro.module').then( m => m.DetalleCentroPageModule)},
   {path: 'detalle-noticias',loadChildren: () => import('./detalle-noticias/detalle-noticias.module').then( m => m.DetalleNoticiasPageModule)},
   {path: 'detalleN/:id',loadChildren: () => import('./detalle-noticias/detalle-noticias.module').then( m => m.DetalleNoticiasPageModule)},
+  {path: 'paginaPrincipal/:id',loadChildren: () => import('./pagina-principal/pagina-principal.module').then( m => m.PaginaPrincipalPageModule)}
 ];
 
 @NgModule({

@@ -107,7 +107,8 @@ export class UsuarioService {
       apellido: apt.apellido,
       email: apt.email,
       contra: apt.contra,
-      url: apt.urlFoto
+      url: apt.urlFoto,
+      permiso: apt.permiso,
     })
   }
 
@@ -131,6 +132,18 @@ export class UsuarioService {
   deleteBooking(id: string) {
     this.bookingRef = this.db.object('/usuario/' + id);
     this.bookingRef.remove();
+  }
+
+  getUserByEmail2(email: string){
+    return this.db2.collection<Appointment>('usuario',ref => ref.where('email', '==', email)).snapshotChanges().pipe(map(
+      actions=>{
+        return actions.map(a =>{
+          const data = a.payload.doc.data() as Appointment;
+          const key = a.payload.doc.id;
+          return {key, ...data};
+        });
+      }
+    ));
   }
 
 }

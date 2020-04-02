@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MenuController} from '@ionic/angular';
 import {NoticiasService} from './../tablas/noticias/noticias.service';
-import {News} from './../tablas/noticias/noticia';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

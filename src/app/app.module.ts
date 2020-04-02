@@ -18,7 +18,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import {environment} from '../environments/environment';
-
+import { IonicStorageModule } from '@ionic/storage';
 import {Camera} from '@ionic-native/camera/ngx';
 /*import {AngularFirestoreModule} from 'angularfire2/firestore';*/
 @NgModule({
@@ -26,6 +26,7 @@ import {Camera} from '@ionic-native/camera/ngx';
   entryComponents: [PopupComponent],
   imports: [BrowserModule,
     IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,

@@ -9,13 +9,13 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <div *ngIf="hide">
-    <ion-card class="card" style="margin-top: 30%;">
-    <img class="centrar" src="assets/images/informacion.png" alt="ion">
+  <div *ngIf="hide" class="center">
+    <ion-card >
+    <img class="centrar" src="assets/images/permisson.png" alt="ion">
     <ion-card-header>
-      <ion-card-title>Information</ion-card-title>
+      <ion-card-title class="ion-text-center">Information</ion-card-title>
     </ion-card-header>
-    <ion-card-content>If you like create a new campaing just contact us. Send email in this mail: jpbr25@yahoo.com</ion-card-content>
+    <ion-card-content>If you like create a new campaing just contact us. Send email in this mail: <a><u></u>jpbr25@yahoo.com</a></ion-card-content>
     </ion-card>
   </div>
   <div *ngIf="hide2" style="padding: 3%;" [routerLink]="['/','detalle-centro']">
@@ -32,7 +32,7 @@
       </ion-item>
     </ion-card>
   </div>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">  
+  <ion-fab *ngIf="hide2" vertical="bottom" horizontal="end" slot="fixed">  
     <ion-fab-button color="success" [routerLink]="['/','agregar-centro']">  
       <ion-icon name="add"></ion-icon>  
     </ion-fab-button>  

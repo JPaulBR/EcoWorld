@@ -6,4 +6,5 @@ export class Appointment {
     email: string;
     contra: string;
     urlFoto: string;
+    permiso: boolean;
 }
