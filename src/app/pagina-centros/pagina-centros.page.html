@@ -15,41 +15,50 @@
     <ion-card-header>
       <ion-card-title class="ion-text-center">Information</ion-card-title>
     </ion-card-header>
-    <ion-card-content>If you like create a new campaing just contact us. Send email in this mail: <a><u></u>jpbr25@yahoo.com</a></ion-card-content>
+    <ion-card-content>If you like create a new campaing just contact us. <img (click)="openWhatsApp()" style="width: 20px;" src="https://image.flaticon.com/icons/svg/733/733585.svg"> </ion-card-content>
     </ion-card>
   </div>
-  <div *ngIf="hide2" style="padding: 3%;">
-    <ion-card *ngFor="let i of listCenters" [routerLink]="['/detalle-centro',i.key]">
-      <ion-item>
-        <ion-avatar slot="start">
-          <img src="https://image.flaticon.com/icons/svg/967/967811.svg">
-        </ion-avatar>
-        <ion-label>
-          <h3>{{i.lugar}}</h3>
-          <p>{{i.horario}}</p>
-          <div class="container">
-            <div class="container" *ngIf=i.plastico>
-              <img style="width: 30px;" src="https://image.flaticon.com/icons/svg/2636/2636407.svg">
-            </div>
-            <div class="container" *ngIf="i.papel">
-              <img style="width: 27px;" src="https://image.flaticon.com/icons/svg/684/684872.svg">
-            </div>
-            <div class="container" *ngIf="i.aluminio">
-              <img style="width: 30px;" src="https://image.flaticon.com/icons/svg/542/542003.svg">
-            </div>
-            <div class="container" *ngIf="i.vidrio">
-              <img style="width: 27px;" src="https://image.flaticon.com/icons/svg/1855/1855765.svg">
-            </div>
-            <div class="container" *ngIf="i.tetra">
-              <img style="width: 30px;" src="https://image.flaticon.com/icons/svg/68/68956.svg">
-            </div>
-            <div class="container" *ngIf="i.bateria">
-              <img style="width: 27px;" src="https://image.flaticon.com/icons/svg/349/349767.svg">
-            </div>
-          </div>
-        </ion-label>
-      </ion-item>
-    </ion-card>
+  <div *ngIf="hide2">
+    <ion-list>
+      <ion-item-sliding *ngFor="let i of listCenters">
+        <ion-card>
+          <ion-item-options side="start" (click)="deleteCampaign(i.key)">
+            <ion-item-option color="danger" expandable>
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+          <ion-item [routerLink]="['/detalle-centro',i.key]">
+            <ion-avatar slot="start">
+              <img src="https://image.flaticon.com/icons/svg/967/967811.svg">
+            </ion-avatar>
+            <ion-label>
+              <h3>{{i.lugar}}</h3>
+              <p>{{i.horario}}</p>
+              <div class="container">
+                <div class="container" *ngIf=i.plastico>
+                  <img style="width: 30px;" src="https://image.flaticon.com/icons/svg/2636/2636407.svg">
+                </div>
+                <div class="container" *ngIf="i.papel">
+                  <img style="width: 27px;" src="https://image.flaticon.com/icons/svg/684/684872.svg">
+                </div>
+                <div class="container" *ngIf="i.aluminio">
+                  <img style="width: 30px;" src="https://image.flaticon.com/icons/svg/542/542003.svg">
+                </div>
+                <div class="container" *ngIf="i.vidrio">
+                  <img style="width: 27px;" src="https://image.flaticon.com/icons/svg/1855/1855765.svg">
+                </div>
+                <div class="container" *ngIf="i.tetra">
+                  <img style="width: 30px;" src="https://image.flaticon.com/icons/svg/68/68956.svg">
+                </div>
+                <div class="container" *ngIf="i.bateria">
+                  <img style="width: 27px;" src="https://image.flaticon.com/icons/svg/349/349767.svg">
+                </div>
+              </div>
+            </ion-label>
+          </ion-item>
+        </ion-card>
+      </ion-item-sliding>
+    </ion-list>
   </div>
   <ion-fab *ngIf="hide2" vertical="bottom" horizontal="end" slot="fixed">  
     <ion-fab-button color="success" [routerLink]="['/','agregar-centro']">  
