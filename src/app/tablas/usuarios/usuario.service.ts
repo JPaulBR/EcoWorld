@@ -14,7 +14,6 @@ export class UsuarioService {
   bookingListRef: AngularFireList<any>;
   bookingRef: AngularFireObject<any>;
   listaUsuarios: AngularFirestoreCollection<Appointment>;
-  listaUsuario: AngularFirestoreCollection<Appointment>;
   usuarios: Observable<Appointment[]>;
 
   constructor(private db: AngularFireDatabase,private firebase:AngularFireDatabase,private db2: AngularFirestore) { 

@@ -18,16 +18,35 @@
     <ion-card-content>If you like create a new campaing just contact us. Send email in this mail: <a><u></u>jpbr25@yahoo.com</a></ion-card-content>
     </ion-card>
   </div>
-  <div *ngIf="hide2" style="padding: 3%;" [routerLink]="['/','detalle-centro']">
-    <ion-card *ngFor="let i of houses">
+  <div *ngIf="hide2" style="padding: 3%;">
+    <ion-card *ngFor="let i of listCenters" [routerLink]="['/detalle-centro',i.key]">
       <ion-item>
         <ion-avatar slot="start">
-          <img src={{i.img}}>
+          <img src="https://image.flaticon.com/icons/svg/967/967811.svg">
         </ion-avatar>
         <ion-label>
           <h3>{{i.lugar}}</h3>
           <p>{{i.horario}}</p>
-          <p>{{i.material}}</p>
+          <div class="container">
+            <div class="container" *ngIf=i.plastico>
+              <img style="width: 30px;" src="https://image.flaticon.com/icons/svg/2636/2636407.svg">
+            </div>
+            <div class="container" *ngIf="i.papel">
+              <img style="width: 27px;" src="https://image.flaticon.com/icons/svg/684/684872.svg">
+            </div>
+            <div class="container" *ngIf="i.aluminio">
+              <img style="width: 30px;" src="https://image.flaticon.com/icons/svg/542/542003.svg">
+            </div>
+            <div class="container" *ngIf="i.vidrio">
+              <img style="width: 27px;" src="https://image.flaticon.com/icons/svg/1855/1855765.svg">
+            </div>
+            <div class="container" *ngIf="i.tetra">
+              <img style="width: 30px;" src="https://image.flaticon.com/icons/svg/68/68956.svg">
+            </div>
+            <div class="container" *ngIf="i.bateria">
+              <img style="width: 27px;" src="https://image.flaticon.com/icons/svg/349/349767.svg">
+            </div>
+          </div>
         </ion-label>
       </ion-item>
     </ion-card>

@@ -1,12 +1,12 @@
 <ion-header>
   <ion-toolbar color="success">
     <ion-buttons slot="start">
-      <ion-button [routerLink]="['/','pagina-centros']">
+      <ion-button [routerLink]="['/detalle-centro',ide]">
         <ion-icon slot="icon-only" name="arrow-back-outline" style="color: white;"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button (click)="saveData()">
+      <ion-button (click)="saveData(ide)">
         <ion-icon slot="icon-only" name="save" style="color: white;"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -15,7 +15,6 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-
   <ion-item (click)="ver()">
     <ion-label position="floating">Place</ion-label>
     <ion-input [(ngModel)]="place" placeholder="Choose the place" readonly></ion-input>

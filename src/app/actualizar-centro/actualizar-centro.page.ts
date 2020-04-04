@@ -1,42 +1,50 @@
 import { Component, OnInit } from '@angular/core';
-import { centros } from '../tablas/centros/centros';
-import { Storage } from '@ionic/storage';
 import { CentrosService } from '../tablas/centros/centros.service';
 import { LoadingController, AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 @Component({
-  selector: 'app-agregar-centro',
-  templateUrl: './agregar-centro.page.html',
-  styleUrls: ['./agregar-centro.page.scss'],
+  selector: 'app-actualizar-centro',
+  templateUrl: './actualizar-centro.page.html',
+  styleUrls: ['./actualizar-centro.page.scss'],
 })
-export class AgregarCentroPage implements OnInit {
+export class ActualizarCentroPage implements OnInit {
 
   place:string;
   schedule:string;
   phone:string;
   items:any;
+  ide:string;
 
   constructor(private storage: Storage,private apt2: CentrosService,public loadingController: LoadingController,
-    public alertController: AlertController,public route:Router) { 
-    this.items=[
-      {valor:"Plastic",img:"https://image.flaticon.com/icons/svg/2636/2636407.svg",selected:false},
-      {valor:"Aluminum",img:"https://image.flaticon.com/icons/svg/542/542003.svg",selected:false},
-      {valor:"Paper",img:"https://image.flaticon.com/icons/svg/876/876158.svg",selected:false},
-      {valor:"Tetra pack",img:"https://image.flaticon.com/icons/svg/723/723447.svg",selected:false},
-      {valor:"Glass",img:"https://image.flaticon.com/icons/svg/1855/1855765.svg",selected:false},
-      {valor:"Battery",img:"https://image.flaticon.com/icons/svg/349/349767.svg",selected:false},
-    ];
+    public alertController: AlertController,public route:Router, private activatedRoute:ActivatedRoute) { 
   }
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe(res=>{
+      this.ide = res["id"];
+      this.apt2.getCampaign(this.ide).subscribe(res=>{
+        this.place= res.lugar;
+        this.schedule = res.horario;
+        this.phone = res.telefono;
+        this.items=[
+          {valor:"Plastic",img:"https://image.flaticon.com/icons/svg/2636/2636407.svg",selected:res.plastico},
+          {valor:"Aluminum",img:"https://image.flaticon.com/icons/svg/542/542003.svg",selected:res.aluminio},
+          {valor:"Paper",img:"https://image.flaticon.com/icons/svg/876/876158.svg",selected:res.papel},
+          {valor:"Tetra pack",img:"https://image.flaticon.com/icons/svg/723/723447.svg",selected:res.tetra},
+          {valor:"Glass",img:"https://image.flaticon.com/icons/svg/1855/1855765.svg",selected:res.vidrio},
+          {valor:"Battery",img:"https://image.flaticon.com/icons/svg/349/349767.svg",selected:res.bateria},
+        ];
+      });
+    });
   }
 
   ver(){
     console.log("Abrir mapa");
   }
 
-  saveData(){
+  saveData(ide:string){
     if (this.validateData()){
       this.presentLoading();
       this.storage.get('email').then((res)=>{
@@ -54,7 +62,7 @@ export class AgregarCentroPage implements OnInit {
           vidrio: this.items[4].selected,
           bateria: this.items[5].selected,
         }
-        this.apt2.addCampaign(data);
+        this.apt2.updateCampaign(data,ide);
         this.route.navigate(['/pagina-centros']);
       });
     }
@@ -100,5 +108,4 @@ export class AgregarCentroPage implements OnInit {
 
     await alert.present();
   }
-
 }

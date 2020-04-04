@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-detalle-centro',
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class DetalleCentroPage implements OnInit {
   noEncontrado = true;
   encontrado = false;
+  ide: string;
   texto = '';
   items= [
     {valor:"Plastic",img:"https://image.flaticon.com/icons/svg/2636/2636407.svg",cant:"0.85 kg"},
@@ -18,9 +20,12 @@ export class DetalleCentroPage implements OnInit {
     {valor:"Battery",img:"https://image.flaticon.com/icons/svg/349/349767.svg",cant:"10 kg"},
   ];
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe(res=>{
+      this.ide = res["id"];
+    });
   }
 
   buscar(event){

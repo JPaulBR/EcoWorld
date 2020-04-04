@@ -42,6 +42,8 @@ export class HomePage {
     else{
       this.aptService.getUserByCredential(this.email,this.password).subscribe(data=>{
         if (data.length>0){
+          this.spinner = false;
+          this.textBtn = "LOGIN";
           this.route.navigate(['/pagina-principal']);
           this.saveEmail(this.email);
         }
