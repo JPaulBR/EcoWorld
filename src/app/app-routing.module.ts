@@ -21,8 +21,7 @@ const routes: Routes = [
   {path: 'paginaPrincipal/:id',loadChildren: () => import('./pagina-principal/pagina-principal.module').then( m => m.PaginaPrincipalPageModule)},
   {path: 'detalle-centro/:id',loadChildren: () => import('./detalle-centro/detalle-centro.module').then( m => m.DetalleCentroPageModule)},
   {path: 'actualizar-centro',loadChildren: () => import('./actualizar-centro/actualizar-centro.module').then( m => m.ActualizarCentroPageModule)},
-  {path: 'actualizarCentro/:id',loadChildren: () => import('./actualizar-centro/actualizar-centro.module').then( m => m.ActualizarCentroPageModule)}
-
+  {path: 'actualizarCentro/:id',loadChildren: () => import('./actualizar-centro/actualizar-centro.module').then( m => m.ActualizarCentroPageModule)},
 
 ];
 

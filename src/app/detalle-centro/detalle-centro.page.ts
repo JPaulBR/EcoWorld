@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UsuarioService } from '../tablas/usuarios/usuario.service';
+import {PhotoViewer} from '@ionic-native/photo-viewer/ngx';
+import { ToastController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-detalle-centro',
@@ -7,20 +11,30 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./detalle-centro.page.scss'],
 })
 export class DetalleCentroPage implements OnInit {
-  noEncontrado = true;
+  noEncontrado:boolean;
   encontrado = false;
   ide: string;
+  usuario: any;
+  puntosUsuario: any;
+  plastico: number;
+  aluminio:number;
+  papel:number;
+  tetra:number;
+  vidrio:number;
+  bateria:number;
   texto = '';
-  items= [
-    {valor:"Plastic",img:"https://image.flaticon.com/icons/svg/2636/2636407.svg",cant:"0.85 kg"},
-    {valor:"Aluminum",img:"https://image.flaticon.com/icons/svg/542/542003.svg",cant:"1.69 kg"},
-    {valor:"Paper",img:"https://image.flaticon.com/icons/svg/876/876158.svg", cant: "2.12 kg"},
-    {valor:"Tetra pack",img:"https://image.flaticon.com/icons/svg/723/723447.svg",cant: "0 kg"},
-    {valor:"Glass",img:"https://image.flaticon.com/icons/svg/1855/1855765.svg", cant:"5.41 kg"},
-    {valor:"Battery",img:"https://image.flaticon.com/icons/svg/349/349767.svg",cant:"10 kg"},
-  ];
+  image = "https://image.flaticon.com/icons/svg/1177/1177568.svg";
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute,private apt: UsuarioService,
+    public route:Router,public viewer: PhotoViewer,public toastCtrl: ToastController) {
+    this.noEncontrado = false;
+    this.plastico = 0;
+    this.aluminio = 0;
+    this.papel = 0;
+    this.tetra = 0;
+    this.vidrio = 0;
+    this.bateria = 0;
+  }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(res=>{
@@ -30,14 +44,80 @@ export class DetalleCentroPage implements OnInit {
 
   buscar(event){
     this.texto = event.detail.value;
-    if (this.texto === "702550647"){
-      this.encontrado = true;
-      this.noEncontrado = false;
+    this.apt.getUserById(parseInt(this.texto)).subscribe(val=>{
+      if (val.length>0){
+        this.encontrado = true;
+        this.noEncontrado = false;
+        this.usuario = val[0];
+        if (this.usuario.urlFoto === "null"){
+          this.usuario.urlFoto = this.image;
+        }
+        this.apt.getUserByIdForPoints(parseInt(this.texto)).subscribe(res=>{
+          if (res.length>0){
+            this.puntosUsuario = res[0];
+          }
+          else{
+            this.apt.createPointsForUser(parseInt(this.texto));
+            this.apt.getUserByIdForPoints(parseInt(this.texto)).subscribe(val=>{
+              this.puntosUsuario = val[0];
+            });
+          }
+        });
+      }
+      else{
+        this.encontrado = false;
+        this.noEncontrado = true;
+      }
+    });
+  }
+
+  openImage(url:string){
+    var photoUrl = url;
+    var title = "Profile image";
+    this.viewer.show(photoUrl,title);
+  }
+
+  updateData(list:any,encontrado:boolean){
+    if (encontrado){
+      if (this.sumatory()>0){
+        var plastico = list.cantPlastico+this.plastico;
+        var alumino = list.cantAluminio+this.aluminio;
+        var papel = list.cantPaper+this.papel;
+        var tetra = list.cantTetra+this.tetra;
+        var vidrio = list.cantVidrio+this.vidrio;
+        var bateria = list.cantBateria+this.bateria;
+        var lista = {
+          id: list.id,
+          cantPlastico: plastico,
+          cantAluminio: alumino,
+          cantPaper: papel,
+          cantTetra: tetra,
+          cantVidrio: vidrio,
+          cantBateria: bateria
+        }
+        this.apt.updatePointForUser(list.key,lista);
+        this.presentSnackBar("DONE","success");
+        this.route.navigate(['/pagina-centros']);
+      }
+      else{
+        this.presentSnackBar("without changes","dark");
+      }
     }
     else{
-      this.encontrado = false;
-      this.noEncontrado = true;
+      this.presentSnackBar("Not selected user","danger");
     }
   }
 
+  async presentSnackBar(msj,tColor){
+    let toast = await this.toastCtrl.create({
+      message: msj,
+      duration: 2000,
+      color: tColor
+    });
+    toast.present();
+  }
+
+  sumatory(){
+    return this.plastico+this.aluminio+this.papel+this.tetra+this.vidrio+this.bateria;
+  }
 }

@@ -9,7 +9,7 @@
       <ion-button [routerLink]="['/actualizarCentro',ide]">
         <ion-icon slot="icon-only" name="build" style="color: white;"></ion-icon>
       </ion-button>
-      <ion-button [routerLink]="['/','pagina-centros']">
+      <ion-button (click)="updateData(puntosUsuario,encontrado)">
         <ion-icon slot="icon-only" name="save" style="color: white;"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -19,50 +19,50 @@
   </ion-searchbar>
 </ion-header>
 <ion-content>
-  <!--<div *ngIf="encontrado">
+  <div *ngIf="noEncontrado">
     <ion-avatar style="margin: auto;">
       <img src="assets/images/frown.svg">
     </ion-avatar>
     <div class="ion-text-center">
       <h6>Not found</h6>
     </div>
-  </div>-->
+  </div>
   <div *ngIf="encontrado">
     <ion-card>
       <h5 class="ion-text-center">User</h5>
       <ion-item>
         <ion-avatar slot="start">
-          <img src="https://randomuser.me/api/portraits/men/40.jpg">
+          <img (click)="openImage(usuario.urlFoto)" src={{usuario.urlFoto}}>
         </ion-avatar>
         <ion-label>
-          <h3>702550647</h3>
-          <p>John Brinx</p>
+          <h3>{{usuario.id}}</h3>
+          <p>{{usuario.nombre}} {{usuario.apellido}}</p>
         </ion-label>
       </ion-item>
       <h5 class="ion-text-center" style="color: #22bb33;">Add points</h5>
       <ion-item>
         <ion-label position="floating">Plastic</ion-label>
-        <ion-input type="number" placeholder="0 (kg)"></ion-input>
+        <ion-input [(ngModel)]="plastico" type="number" placeholder="0 (kg)"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Aluminum</ion-label>
-        <ion-input type="number" placeholder="0 (kg)"></ion-input>
+        <ion-input [(ngModel)]="aluminio" type="number" placeholder="0 (kg)"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Paper</ion-label>
-        <ion-input type="number" placeholder="0 (kg)"></ion-input>
+        <ion-input [(ngModel)]="papel" type="number" placeholder="0 (kg)"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Tetra pack</ion-label>
-        <ion-input type="number" placeholder="0 (kg)"></ion-input>
+        <ion-input [(ngModel)]="tetra" type="number" placeholder="0 (kg)"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Glass</ion-label>
-        <ion-input type="number" placeholder="0 (kg)"></ion-input>
+        <ion-input [(ngModel)]="vidrio" type="number" placeholder="0 (kg)"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Battery</ion-label>
-        <ion-input type="number" placeholder="0 (kg)"></ion-input>
+        <ion-input [(ngModel)]="bateria" type="number" placeholder="0 (kg)"></ion-input>
       </ion-item>
     </ion-card>
   </div>

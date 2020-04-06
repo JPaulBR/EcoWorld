@@ -145,4 +145,35 @@ export class UsuarioService {
     ));
   }
 
+  createPointsForUser(ide:number) {
+    var lista = this.db2.collection<any>('puntosXusuario');
+    var update = {
+      id: ide,
+      cantAluminio: 0,
+      cantBateria: 0,
+      cantPaper: 0,
+      cantPlastico: 0,
+      cantTetra: 0,
+      cantVidrio:0
+    };
+    return lista.add(update);
+  }
+
+  getUserByIdForPoints(id:number){
+    return this.db2.collection<any>('puntosXusuario',ref => ref.where('id', '==', id)).snapshotChanges().pipe(map(
+      actions=>{
+        return actions.map(a =>{
+          const data = a.payload.doc.data();
+          const key = a.payload.doc.id;
+          return {key, ...data};
+        });
+      }
+    ));
+  }
+
+  updatePointForUser(id:string,update:any){
+    var lista = this.db2.collection<any>('puntosXusuario');
+    return lista.doc(id).update(update);
+  }
+
 }

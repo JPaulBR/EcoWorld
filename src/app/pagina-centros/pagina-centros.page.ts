@@ -63,7 +63,7 @@ export class PaginaCentrosPage implements OnInit {
 
   deleteCampaign(ide:string){
     this.apt2.deleteCampaign(ide);
-    this.verSnackBar("Deleted successfully","dark");
+    this.verSnackBar("Deleted successfully","danger");
   }
 
   async verSnackBar(msj,tColor){

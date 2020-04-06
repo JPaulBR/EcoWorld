@@ -20,7 +20,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import {environment} from '../environments/environment';
 import { IonicStorageModule } from '@ionic/storage';
 import {Camera} from '@ionic-native/camera/ngx';
-/*import {AngularFirestoreModule} from 'angularfire2/firestore';*/
+import {PhotoViewer} from '@ionic-native/photo-viewer/ngx';
+
 @NgModule({
   declarations: [AppComponent,PopupComponent],
   entryComponents: [PopupComponent],
@@ -35,6 +36,7 @@ import {Camera} from '@ionic-native/camera/ngx';
     AngularFirestoreModule,
     AngularFireStorageModule],
   providers: [
+    PhotoViewer,
     StatusBar,
     SplashScreen,
     GoogleMaps,

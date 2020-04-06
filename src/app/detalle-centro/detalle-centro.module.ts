@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
 import { DetalleCentroPageRoutingModule } from './detalle-centro-routing.module';
-
 import { DetalleCentroPage } from './detalle-centro.page';
 
 @NgModule({
@@ -13,7 +10,7 @@ import { DetalleCentroPage } from './detalle-centro.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    DetalleCentroPageRoutingModule
+    DetalleCentroPageRoutingModule,
   ],
   declarations: [DetalleCentroPage]
 })
