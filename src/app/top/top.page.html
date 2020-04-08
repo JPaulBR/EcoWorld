@@ -10,15 +10,19 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let i of users">
+  <ion-card *ngFor="let i of listUsers; let j = index">
     <ion-item>
-      <ion-avatar slot="start">
-        <img src={{i.img}}>
+      <div class="container">
+        <div class="container">
+          <h2>{{j+1}}</h2>
+        </div>
+        <div class="container" class="ion-padding-start">
+          <p>{{i.nombre}} {{i.apellido}}</p>
+        </div>
+      </div>
+      <ion-avatar slot="end">
+        <img src={{i.urlFoto}}>
       </ion-avatar>
-      <ion-label>
-        <h3>{{i.lugar}}</h3>
-        <p>{{i.nombre}}</p>
-      </ion-label>
     </ion-item>
   </ion-card>
 </ion-content>

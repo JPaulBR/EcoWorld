@@ -86,6 +86,7 @@ export class DetalleCentroPage implements OnInit {
         var tetra = list.cantTetra+this.tetra;
         var vidrio = list.cantVidrio+this.vidrio;
         var bateria = list.cantBateria+this.bateria;
+        var total = (this.plastico+this.aluminio+this.papel+this.tetra+this.vidrio+this.bateria)+list.acumulado;
         var lista = {
           id: list.id,
           cantPlastico: plastico,
@@ -93,8 +94,22 @@ export class DetalleCentroPage implements OnInit {
           cantPaper: papel,
           cantTetra: tetra,
           cantVidrio: vidrio,
-          cantBateria: bateria
+          cantBateria: bateria,
+          acumulado: total
         }
+        this.apt.getUserById(parseInt(this.texto)).subscribe(res=>{
+          var usuario={
+            id: res[0].id,
+            nombre: res[0].nombre,
+            apellido: res[0].apellido,
+            email: res[0].email,
+            contra: res[0].contra,
+            urlFoto: res[0].urlFoto,
+            permiso: res[0].permiso,
+            reciclado: total
+          }
+          this.apt.updateUser(usuario,res[0].key);
+        });
         this.apt.updatePointForUser(list.key,lista);
         this.presentSnackBar("DONE","success");
         this.route.navigate(['/pagina-centros']);

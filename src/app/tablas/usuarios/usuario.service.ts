@@ -60,9 +60,9 @@ export class UsuarioService {
     var usuarios = listaUsuarios.snapshotChanges().pipe(map(
       actions=>{
         return actions.map(a =>{
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return {id, ...data};
+          const data = a.payload.doc.data() as Appointment;
+          const key = a.payload.doc.id;
+          return {key, ...data};
         });
       }
     ));
@@ -97,6 +97,10 @@ export class UsuarioService {
     return this.listaUsuarios.add(apt);
   }
 
+  updateUser(apt:any, id:string){
+    return this.listaUsuarios.doc(id).update(apt);
+  }
+
 
   createUser(apt: Appointment) {
     this.bookingListRef = this.firebase.list('/usuario');
@@ -108,29 +112,8 @@ export class UsuarioService {
       contra: apt.contra,
       url: apt.urlFoto,
       permiso: apt.permiso,
+      reciclado: 0
     })
-  }
-
-  // Get List
-  getBookingList() {
-    this.bookingListRef = this.db.list('/usuario');
-    return this.bookingListRef;
-  }
-
-  // Update
-  updateBooking(id, apt: Appointment) {
-    return this.bookingRef.update({
-      nombre: apt.nombre,
-      apellido: apt.apellido,
-      email: apt.email,
-      contra: apt.contra
-    })
-  }
-
-  // Delete
-  deleteBooking(id: string) {
-    this.bookingRef = this.db.object('/usuario/' + id);
-    this.bookingRef.remove();
   }
 
   getUserByEmail2(email: string){
@@ -174,6 +157,18 @@ export class UsuarioService {
   updatePointForUser(id:string,update:any){
     var lista = this.db2.collection<any>('puntosXusuario');
     return lista.doc(id).update(update);
+  }
+
+  getUserByOrder(){
+    return this.db2.collection<any>('usuario',ref => ref.orderBy('reciclado','desc')/*.where("reciclado",">",0)*/.limit(100)).snapshotChanges().pipe(map(
+      actions=>{
+        return actions.map(a =>{
+          const data = a.payload.doc.data() as Appointment;
+          const key = a.payload.doc.id;
+          return {key, ...data};
+        });
+      }
+    ));
   }
 
 }

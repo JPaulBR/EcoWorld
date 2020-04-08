@@ -7,4 +7,5 @@ export class Appointment {
     contra: string;
     urlFoto: string;
     permiso: boolean;
+    reciclado: number;
 }

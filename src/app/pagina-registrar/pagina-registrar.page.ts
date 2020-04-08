@@ -42,7 +42,8 @@ export class PaginaRegistrarPage implements OnInit {
       email: new FormControl('',[Validators.required,Validators.email,Validators.pattern(".+\@.+\..+")]),
       contra: new FormControl('',[Validators.required,Validators.minLength(4)]),
       urlFoto: new FormControl(''),
-      permiso: new FormControl('')
+      permiso: new FormControl(''),
+      reciclado: new FormControl('')
     })
     this.presentarSnack = false;
     this.spinner = false;
@@ -82,6 +83,7 @@ export class PaginaRegistrarPage implements OnInit {
         if (flag){
           this.userForm.value.urlFoto = this.urlImage;
           this.userForm.value.permiso = false;
+          this.userForm.value.reciclado = 0;
           //this.userForm.reset();
           this.aptService.addUser(this.userForm.value).then(res => {
             this.verSnackBar("Sign up successfully","success");
@@ -136,7 +138,7 @@ export class PaginaRegistrarPage implements OnInit {
       });
     }
     else{
-      this.urlImage = "null";
+      this.urlImage = "https://image.flaticon.com/icons/svg/1177/1177568.svg";
     }
   }
 

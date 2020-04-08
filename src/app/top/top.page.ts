@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
+import { UsuarioService } from '../tablas/usuarios/usuario.service';
 
 @Component({
   selector: 'app-top',
@@ -8,20 +9,14 @@ import { MenuController } from '@ionic/angular';
 })
 export class TopPage implements OnInit {
 
-  users=[
-    {nombre:"Alejadro Ramírez",lugar:"1 place",img:"https://randomuser.me/api/portraits/men/1.jpg"},
-    {nombre:"Steve Mcmanaman",lugar:"2 place",img:"https://randomuser.me/api/portraits/men/2.jpg"},
-    {nombre:"Lass Diarra",lugar:"3 place",img:"https://randomuser.me/api/portraits/men/3.jpg"},
-    {nombre:"Gerald Pique",lugar:"4 place",img:"https://randomuser.me/api/portraits/men/4.jpg"},
-    {nombre:"Keylor Navas",lugar:"5 place",img:"https://randomuser.me/api/portraits/men/5.jpg"},
-    {nombre:"Ashley Cole",lugar:"6 place",img:"https://randomuser.me/api/portraits/men/6.jpg"},
-    {nombre:"Alexander Pato",lugar:"7 place",img:"https://randomuser.me/api/portraits/men/7.jpg"},
-    {nombre:"Andrea Pirlo",lugar:"8 place",img:"https://randomuser.me/api/portraits/men/8.jpg"},
-  ]
+  listUsers: any;
 
-  constructor(private menuCtrl:MenuController) { }
+  constructor(private menuCtrl:MenuController,private apt: UsuarioService) { }
 
   ngOnInit() {
+    this.apt.getUserByOrder().subscribe(res=>{
+      this.listUsers = res;
+    });
   }
 
   toggleMenu(){
