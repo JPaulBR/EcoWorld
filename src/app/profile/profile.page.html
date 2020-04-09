@@ -11,33 +11,35 @@
 
 <ion-content class="ion-padding">
   <ion-avatar style="margin: auto;">
-    <img src="https://scontent.fsjo6-1.fna.fbcdn.net/v/t31.0-8/s960x960/28698902_1834989749866795_4321561433880265847_o.jpg?_nc_cat=104&_nc_sid=85a577&_nc_ohc=Et8Y4qsLfmcAX9ztXyk&_nc_ht=scontent.fsjo6-1.fna&_nc_tp=7&oh=d1e105db4fcfcea55d477ffc560debc9&oe=5E8B2025">
+    <img (click)="openImage()" [src]="image" *ngIf="image">
   </ion-avatar>
   <div class="ion-text-center">
-    <h5>Change photo</h5>
+    <h5 (click)="presentPopover($event)">Change photo</h5>
   </div>
   <ion-card>
     <ion-item>
       <ion-label position="floating">Id</ion-label>
-      <ion-input type="number" value="702550647"></ion-input>
+      <ion-input [(ngModel)]="id" type="number" value="702550647" readonly></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Name</ion-label>
-      <ion-input type="text" value="Jean Paul"></ion-input>
+      <ion-input [(ngModel)]="name" type="text" value="Jean Paul"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Last Name</ion-label>
-      <ion-input type="text" value="Barrit"></ion-input>
+      <ion-input [(ngModel)]="lastName" type="text" value="Barrit"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" value="jpbr25@yahoo.com"></ion-input>
+      <ion-input [(ngModel)]="email" type="email" value="jpbr25@yahoo.com"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" value="12345"></ion-input>
+      <!--<ion-label position="floating">Password</ion-label>
+      <ion-input type="password" value="12345"></ion-input>-->
+      <ion-input [type]="getType()" [(ngModel)]="password"></ion-input>
+      <ion-icon name="eye" item-right (click)="toggleTextPassword()"></ion-icon>
     </ion-item>
-    <ion-button style="margin-top: 7%;"color="success" class="ion-button-class" shape="block" fill="solid" size="large" expand="block">
+    <ion-button (click)="updateData()" style="margin-top: 7%;"color="success" class="ion-button-class" shape="block" fill="solid" size="large" expand="block">
       SAVE
     </ion-button>
   </ion-card>
@@ -49,7 +51,7 @@
       <ion-item *ngFor="let item of items">
         <ion-icon slot="start" src={{item.img}}></ion-icon>
         <ion-label>{{item.valor}}</ion-label>
-        <ion-label slot="end">{{item.cant}}</ion-label>
+        <ion-label style="position:absolute;right:0;">{{item.cant}} kg</ion-label>
       </ion-item>
     </ion-list>
   </ion-card>

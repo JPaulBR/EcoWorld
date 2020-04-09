@@ -21,7 +21,7 @@
         </div>
       </div>
       <ion-avatar slot="end">
-        <img src={{i.urlFoto}}>
+        <img  (click)="openImage(i.urlFoto)" src={{i.urlFoto}}>
       </ion-avatar>
     </ion-item>
   </ion-card>
