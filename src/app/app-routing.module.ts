@@ -22,6 +22,8 @@ const routes: Routes = [
   {path: 'detalle-centro/:id',loadChildren: () => import('./detalle-centro/detalle-centro.module').then( m => m.DetalleCentroPageModule)},
   {path: 'actualizar-centro',loadChildren: () => import('./actualizar-centro/actualizar-centro.module').then( m => m.ActualizarCentroPageModule)},
   {path: 'actualizarCentro/:id',loadChildren: () => import('./actualizar-centro/actualizar-centro.module').then( m => m.ActualizarCentroPageModule)},
+  {path: 'about',loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)},
+
 
 ];
 

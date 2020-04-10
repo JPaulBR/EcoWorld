@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  mapboxKey: 'pk.eyJ1IjoianBicjI1IiwiYSI6ImNrOHRsdmw5NDAxb2YzbHA2NGNwM2FxNnUifQ.P7qjwxnZaeqi5hnC9IpDUw',
   firebaseConfig:{
     apiKey: "AIzaSyAtnG1LwnKkiEEIkCcUb_rtTtxpMXPQq1c",
     authDomain: "ecoworld-5502f.firebaseapp.com",
