@@ -22,7 +22,14 @@ const routes: Routes = [
   {path: 'detalle-centro/:id',loadChildren: () => import('./detalle-centro/detalle-centro.module').then( m => m.DetalleCentroPageModule)},
   {path: 'actualizar-centro',loadChildren: () => import('./actualizar-centro/actualizar-centro.module').then( m => m.ActualizarCentroPageModule)},
   {path: 'actualizarCentro/:id',loadChildren: () => import('./actualizar-centro/actualizar-centro.module').then( m => m.ActualizarCentroPageModule)},
+  {path: 'actualizarCentro/:id/:id1',loadChildren: () => import('./actualizar-centro/actualizar-centro.module').then( m => m.ActualizarCentroPageModule)},
   {path: 'about',loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)},
+  {path: 'ventana-mapa',loadChildren: () => import('./ventana-mapa/ventana-mapa.module').then( m => m.VentanaMapaPageModule)},
+  {path: 'ventana-mapa/:id/:id1',loadChildren: () => import('./ventana-mapa/ventana-mapa.module').then( m => m.VentanaMapaPageModule)},
+  {path: 'agregar-centro/:id',loadChildren: () => import('./agregar-centro/agregar-centro.module').then( m => m.AgregarCentroPageModule)},
+  {path: 'ventana-mapa2',loadChildren: () => import('./ventana-mapa2/ventana-mapa2.module').then( m => m.VentanaMapa2PageModule)},
+  {path: 'ventana-mapa2/:id/:id1',loadChildren: () => import('./ventana-mapa2/ventana-mapa2.module').then( m => m.VentanaMapa2PageModule)}
+
 
 
 ];

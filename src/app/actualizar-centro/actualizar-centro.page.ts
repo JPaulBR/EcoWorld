@@ -16,6 +16,9 @@ export class ActualizarCentroPage implements OnInit {
   phone:string;
   items:any;
   ide:string;
+  latlng: string;
+  lat: string;
+  lng: string;
 
   constructor(private storage: Storage,private apt2: CentrosService,public loadingController: LoadingController,
     public alertController: AlertController,public route:Router, private activatedRoute:ActivatedRoute) { 
@@ -24,24 +27,31 @@ export class ActualizarCentroPage implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe(res=>{
       this.ide = res["id"];
-      this.apt2.getCampaign(this.ide).subscribe(res=>{
-        this.place= res.lugar;
-        this.schedule = res.horario;
-        this.phone = res.telefono;
-        this.items=[
-          {valor:"Plastic",img:"https://image.flaticon.com/icons/svg/2636/2636407.svg",selected:res.plastico},
-          {valor:"Aluminum",img:"https://image.flaticon.com/icons/svg/542/542003.svg",selected:res.aluminio},
-          {valor:"Paper",img:"https://image.flaticon.com/icons/svg/876/876158.svg",selected:res.papel},
-          {valor:"Tetra pack",img:"https://image.flaticon.com/icons/svg/723/723447.svg",selected:res.tetra},
-          {valor:"Glass",img:"https://image.flaticon.com/icons/svg/1855/1855765.svg",selected:res.vidrio},
-          {valor:"Battery",img:"https://image.flaticon.com/icons/svg/349/349767.svg",selected:res.bateria},
-        ];
-      });
+      this.loadData();
     });
   }
 
-  ver(){
-    console.log("Abrir mapa");
+  loadData(){
+    this.apt2.getCampaign(this.ide).subscribe(res=>{
+      this.place= res.lugar;
+      this.schedule = res.horario;
+      this.phone = res.telefono;
+      this.latlng = res.long+","+res.lat;
+      this.lat = res.lat;
+      this.lng = res.long;
+      this.items=[
+        {valor:"Plastic",img:"https://image.flaticon.com/icons/svg/2636/2636407.svg",selected:res.plastico},
+        {valor:"Aluminum",img:"https://image.flaticon.com/icons/svg/542/542003.svg",selected:res.aluminio},
+        {valor:"Paper",img:"https://image.flaticon.com/icons/svg/876/876158.svg",selected:res.papel},
+        {valor:"Tetra pack",img:"https://image.flaticon.com/icons/svg/723/723447.svg",selected:res.tetra},
+        {valor:"Glass",img:"https://image.flaticon.com/icons/svg/1855/1855765.svg",selected:res.vidrio},
+        {valor:"Battery",img:"https://image.flaticon.com/icons/svg/349/349767.svg",selected:res.bateria},
+      ];
+    });
+  }
+
+  goToMap(ide: string,coord:string){
+    this.route.navigate(['/ventana-mapa2',ide,coord]);
   }
 
   saveData(ide:string){
@@ -50,11 +60,11 @@ export class ActualizarCentroPage implements OnInit {
       this.storage.get('email').then((res)=>{
         var data={
           correoUsuario: res,
-          lat: "colocar",
-          long: "colocar",
+          lat: this.lat,
+          long: this.lng,
           horario: this.schedule,
           telefono: this.phone,
-          lugar: "Limón, CR",
+          lugar: this.place,
           plastico: this.items[0].selected,
           aluminio: this.items[1].selected,
           papel: this.items[2].selected,
@@ -90,7 +100,7 @@ export class ActualizarCentroPage implements OnInit {
 
   async presentLoading() {
     const loading = await this.loadingController.create({
-      message: 'updating...',
+      message: 'Updating...',
       duration: 2000
     });
     await loading.present();

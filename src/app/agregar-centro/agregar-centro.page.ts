@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { centros } from '../tablas/centros/centros';
 import { Storage } from '@ionic/storage';
 import { CentrosService } from '../tablas/centros/centros.service';
-import { LoadingController, AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { LoadingController, AlertController, ToastController } from '@ionic/angular';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-agregar-centro',
@@ -16,9 +17,14 @@ export class AgregarCentroPage implements OnInit {
   schedule:string;
   phone:string;
   items:any;
+  lat:string;
+  lng: string;
+  urlAdress1: string = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
+  urlAdress2: string = ".json?access_token=pk.eyJ1IjoianBicjI1IiwiYSI6ImNrOHRsdmw5NDAxb2YzbHA2NGNwM2FxNnUifQ.P7qjwxnZaeqi5hnC9IpDUw";
 
   constructor(private storage: Storage,private apt2: CentrosService,public loadingController: LoadingController,
-    public alertController: AlertController,public route:Router) { 
+    public alertController: AlertController,public toastCtrl: ToastController,
+    public route:Router,private activatedRoute: ActivatedRoute,private http:HttpClient) { 
     this.items=[
       {valor:"Plastic",img:"https://image.flaticon.com/icons/svg/2636/2636407.svg",selected:false},
       {valor:"Aluminum",img:"https://image.flaticon.com/icons/svg/542/542003.svg",selected:false},
@@ -30,23 +36,35 @@ export class AgregarCentroPage implements OnInit {
   }
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe(res=>{
+      var latlng = res["id"];
+      if (latlng!=undefined){
+        var resultado = latlng.split(",");
+        this.lng = resultado[0];
+        this.lat = resultado[1];
+        var adressCurl= this.urlAdress1+this.lng+","+this.lat+this.urlAdress2;
+        this.http.get(adressCurl).subscribe(res=>{
+          this.place = res['features'][1].place_name;
+        })
+      }
+    });
   }
 
-  ver(){
-    console.log("Abrir mapa");
+  goToMap(){
+    this.route.navigate(['/ventana-mapa']);
   }
 
-  saveData(){
-    if (this.validateData()){
+  saveData(lat:string,lng:string){
+    if (this.validateData(lat)){
       this.presentLoading();
       this.storage.get('email').then((res)=>{
         var data={
           correoUsuario: res,
-          lat: "colocar",
-          long: "colocar",
+          lat: lat,
+          long: lng,
           horario: this.schedule,
           telefono: this.phone,
-          lugar: "Limón, CR",
+          lugar: this.place,
           plastico: this.items[0].selected,
           aluminio: this.items[1].selected,
           papel: this.items[2].selected,
@@ -54,13 +72,15 @@ export class AgregarCentroPage implements OnInit {
           vidrio: this.items[4].selected,
           bateria: this.items[5].selected,
         }
-        this.apt2.addCampaign(data);
-        this.route.navigate(['/pagina-centros']);
+        this.apt2.addCampaign(data).then(res=>{
+          this.verSnackBar("DONE","success");
+          this.route.navigate(['/pagina-centros']);
+        });
       });
     }
   }
 
-  validateData(){
+  validateData(lat:string){
     var plastico= this.items[0].selected;
     var aluminio= this.items[1].selected;
     var papel= this.items[2].selected;
@@ -71,7 +91,7 @@ export class AgregarCentroPage implements OnInit {
       this.presentAlert("Enter at least one type of material.");
       return false;
     }
-    else if (this.schedule===undefined || this.phone===undefined){
+    else if (this.schedule===undefined || this.phone===undefined || lat===undefined){
       this.presentAlert("Empty fields.");
       return false;
     }
@@ -99,6 +119,15 @@ export class AgregarCentroPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async verSnackBar(msj,tColor){
+    let toast = await this.toastCtrl.create({
+      message: msj,
+      duration: 3000,
+      color: tColor
+    });
+    toast.present();
   }
 
 }

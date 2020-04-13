@@ -20,6 +20,8 @@ import {environment} from '../environments/environment';
 import { IonicStorageModule } from '@ionic/storage';
 import {Camera} from '@ionic-native/camera/ngx';
 import {PhotoViewer} from '@ionic-native/photo-viewer/ngx';
+import { HttpClientModule} from "@angular/common/http";
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @NgModule({
   declarations: [AppComponent,PopupComponent],
@@ -33,11 +35,13 @@ import {PhotoViewer} from '@ionic-native/photo-viewer/ngx';
     AngularFireDatabaseModule,
     AngularFireModule,
     AngularFirestoreModule,
+    HttpClientModule,
     AngularFireStorageModule],
   providers: [
     PhotoViewer,
     StatusBar,
     SplashScreen,
+    ScreenOrientation,
     Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

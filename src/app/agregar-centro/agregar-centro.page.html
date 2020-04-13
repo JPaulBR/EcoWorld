@@ -6,7 +6,7 @@
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button (click)="saveData()">
+      <ion-button (click)="saveData(lat,lng)">
         <ion-icon slot="icon-only" name="save" style="color: white;"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -16,7 +16,7 @@
 
 <ion-content class="ion-padding">
 
-  <ion-item (click)="ver()">
+  <ion-item (click)="goToMap()">
     <ion-label position="floating">Place</ion-label>
     <ion-input [(ngModel)]="place" placeholder="Choose the place" readonly></ion-input>
   </ion-item>
