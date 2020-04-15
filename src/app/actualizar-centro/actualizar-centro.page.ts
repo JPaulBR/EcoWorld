@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CentrosService } from '../tablas/centros/centros.service';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, NavController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-actualizar-centro',
@@ -17,22 +19,50 @@ export class ActualizarCentroPage implements OnInit {
   items:any;
   ide:string;
   latlng: string;
+  latlng2: string;
   lat: string;
   lng: string;
+  urlAdress1: string = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
+  urlAdress2: string = ".json?access_token="+environment.mapboxKey;
 
-  constructor(private storage: Storage,private apt2: CentrosService,public loadingController: LoadingController,
-    public alertController: AlertController,public route:Router, private activatedRoute:ActivatedRoute) { 
+  constructor(private storage: Storage,private apt2: CentrosService,public loadingController: LoadingController,private navCtrl: NavController,
+    public alertController: AlertController,public route:Router, private activatedRoute:ActivatedRoute,private http:HttpClient
+    ) { 
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(res=>{
       this.ide = res["id"];
-      this.loadData();
+      if (this.ide===undefined){
+        this.storage.get('idCentro').then(resp=>{
+          this.ide = resp
+          this.storage.get('latlng').then(rept=>{
+            if (rept!="0"){
+              this.updatePlace(rept);
+            }
+            this.loadData(resp);
+          });
+        });
+      }
+      else{
+        this.loadData(this.ide);
+      }
     });
   }
 
-  loadData(){
-    this.apt2.getCampaign(this.ide).subscribe(res=>{
+  updatePlace(rept:string){
+    var res = rept.split(",");
+    this.latlng2 = rept;
+    this.lng = res[0];
+    this.lat = res[1];
+    var adressCurl= this.urlAdress1+this.lng+","+this.lat+this.urlAdress2;
+    this.http.get(adressCurl).subscribe(val=>{
+      this.place = val['features'][1].place_name;
+    });
+  }
+
+  loadData(ide:string){
+    this.apt2.getCampaign(ide).subscribe(res=>{
       this.place= res.lugar;
       this.schedule = res.horario;
       this.phone = res.telefono;
@@ -54,17 +84,20 @@ export class ActualizarCentroPage implements OnInit {
     this.route.navigate(['/ventana-mapa2',ide,coord]);
   }
 
-  saveData(ide:string){
+  saveData(ide:string, latlng2:string ,place:string){
+    var res = latlng2.split(",");
+    var lng = res[0];
+    var lat = res[1];
     if (this.validateData()){
       this.presentLoading();
       this.storage.get('email').then((res)=>{
         var data={
           correoUsuario: res,
-          lat: this.lat,
-          long: this.lng,
+          lat: lat,
+          long: lng,
           horario: this.schedule,
           telefono: this.phone,
-          lugar: this.place,
+          lugar: place,
           plastico: this.items[0].selected,
           aluminio: this.items[1].selected,
           papel: this.items[2].selected,
@@ -72,8 +105,9 @@ export class ActualizarCentroPage implements OnInit {
           vidrio: this.items[4].selected,
           bateria: this.items[5].selected,
         }
-        this.apt2.updateCampaign(data,ide);
-        this.route.navigate(['/pagina-centros']);
+        this.apt2.updateCampaign(data,ide).then(res=>{
+          this.navCtrl.navigateRoot("/pagina-centros");
+        });
       });
     }
   }

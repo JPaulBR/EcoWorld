@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-menu',
@@ -8,9 +9,12 @@ import { Storage } from '@ionic/storage';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(private storage:Storage) { }
+  constructor(private storage:Storage,private navCtrl: NavController) { }
 
   ngOnInit() {}
 
+  click(page:string){
+    this.navCtrl.navigateRoot(page);
+  }
 
 }

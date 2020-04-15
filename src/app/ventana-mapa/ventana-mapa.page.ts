@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import * as mapboxgl from 'mapbox-gl';
+import * as mapboxgl1 from 'mapbox-gl';
 import { AlertController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CentrosService } from '../tablas/centros/centros.service';
@@ -17,7 +17,7 @@ export class VentanaMapaPage implements OnInit {
   lat:any;
   lng:any;
   latlng: string;
-  mapa:mapboxgl.Map;
+  mapa1:mapboxgl1.Map;
 
   constructor(public alertController: AlertController,private activatedRoute:ActivatedRoute,
     public route:Router,private apt2: CentrosService,private http:HttpClient,private screenOrientation: ScreenOrientation) { }
@@ -50,8 +50,8 @@ export class VentanaMapaPage implements OnInit {
   }
 
   createMap(lat:any,lng:any){
-    (mapboxgl as any).accessToken = environment.mapboxKey;
-    this.mapa = new mapboxgl.Map({
+    (mapboxgl1 as any).accessToken = environment.mapboxKey;
+    this.mapa1 = new mapboxgl1.Map({
       container: 'mapa-mapbox1', // container id
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [lng, lat], // starting position lng lat
@@ -62,11 +62,11 @@ export class VentanaMapaPage implements OnInit {
   }
 
   addMarker(lng,lat){
-    var marker = new mapboxgl.Marker({
+    var marker = new mapboxgl1.Marker({
       draggable: true
       })
       .setLngLat([lng, lat])
-      .addTo(this.mapa);
+      .addTo(this.mapa1);
     marker.on('drag',()=>{
       this.latlng = marker.getLngLat().lng+','+marker.getLngLat().lat;
     });
@@ -82,6 +82,7 @@ export class VentanaMapaPage implements OnInit {
   }
 
   close(){
+    //this.mapa1.remove();
     this.route.navigate(['/agregar-centro']);
     /*var result;
     this.activatedRoute.params.subscribe(res=>{
@@ -98,6 +99,7 @@ export class VentanaMapaPage implements OnInit {
   }
 
   save(){
+    //this.mapa1.remove();
     this.route.navigate(['/agregar-centro',this.latlng]);
     /*var result;
     this.activatedRoute.params.subscribe(res=>{

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import * as mapboxgl from 'mapbox-gl';
-import { AlertController, LoadingController } from '@ionic/angular';
+import * as mapboxgl2 from 'mapbox-gl';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CentrosService } from '../tablas/centros/centros.service';
 import { HttpClient } from '@angular/common/http';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-ventana-mapa2',
@@ -17,15 +18,16 @@ export class VentanaMapa2Page implements OnInit {
   lat:any;
   lng:any;
   latlng: string;
-  mapa:mapboxgl.Map;
+  mapa2:mapboxgl2.Map;
   urlAdress1: string = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
-  urlAdress2: string = ".json?access_token=pk.eyJ1IjoianBicjI1IiwiYSI6ImNrOHRsdmw5NDAxb2YzbHA2NGNwM2FxNnUifQ.P7qjwxnZaeqi5hnC9IpDUw";
+  urlAdress2: string = ".json?access_token="+environment.mapboxKey;
   
   constructor(public alertController: AlertController,private activatedRoute:ActivatedRoute,private screenOrientation: ScreenOrientation,
-    public route:Router,private apt2: CentrosService,private http:HttpClient,public loadingController: LoadingController) { }
+    public route:Router,private apt2: CentrosService,private http:HttpClient,private storage: Storage,
+    public loadingController: LoadingController,private navCtrl: NavController) { }
 
   ngOnInit() {
-    (mapboxgl as any).accessToken = environment.mapboxKey;
+    (mapboxgl2 as any).accessToken = environment.mapboxKey;
     var result;
     this.activatedRoute.params.subscribe(res=>{
       result = res["id1"];
@@ -38,8 +40,8 @@ export class VentanaMapa2Page implements OnInit {
   }
 
   createMap(lat:any,lng:any){
-    (mapboxgl as any).accessToken = environment.mapboxKey;
-    this.mapa = new mapboxgl.Map({
+    (mapboxgl2 as any).accessToken = environment.mapboxKey;
+    this.mapa2 = new mapboxgl2.Map({
       container: 'mapa-mapbox2', // container id
       style: 'mapbox://styles/mapbox/streets-v11',//'https://api.mapbox.com/styles/v1/jpbr25/ck8xyya9g4n0f1iphr59enj8u?access_token='+environment.mapboxKey,
       center: [lng, lat], // starting position lng lat
@@ -50,60 +52,41 @@ export class VentanaMapa2Page implements OnInit {
   }
 
   addMarker(lng,lat){
-    var marker = new mapboxgl.Marker({
+    var marker = new mapboxgl2.Marker({
       draggable: true
       })
       .setLngLat([lng, lat])
-      .addTo(this.mapa);
+      .addTo(this.mapa2);
     marker.on('drag',()=>{
       this.latlng = marker.getLngLat().lng+','+marker.getLngLat().lat;
+      //this.storage.set('latlng', this.latlng);
     });
   }
 
   close(){
+    //this.mapa2.remove();
     this.activatedRoute.params.subscribe(res=>{
       var result = res["id"];
-      this.route.navigate(['/actualizarCentro',result]);
+      this.storage.set('idCentro', result);
+      this.navCtrl.navigateRoot("/actualizar-centro");
+      this.storage.set('latlng', "0");
+      //this.route.navigate(['/actualizarCentro',result]);
     });
   }
 
-  save(){
+  save(latlng:string){
     var ide;
+    console.log(latlng);
+    this.storage.set('latlng',latlng);
     this.activatedRoute.params.subscribe(res=>{
       ide = res["id"];
+      this.storage.set('idCentro', ide);
+      this.presentLoading();
+      this.navCtrl.navigateRoot("/actualizar-centro");
+      //this.navCtrl.navigateRoot("/actualizar-centro");
     });
-    this.updateLatLng(ide);
-  }
-
-  updateLatLng(ide:string){
-    //console.log(result);
-    this.presentLoading();
-    var res = this.latlng.split(",");
-    var lng = res[0];
-    var lat = res[1];
-    var adressCurl= this.urlAdress1+lng+","+lat+this.urlAdress2;
-    this.http.get(adressCurl).subscribe(res=>{
-      var place = res['features'][1].place_name;
-      this.apt2.getCampaign(ide).subscribe(val=>{
-        var lista={
-          aluminio: val.aluminio,
-          correoUsuario: val.correoUsuario,
-          bateria: val.bateria,
-          horario: val.horario,
-          lat: lat,
-          long: lng,
-          lugar: place,//cambiar
-          papel: val.papel,
-          plastico: val.plastico,
-          telefono: val.telefono,
-          tetra: val.tetra,
-          vidrio: val.vidrio
-        };
-      this.apt2.updateCampaign(lista,ide).then(resp=>{
-        this.route.navigate(['/actualizarCentro',ide]);
-        });
-      });
-    });
+    //console.log(this.latlng);
+    //this.route.navigate(['/actualizarCentro',ide]);
   }
 
   async presentLoading() {

@@ -26,7 +26,15 @@ export class CentrosService {
   }
 
   getCampaigns(){
-    return this.centros;
+    return this.listaCentros.snapshotChanges().pipe(map(
+      actions=>{
+        return actions.map(a =>{
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return {id, ...data};
+        });
+      }
+    ));
   }
 
   getCampaign(id:string){

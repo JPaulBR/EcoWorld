@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioService } from '../tablas/usuarios/usuario.service';
 import {PhotoViewer} from '@ionic-native/photo-viewer/ngx';
-import { ToastController } from '@ionic/angular';
+import { ToastController, NavController } from '@ionic/angular';
 
 
 @Component({
@@ -26,7 +26,8 @@ export class DetalleCentroPage implements OnInit {
   image = "https://image.flaticon.com/icons/svg/1177/1177568.svg";
 
   constructor(private activatedRoute: ActivatedRoute,private apt: UsuarioService,
-    public route:Router,public viewer: PhotoViewer,public toastCtrl: ToastController) {
+    public route:Router,public viewer: PhotoViewer,public toastCtrl: ToastController,
+    private navCtrl: NavController) {
     this.noEncontrado = false;
     this.plastico = 0;
     this.aluminio = 0;
