@@ -35,9 +35,11 @@
     </ion-item>
     <ion-item>
       <!--<ion-label position="floating">Password</ion-label>
-      <ion-input type="password" value="12345"></ion-input>-->
+      <ion-input type="password" value="12345"></ion-input>
       <ion-input [type]="getType()" [(ngModel)]="password"></ion-input>
-      <ion-icon name="eye" item-right (click)="toggleTextPassword()"></ion-icon>
+      <ion-icon name="eye" item-right (click)="toggleTextPassword()"></ion-icon>-->
+      <ion-input [(ngModel)]="password" placeholder="Password" type={{type}}></ion-input>
+      <ion-icon name={{nameIcon}} slot="end" color="medium" (click)="showPass()"></ion-icon>
     </ion-item>
     <ion-button (click)="updateData()" style="margin-top: 7%;"color="success" class="ion-button-class" shape="block" fill="solid" size="large" expand="block">
       SAVE

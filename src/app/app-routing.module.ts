@@ -6,7 +6,7 @@ import {GoogleMapsComponent} from './google-maps/google-maps.component';
 //import { RegisterPage } from './register/register.page';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full' },
+  {path: '', redirectTo: 'bienvenida', pathMatch: 'full' },
   {path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   {path: 'pagina-principal',loadChildren: () => import('./pagina-principal/pagina-principal.module').then( m => m.PaginaPrincipalPageModule)},
   {path: 'pagina-reciclaje',loadChildren: () => import('./pagina-reciclaje/pagina-reciclaje.module').then( m => m.PaginaReciclajePageModule)},
@@ -28,7 +28,9 @@ const routes: Routes = [
   {path: 'ventana-mapa/:id/:id1',loadChildren: () => import('./ventana-mapa/ventana-mapa.module').then( m => m.VentanaMapaPageModule)},
   {path: 'agregar-centro/:id',loadChildren: () => import('./agregar-centro/agregar-centro.module').then( m => m.AgregarCentroPageModule)},
   {path: 'ventana-mapa2',loadChildren: () => import('./ventana-mapa2/ventana-mapa2.module').then( m => m.VentanaMapa2PageModule)},
-  {path: 'ventana-mapa2/:id/:id1',loadChildren: () => import('./ventana-mapa2/ventana-mapa2.module').then( m => m.VentanaMapa2PageModule)}
+  {path: 'ventana-mapa2/:id/:id1',loadChildren: () => import('./ventana-mapa2/ventana-mapa2.module').then( m => m.VentanaMapa2PageModule)},
+  {path: 'bienvenida',loadChildren: () => import('./bienvenida/bienvenida.module').then( m => m.BienvenidaPageModule)}
+
 
 
 

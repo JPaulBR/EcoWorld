@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { UsuarioService } from './../tablas/usuarios/usuario.service';
 import {Observable} from 'rxjs';
-import { ToastController, AlertController, PopoverController, Platform } from '@ionic/angular';
+import { ToastController, AlertController, PopoverController, Platform, MenuController } from '@ionic/angular';
 import { Camera } from '@ionic-native/camera/ngx';
 import { PopupComponent } from '../popup/popup.component';
 import {AngularFireStorage} from '@angular/fire/storage';
@@ -25,8 +25,11 @@ export class PaginaRegistrarPage implements OnInit {
   cambioImagenPerfil: boolean = false;
   spinner: boolean;
   presentarSnack: boolean;
+  type = 'password';
+  nameIcon = 'eye-off';
+  buttonDisabled = false;
 
-  constructor(private aptService: UsuarioService,
+  constructor(private aptService: UsuarioService,public menuCtrl: MenuController,
     public toastCtrl: ToastController,
     private router: Router,
     public popoverController: PopoverController,
@@ -47,13 +50,17 @@ export class PaginaRegistrarPage implements OnInit {
     })
     this.presentarSnack = false;
     this.spinner = false;
-    this.urlImage = "null";
    }
 
   ngOnInit() {
   }
 
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
+
   formSubmit() {
+    this.buttonDisabled = true;
     this.spinner = true;
     this.textoBoton = " ";
     var id : number =  this.userForm.value.id;
@@ -82,6 +89,9 @@ export class PaginaRegistrarPage implements OnInit {
         });
         if (flag){
           this.userForm.value.urlFoto = this.urlImage;
+          if (this.urlImage===undefined){
+            this.userForm.value.urlFoto = "https://image.flaticon.com/icons/svg/1177/1177568.svg";
+          }
           this.userForm.value.permiso = false;
           this.userForm.value.reciclado = 0;
           //this.userForm.reset();
@@ -212,6 +222,17 @@ export class PaginaRegistrarPage implements OnInit {
        result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
- }
+  }
+
+  showPass(){
+    if (this.nameIcon==="eye-off"){
+      this.nameIcon = "eye";
+      this.type = "text";
+    }
+    else{
+     this.nameIcon = "eye-off";
+     this.type = "password";
+    }
+  }
 
 }

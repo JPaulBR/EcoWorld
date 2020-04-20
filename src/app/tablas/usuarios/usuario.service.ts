@@ -160,7 +160,7 @@ export class UsuarioService {
   }
 
   getUserByOrder(){
-    return this.db2.collection<any>('usuario',ref => ref.orderBy('reciclado','desc')/*.where("reciclado",">",0)*/.limit(100)).snapshotChanges().pipe(map(
+    return this.db2.collection<any>('usuario',ref => ref.orderBy('reciclado','desc').where("reciclado",">",0).limit(50)).snapshotChanges().pipe(map(
       actions=>{
         return actions.map(a =>{
           const data = a.payload.doc.data() as Appointment;

@@ -140,7 +140,7 @@ export class PaginaReciclajePage implements OnInit {
             "line-width": 5,
             "line-opacity": 0.75
           }
-        })
+        });
       }
     });
   }

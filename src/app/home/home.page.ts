@@ -1,10 +1,11 @@
 import { Component, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
-import {AlertController, ToastController } from '@ionic/angular';
+import {AlertController, ToastController, NavController, MenuController } from '@ionic/angular';
 import { UsuarioService } from '../tablas/usuarios/usuario.service';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Storage } from '@ionic/storage';
-
+import {EmailComposer} from '@ionic-native/email-composer/ngx';
+import { SMS } from '@ionic-native/sms/ngx';
 
 @Component({
   selector: 'app-home',
@@ -17,33 +18,56 @@ export class HomePage {
   password: string;
   spinner: boolean;
   textBtn: string;
+  forget= false;
+  type = 'password';
+  nameIcon = 'eye-off';
+  buttonDisabled: boolean;
 
   constructor(public route:Router, private alertCtrl:AlertController,
     public toastCtrl: ToastController,private aptService: UsuarioService,
-    private db2: AngularFirestore,private storage: Storage) {
+    private db2: AngularFirestore,private storage: Storage,private sms: SMS,
+    private navCtrl: NavController, private emailComposer: EmailComposer,
+    public menuCtrl: MenuController) {
     this.spinner = false;
     this.textBtn = "LOGIN";
+    this.buttonDisabled = false;
+  }
+
+  ngOnInit() {
+    this.storage.get("email").then(res=>{
+      if (res!="-1"){
+        this.navCtrl.navigateRoot("/pagina-principal");
+      }
+    });
+  }
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
   }
 
   //validate user input
   login(){
     this.spinner = true;
     this.textBtn = "";
+    this.buttonDisabled = true;
     if (this.email==="" || this.password==="" || this.password===undefined || this.email===undefined){
       this.presentSnackBar("Empty fields","danger");
       this.spinner = false;
       this.textBtn = "LOGIN";
+      this.buttonDisabled = false;
     }
     else if (!this.validateEmail(this.email)){
       this.presentSnackBar("Email invalid","danger");
       this.spinner = false;
       this.textBtn = "LOGIN";
+      this.buttonDisabled = false;
     }
     else{
       this.aptService.getUserByCredential(this.email,this.password).subscribe(data=>{
         if (data.length>0){
           this.spinner = false;
           this.textBtn = "LOGIN";
+          this.buttonDisabled = false;
           this.route.navigate(['/pagina-principal']);
           this.saveEmail(this.email);
         }
@@ -51,6 +75,7 @@ export class HomePage {
           this.presentSnackBar("Not found user","danger");
           this.spinner = false;
           this.textBtn = "LOGIN";
+          this.buttonDisabled = false;
         }
       });
     }
@@ -79,7 +104,7 @@ export class HomePage {
       inputs: [
         {
           name: 'email',
-          placeholder: 'Email',
+          placeholder: 'Phone number',
           type: 'email'
         },
       ],
@@ -97,8 +122,10 @@ export class HomePage {
             }
             else {
               // valid login
-              console.log("crear función de enviar email");
-              this.presentSnackBar("Email sent","success");
+              //this.sendEmail(data.email);
+              this.sendMsj();
+              //console.log("crear función de enviar email");
+              //this.presentSnackBar("Email sent","success");
             }
           }
         }
@@ -116,5 +143,49 @@ export class HomePage {
     });
     toast.present();
   }
+
+  sendEmail(mail:string){
+    /*let email = {
+      to: mail,
+      cc: 'jpaulbr97@gmail.com',
+      attachments: [
+        'https://image.flaticon.com/icons/svg/46/46510.svg'
+      ],
+      subject: 'Recover password',
+      body: 'Hi, have a nice day. This is your new password: '+this.makePassword(10)+" You can change the password whenever you want.",
+      isHtml: true
+    } 
+    // Send a text message using default options
+    this.emailComposer.open(email).then(res=>{
+      this.presentSnackBar("Sent email","success");
+    });*/
+  }
+
+  makePassword(length:number) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+ }
+
+ sendMsj(){
+   this.sms.send("+50689441001","Hola, esto es una prueba").then(res=>{
+     console.log("enviado");
+   }) ;
+ }
+
+ showPass(){
+   if (this.nameIcon==="eye-off"){
+     this.nameIcon = "eye";
+     this.type = "text";
+   }
+   else{
+    this.nameIcon = "eye-off";
+    this.type = "password";
+   }
+ }
 
 }

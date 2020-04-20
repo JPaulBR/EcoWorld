@@ -1,0 +1,37 @@
+<ion-content fullscreen class="ion-padding" scroll-y="false">
+  <ion-slides *ngIf="watch">
+
+    <ion-slide>
+      <div class="slide">
+        <img src="assets/images/welcomeTruth.png"/>
+        <h2>Bienvenido</h2>
+        <p><b>EcoWorld</b> es una app desarrollada para contribuir con la contaminación global, mediante el reciclaje y noticias de cómo hacerlo.</p>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/images/quesomos.png"/>
+      <h2>Propósito</h2>
+      <p>Disminuir los desechos no tratados y tener un mundo más limpio, de tal manera que todos ganemos.</p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/images/envíos2.png"/>
+      <h2>Reciclaje</h2>
+      <p><b>EcoWorld</b> le permite a usted como usuario saber los puntos más cercanos para reciclar o también tener la opción de que se lleven su material a reciclar.</p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/images/noticias.png"/>
+      <h2>Noticias </h2>
+      <p><b>EcoWorld</b> le mostrará noticias, artículos o novedades con respecto al reciclaje, para estar al tanto de qué hacer con este tipo de materiales que se pueden volver a usar sin necesidad de hacer más basura.</p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/images/ready2.png"/>
+      <h2>¿Listo?</h2>
+      <ion-button (click)="click()" fill="clear">Continuar <ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
+    </ion-slide>
+
+  </ion-slides>
+</ion-content>

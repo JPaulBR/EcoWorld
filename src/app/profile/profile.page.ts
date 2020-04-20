@@ -26,6 +26,8 @@ export class ProfilePage implements OnInit {
   urlImage:string;
   permiso: boolean;
   reciclado: number;
+  type = 'password';
+  nameIcon = 'eye-off';
   isActiveToggleTextPassword: Boolean = true;
   items= [
     {valor:"Plastic",img:"https://image.flaticon.com/icons/svg/2636/2636407.svg",cant:0},
@@ -53,12 +55,14 @@ export class ProfilePage implements OnInit {
         this.permiso = val[0].permiso;
         this.reciclado = val[0].reciclado;
         this.apt.getUserByIdForPoints(this.id).subscribe(resp=>{
-          this.items[0].cant = Number(resp[0].cantPlastico.toFixed(2));
-          this.items[1].cant = Number(resp[0].cantAluminio.toFixed(2));
-          this.items[2].cant = Number(resp[0].cantPaper.toFixed(2));
-          this.items[3].cant = Number(resp[0].cantTetra.toFixed(2));
-          this.items[4].cant = Number(resp[0].cantVidrio.toFixed(2));
-          this.items[5].cant = Number(resp[0].cantBateria.toFixed(2));
+          if (resp.length>0){
+            this.items[0].cant = Number(resp[0].cantPlastico.toFixed(2));
+            this.items[1].cant = Number(resp[0].cantAluminio.toFixed(2));
+            this.items[2].cant = Number(resp[0].cantPaper.toFixed(2));
+            this.items[3].cant = Number(resp[0].cantTetra.toFixed(2));
+            this.items[4].cant = Number(resp[0].cantVidrio.toFixed(2));
+            this.items[5].cant = Number(resp[0].cantBateria.toFixed(2));
+          }
         });
       });
     });
@@ -194,8 +198,8 @@ export class ProfilePage implements OnInit {
     return result;
  }
 
- subirImagen(ide:string){
-  const file = this.image;
+  subirImagen(ide:string){
+    const file = this.image;
     const filePath = 'imagenes/'+ide;
     const ref = this.storage.ref(filePath);
     const task = ref.putString(file,'data_url',{contentType: 'image/jpeg'}).snapshotChanges().toPromise().then(_ =>{
@@ -204,6 +208,17 @@ export class ProfilePage implements OnInit {
         this.image = res.toString();
       });
     });
+  }
+
+  showPass(){
+    if (this.nameIcon==="eye-off"){
+      this.nameIcon = "eye";
+      this.type = "text";
+    }
+    else{
+     this.nameIcon = "eye-off";
+     this.type = "password";
+    }
   }
 
 }

@@ -85,31 +85,42 @@ export class ActualizarCentroPage implements OnInit {
   }
 
   saveData(ide:string, latlng2:string ,place:string){
-    var res = latlng2.split(",");
+    if (latlng2===undefined){
+      if (this.validateData()){
+        this.saveInFireBase(ide,this.latlng,place);
+      }
+    }
+    else{
+      if (this.validateData()){
+        this.saveInFireBase(ide,this.latlng,place);
+      }
+    }
+  }
+
+  saveInFireBase(ide:string,latlang:string,place:string){
+    var res = latlang.split(",");
     var lng = res[0];
     var lat = res[1];
-    if (this.validateData()){
-      this.presentLoading();
-      this.storage.get('email').then((res)=>{
-        var data={
-          correoUsuario: res,
-          lat: lat,
-          long: lng,
-          horario: this.schedule,
-          telefono: this.phone,
-          lugar: place,
-          plastico: this.items[0].selected,
-          aluminio: this.items[1].selected,
-          papel: this.items[2].selected,
-          tetra: this.items[3].selected,
-          vidrio: this.items[4].selected,
-          bateria: this.items[5].selected,
-        }
-        this.apt2.updateCampaign(data,ide).then(res=>{
-          this.navCtrl.navigateRoot("/pagina-centros");
-        });
+    this.presentLoading();
+    this.storage.get('email').then((res)=>{
+      var data={
+        correoUsuario: res,
+        lat: lat,
+        long: lng,
+        horario: this.schedule,
+        telefono: this.phone,
+        lugar: place,
+        plastico: this.items[0].selected,
+        aluminio: this.items[1].selected,
+        papel: this.items[2].selected,
+        tetra: this.items[3].selected,
+        vidrio: this.items[4].selected,
+        bateria: this.items[5].selected,
+      }
+      this.apt2.updateCampaign(data,ide).then(res=>{
+        this.navCtrl.navigateRoot("/pagina-centros");
       });
-    }
+    });
   }
 
   validateData(){

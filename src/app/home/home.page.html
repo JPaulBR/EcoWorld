@@ -15,11 +15,12 @@
       </ion-item>
       <ion-item transparent>
         <ion-icon name="lock-closed" color="medium"></ion-icon>
-        <ion-input [(ngModel)]="password" placeholder="Password" type="Password"></ion-input>
+        <ion-input [(ngModel)]="password" placeholder="Password" type={{type}}></ion-input>
+        <ion-icon name={{nameIcon}} slot="end" color="medium" (click)="showPass()"></ion-icon>
       </ion-item>
-      <ion-label class="forget-password" (click)="presentPrompt()">Forget password</ion-label>
+      <ion-label *ngIf="forget" class="forget-password" (click)="presentPrompt()" >Forget password</ion-label>
       <div linespace></div>
-      <ion-button id="btn" expand="block" (click)="login()">
+      <ion-button id="btn" expand="block" (click)="login()" [disabled]="buttonDisabled">
         {{textBtn}}
         <ion-spinner name="circles" *ngIf="spinner"></ion-spinner>
       </ion-button>

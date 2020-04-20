@@ -22,6 +22,8 @@ import {Camera} from '@ionic-native/camera/ngx';
 import {PhotoViewer} from '@ionic-native/photo-viewer/ngx';
 import { HttpClientModule} from "@angular/common/http";
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import {EmailComposer} from '@ionic-native/email-composer/ngx';
+import { SMS } from '@ionic-native/sms/ngx';
 
 @NgModule({
   declarations: [AppComponent,PopupComponent],
@@ -42,6 +44,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
     StatusBar,
     SplashScreen,
     ScreenOrientation,
+    EmailComposer,
+    SMS,
     Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

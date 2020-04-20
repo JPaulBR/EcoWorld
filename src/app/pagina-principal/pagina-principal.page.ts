@@ -38,4 +38,8 @@ export class PaginaPrincipalPage implements OnInit {
     console.log("Click en: "+titulo);
   }
 
+  ionViewWillEnter() {
+    this.menuCtrl.enable(true);
+  }
+
 }
