@@ -11,12 +11,15 @@ import {PhotoViewer} from '@ionic-native/photo-viewer/ngx';
 export class TopPage implements OnInit {
 
   listUsers: any;
+  spinner: boolean;
 
   constructor(private menuCtrl:MenuController,private apt: UsuarioService,public viewer: PhotoViewer) { }
 
   ngOnInit() {
+    this.spinner = true;
     this.apt.getUserByOrder().subscribe(res=>{
       this.listUsers = res;
+      this.spinner = false;
     });
   }
 

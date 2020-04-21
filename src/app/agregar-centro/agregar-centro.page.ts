@@ -5,6 +5,7 @@ import { CentrosService } from '../tablas/centros/centros.service';
 import { LoadingController, AlertController, ToastController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-agregar-centro',
@@ -19,8 +20,9 @@ export class AgregarCentroPage implements OnInit {
   items:any;
   lat:string;
   lng: string;
+  v2:any;
   urlAdress1: string = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
-  urlAdress2: string = ".json?access_token=pk.eyJ1IjoianBicjI1IiwiYSI6ImNrOHRsdmw5NDAxb2YzbHA2NGNwM2FxNnUifQ.P7qjwxnZaeqi5hnC9IpDUw";
+  urlAdress2: string = ".json?access_token="+environment.mapboxKey;
 
   constructor(private storage: Storage,private apt2: CentrosService,public loadingController: LoadingController,
     public alertController: AlertController,public toastCtrl: ToastController,
@@ -48,6 +50,7 @@ export class AgregarCentroPage implements OnInit {
         })
       }
     });
+    console.log(this.v2);
   }
 
   goToMap(){
@@ -73,7 +76,7 @@ export class AgregarCentroPage implements OnInit {
           bateria: this.items[5].selected,
         }
         this.apt2.addCampaign(data).then(res=>{
-          this.verSnackBar("DONE","success");
+          this.verSnackBar("Realizado","success");
           this.route.navigate(['/pagina-centros']);
         });
       });
@@ -88,11 +91,11 @@ export class AgregarCentroPage implements OnInit {
     var vidrio= this.items[4].selected;
     var bateria= this.items[5].selected;
     if (!plastico && !aluminio && !papel && !tetra && !vidrio && !bateria){
-      this.presentAlert("Enter at least one type of material.");
+      this.presentAlert("Ingrese al menos un tipo de material.");
       return false;
     }
     else if (this.schedule===undefined || this.phone===undefined || lat===undefined){
-      this.presentAlert("Empty fields.");
+      this.presentAlert("Espacios vacíos.");
       return false;
     }
     else{
@@ -102,7 +105,7 @@ export class AgregarCentroPage implements OnInit {
 
   async presentLoading() {
     const loading = await this.loadingController.create({
-      message: 'updating...',
+      message: 'Actualizando...',
       duration: 2000
     });
     await loading.present();

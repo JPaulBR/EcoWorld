@@ -51,30 +51,30 @@ export class HomePage {
     this.textBtn = "";
     this.buttonDisabled = true;
     if (this.email==="" || this.password==="" || this.password===undefined || this.email===undefined){
-      this.presentSnackBar("Empty fields","danger");
+      this.presentSnackBar("Espacios vacíos","danger");
       this.spinner = false;
-      this.textBtn = "LOGIN";
+      this.textBtn = "Iniciar sesión";
       this.buttonDisabled = false;
     }
     else if (!this.validateEmail(this.email)){
-      this.presentSnackBar("Email invalid","danger");
+      this.presentSnackBar("Espacios vacíos","danger");
       this.spinner = false;
-      this.textBtn = "LOGIN";
+      this.textBtn = "Iniciar sesión";
       this.buttonDisabled = false;
     }
     else{
       this.aptService.getUserByCredential(this.email,this.password).subscribe(data=>{
         if (data.length>0){
           this.spinner = false;
-          this.textBtn = "LOGIN";
+          this.textBtn = "Iniciar sesión";
           this.buttonDisabled = false;
           this.route.navigate(['/pagina-principal']);
           this.saveEmail(this.email);
         }
         else{
-          this.presentSnackBar("Not found user","danger");
+          this.presentSnackBar("Usuario no encontrado","danger");
           this.spinner = false;
-          this.textBtn = "LOGIN";
+          this.textBtn = "Iniciar sesión";
           this.buttonDisabled = false;
         }
       });

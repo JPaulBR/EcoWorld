@@ -13,9 +13,9 @@
         <ion-icon slot="icon-only" name="save" style="color: white;"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Campaign transaction</ion-title>
+    <ion-title>Transacción de reciclaje</ion-title>
   </ion-toolbar>
-  <ion-searchbar animated inputmode="numeric" placeholder="Search by id" (ionChange)="buscar($event)">
+  <ion-searchbar animated inputmode="numeric" placeholder="Buscar por id" (ionChange)="buscar($event)">
   </ion-searchbar>
 </ion-header>
 <ion-content>
@@ -24,12 +24,12 @@
       <img src="assets/images/frown.svg">
     </ion-avatar>
     <div class="ion-text-center">
-      <h6>Not found</h6>
+      <h6>Not encontrado</h6>
     </div>
   </div>
   <div *ngIf="encontrado">
     <ion-card>
-      <h5 class="ion-text-center">User</h5>
+      <h5 class="ion-text-center">Usuario</h5>
       <ion-item>
         <ion-avatar slot="start">
           <img (click)="openImage(usuario.urlFoto)" src={{usuario.urlFoto}}>
@@ -41,15 +41,15 @@
       </ion-item>
       <h5 class="ion-text-center" style="color: #22bb33;">Add points</h5>
       <ion-item>
-        <ion-label position="floating">Plastic</ion-label>
+        <ion-label position="floating">Plástico</ion-label>
         <ion-input [(ngModel)]="plastico" type="number" placeholder="0 (kg)"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Aluminum</ion-label>
+        <ion-label position="floating">Aluminio</ion-label>
         <ion-input [(ngModel)]="aluminio" type="number" placeholder="0 (kg)"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Paper</ion-label>
+        <ion-label position="floating">Papel</ion-label>
         <ion-input [(ngModel)]="papel" type="number" placeholder="0 (kg)"></ion-input>
       </ion-item>
       <ion-item>
@@ -57,11 +57,11 @@
         <ion-input [(ngModel)]="tetra" type="number" placeholder="0 (kg)"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Glass</ion-label>
+        <ion-label position="floating">Vidrio</ion-label>
         <ion-input [(ngModel)]="vidrio" type="number" placeholder="0 (kg)"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Battery</ion-label>
+        <ion-label position="floating">Batería</ion-label>
         <ion-input [(ngModel)]="bateria" type="number" placeholder="0 (kg)"></ion-input>
       </ion-item>
     </ion-card>

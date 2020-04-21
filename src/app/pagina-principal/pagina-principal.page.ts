@@ -19,15 +19,15 @@ export class PaginaPrincipalPage implements OnInit {
                   ]
 
   constructor(private menuCtrl: MenuController,private apt:NoticiasService,private activeRouted: ActivatedRoute) {
-    this.spinner = false;
   }
 
   ngOnInit() {
     this.spinner = true;
     this.apt.getNews().subscribe(dato =>{
-      this.listNews = dato
+      this.listNews = dato;
+      this.spinner = false;
     });
-    this.spinner = false;
+    //this.spinner = false;
   }
 
   toggleMenu(){

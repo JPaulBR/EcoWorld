@@ -69,14 +69,14 @@ export class PaginaRegistrarPage implements OnInit {
     var email: string =  this.userForm.value.email;
     var contra: string = this.userForm.value.contra;
     if (id===undefined || nombre==='' || apellido==='' || email===''){
-      this.verSnackBar("Empty fields","danger");
+      this.verSnackBar("Espacios vacíos","danger");
       this.spinner = false;
-      this.textoBoton = "Sign up";
+      this.textoBoton = "Registrarse";
     }
     else if (!this.validateEmail(email)){
-      this.verSnackBar("Invalid email","danger");
+      this.verSnackBar("Correo inválido","danger");
       this.spinner = false;
-      this.textoBoton = "Sign up";
+      this.textoBoton = "Registrarse";
     }
     else{
       this.aptService.getUsers().subscribe(async res=>{
@@ -96,16 +96,16 @@ export class PaginaRegistrarPage implements OnInit {
           this.userForm.value.reciclado = 0;
           //this.userForm.reset();
           this.aptService.addUser(this.userForm.value).then(res => {
-            this.verSnackBar("Sign up successfully","success");
+            this.verSnackBar("Registrado exitosamente","success");
             this.router.navigate(['/home']);
             this.spinner = false;
           }).catch(error => console.log(error));
           this.presentarSnack = true;
         }
         else if (!flag){
-          this.verSnackBar2("Email or id is already exists","danger",this.presentarSnack);
+          this.verSnackBar2("Correo o id existente","danger",this.presentarSnack);
           this.spinner = false;
-          this.textoBoton = "Sign up";
+          this.textoBoton = "Registrarse";
         }
       });
     }

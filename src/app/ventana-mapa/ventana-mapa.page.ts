@@ -32,21 +32,6 @@ export class VentanaMapaPage implements OnInit {
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
       this.screenOrientation.unlock();
     });
-    /*var result;
-    this.activatedRoute.params.subscribe(res=>{
-      result = res["id"];
-    });
-    if (result===undefined){
-      navigator.geolocation.getCurrentPosition(pos=>{
-        this.lat = pos.coords.latitude;
-        this.lng = pos.coords.longitude;
-        this.createMap(this.lat,this.lng);
-      });
-    }
-    else{
-      var coord = result.split(",");
-      this.createMap(coord[1],coord[0]);
-    }*/ 
   }
 
   createMap(lat:any,lng:any){
@@ -74,43 +59,19 @@ export class VentanaMapaPage implements OnInit {
 
   async presentAlert() {
     const alert = await this.alertController.create({
-      header: 'Info',
-      message: 'You can move the marker everywhere.',
-      buttons: ['OK']
+      header: 'Información',
+      message: 'Puede mover el marcador donde desee.',
+      buttons: ['Aceptar']
     });
     await alert.present();
   }
 
   close(){
-    //this.mapa1.remove();
     this.route.navigate(['/agregar-centro']);
-    /*var result;
-    this.activatedRoute.params.subscribe(res=>{
-      result = res["id1"];
-    });
-    if (result===undefined){
-      this.route.navigate(['/agregar-centro']);
-      this.navCtrl.navigateRoot('/agregar-centro')
-    }
-    else{
-      //console.log(result);
-      this.route.navigate(['actualizarCentro',result]);
-    }*/
   }
 
   save(){
-    //this.mapa1.remove();
     this.route.navigate(['/agregar-centro',this.latlng]);
-    /*var result;
-    this.activatedRoute.params.subscribe(res=>{
-      result = res["id1"];
-    });
-    if (result===undefined){
-      this.route.navigate(['/agregar-centro',this.latlng]);
-    }
-    else{
-       this.updateLatLng(result);     
-    }*/
   }
 
 }

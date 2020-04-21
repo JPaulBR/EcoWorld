@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-button (click)="toggleMenu()">
+        <ion-icon slot="icon-only" name="menu" style="color: white;"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Enviar material</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <h5 class="ion-text-center">Materiales</h5>
+    <ion-list>
+      <ion-item *ngFor="let entry of form">
+        <ion-label>{{entry.val}}</ion-label>
+        <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  <ion-card>
+    <h5 class="ion-text-center">Método de pago</h5>
+    <ion-radio-group>
+      <ion-item>
+        <ion-label>Efectivo</ion-label>
+        <ion-radio value="1"></ion-radio>
+      </ion-item>
+      <ion-item (click)="show()">
+        <ion-label>Tarjeta de crédito/débito</ion-label>
+        <ion-radio disabled="true"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-card>
+  <ion-button (click)="save()" class="ion-padding" style="margin-top: 7%;" shape="block" fill="solid" expand="block" id="btn">
+    Buscar 
+  </ion-button>
+</ion-content>

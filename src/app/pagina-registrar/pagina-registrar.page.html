@@ -5,7 +5,7 @@
         <ion-icon slot="icon-only" name="arrow-back-outline" color="dark"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Register</ion-title>
+    <ion-title>Registrar</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
@@ -14,7 +14,7 @@
       <img [src]="image" *ngIf="image">
     </ion-avatar>
     <div class="ion-text-center">
-      <h5 (click)="presentPopover($event)">Change photo</h5>
+      <h5 (click)="presentPopover($event)">Cambiar foto</h5>
     </div>
     <ion-item>
       <ion-label position="floating">Id</ion-label>
@@ -24,26 +24,26 @@
       <ion-row>
         <ion-col size="6">
           <ion-item>
-            <ion-label position="floating">Name</ion-label>
+            <ion-label position="floating">Nombre</ion-label>
             <ion-input formControlName="nombre" type="text"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col size="6">
           <ion-item>
-            <ion-label position="floating">Last name</ion-label>
+            <ion-label position="floating">Apellidos</ion-label>
             <ion-input formControlName="apellido" type="text"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
     </ion-grid>
     <ion-item>
-      <ion-label position="floating">Email</ion-label>
+      <ion-label position="floating">Correo</ion-label>
       <ion-input formControlName="email" type="email"></ion-input>
     </ion-item>
     <ion-item style="margin-top: 5%;">
       <!--<ion-label position="floating">Password</ion-label>
       <ion-input  type="password"></ion-input>-->
-      <ion-input formControlName="contra" placeholder="Password" type={{type}}></ion-input>
+      <ion-input formControlName="contra" placeholder="Contraseña" type={{type}}></ion-input>
       <ion-icon name={{nameIcon}} slot="end" color="medium" (click)="showPass()"></ion-icon>
     </ion-item>
     <ion-button type="submit" style="margin-top: 7%;" shape="block" fill="solid" expand="block" id="btn" [disabled]="buttonDisabled">

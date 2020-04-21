@@ -59,18 +59,15 @@ export class VentanaMapa2Page implements OnInit {
       .addTo(this.mapa2);
     marker.on('drag',()=>{
       this.latlng = marker.getLngLat().lng+','+marker.getLngLat().lat;
-      //this.storage.set('latlng', this.latlng);
     });
   }
 
   close(){
-    //this.mapa2.remove();
     this.activatedRoute.params.subscribe(res=>{
       var result = res["id"];
       this.storage.set('idCentro', result);
       this.navCtrl.navigateRoot("/actualizar-centro");
       this.storage.set('latlng', "0");
-      //this.route.navigate(['/actualizarCentro',result]);
     });
   }
 
@@ -85,13 +82,11 @@ export class VentanaMapa2Page implements OnInit {
       this.navCtrl.navigateRoot("/actualizar-centro");
       //this.navCtrl.navigateRoot("/actualizar-centro");
     });
-    //console.log(this.latlng);
-    //this.route.navigate(['/actualizarCentro',ide]);
   }
 
   async presentLoading() {
     const loading = await this.loadingController.create({
-      message: 'Please wait...',
+      message: 'Por favor espere...',
       duration: 2500
     });
     await loading.present();

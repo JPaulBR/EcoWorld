@@ -5,7 +5,7 @@
         <ion-icon slot="icon-only" name="menu" style="color: white;"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>About us</ion-title>
+    <ion-title>Acerca de</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -20,54 +20,54 @@
     <ion-item no-lines>
       <img slot="start" style="width: 20px;" src="https://image.flaticon.com/icons/svg/1828/1828885.svg">
       <ion-label>
-        <h2>Version</h2>
+        <h2>Versión</h2>
         <p>1.0.1</p>
       </ion-label>
     </ion-item>
     <ion-item no-lines>
       <img slot="start" style="width: 20px;" src="https://image.flaticon.com/icons/svg/2087/2087775.svg">
       <ion-label>
-        <h2>Source code</h2>
+        <h2>Código fuente</h2>
         <p>Ionic (mobile app framework)</p>
       </ion-label>
     </ion-item>
   </ion-card>
   <ion-card>
-    <ion-item no-lines>
+    <ion-item no-lines (click)="presentSnackBar(':D','dark')">
       <img slot="start" style="width: 20px;" src="https://image.flaticon.com/icons/svg/456/456212.svg">
       <ion-label>
         <h2>EcoWorld</h2>
         <p>Limón, Costa Rica</p>
       </ion-label>
     </ion-item>
-    <ion-item no-lines>
+    <ion-item no-lines (click)="presentSnackBar('Quizás luego','dark')">
       <img slot="start" style="width: 20px;" src="https://image.flaticon.com/icons/svg/2089/2089181.svg">
       <ion-label>
-        <h2>Email</h2>
+        <h2>Correo</h2>
         <p>?</p>
       </ion-label>
     </ion-item>
-    <ion-item no-lines>
+    <ion-item no-lines (click)="presentSnackBar('Estamos en ello','dark')">
       <img slot="start" style="width: 20px;" src="https://www.flaticon.com/premium-icon/icons/svg/2392/2392484.svg">
       <ion-label>
-        <h2>Follow on Facebook</h2>
+        <h2>Seguirnos en Facebook</h2>
       </ion-label>
     </ion-item>
   </ion-card>
   <ion-card>
     <ion-card-header>
-      <ion-card-subtitle>Share & Feedback</ion-card-subtitle>
+      <ion-card-subtitle>Retroalimentación</ion-card-subtitle>
     </ion-card-header>
-    <ion-item no-lines>
+    <ion-item no-lines (click)="presentSnackBar('Quizás luego','dark')">
       <img slot="start" style="width: 20px;" src="https://image.flaticon.com/icons/svg/1828/1828956.svg">
       <ion-label>
-        <h2>Share to your friends</h2>
+        <h2>Compartir con sus amigos</h2>
       </ion-label>
     </ion-item>
-    <ion-item no-lines>
+    <ion-item no-lines (click)="presentPrompt()">
       <img slot="start" style="width: 20px;" src="https://image.flaticon.com/icons/svg/1330/1330233.svg">
       <ion-label>
-        <h2>Feedback</h2>
+        <h2>Valoración</h2>
       </ion-label>
     </ion-item>
   </ion-card>

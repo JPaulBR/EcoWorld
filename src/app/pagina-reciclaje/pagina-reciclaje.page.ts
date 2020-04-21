@@ -17,7 +17,7 @@ export class PaginaReciclajePage implements OnInit {
 
   mapa:mapboxgl.Map;
   pulsingDot:any;
-  txt: string="shfhdf";
+  spinner: boolean;
 
   constructor(private menuCtrl: MenuController,private navCtrl: NavController,
     private screenOrientation: ScreenOrientation, private apt:CentrosService,
@@ -28,6 +28,7 @@ export class PaginaReciclajePage implements OnInit {
   }
 
   ngOnInit() {
+    this.spinner = true;
     (mapboxgl as any).accessToken = environment.mapboxKey;
     navigator.geolocation.getCurrentPosition(pos=>{
       var lat = pos.coords.latitude;
@@ -38,6 +39,7 @@ export class PaginaReciclajePage implements OnInit {
         center: [lng, lat], // starting position lng lat
         zoom: 13.5 // starting zoom
       });
+      this.spinner = false;
       var start = [lng,lat];
       this.createOriginDestiny(start);
       //this.createRoute(start);
@@ -51,7 +53,7 @@ export class PaginaReciclajePage implements OnInit {
       );
       this.apt.getCampaigns().subscribe(res=>{
         res.forEach(element=>{
-          var msj = '<strong>Schedule: <p>'+element.horario+'</p></strong>'+'<strong>Phone: '+
+          var msj = '<strong>Horario: <p>'+element.horario+'</p></strong>'+'<strong>Teléfono: '+
           '<p>'+element.telefono+'</p></strong>';
           this.createMarker(element.long,element.lat,"https://image.flaticon.com/icons/svg/2371/2371819.svg",msj);
         })
@@ -74,7 +76,7 @@ export class PaginaReciclajePage implements OnInit {
       im.style.width = "30px";
       im.style.height = "30px";
       el.appendChild(im);
-      var popup = new mapboxgl.Popup({ offset: 25 }).setHTML('<strong>I am here</strong>');
+      var popup = new mapboxgl.Popup({ offset: 25 }).setHTML('<strong>Estoy aquí</strong>');
       new mapboxgl.Marker(el)
         .setLngLat([lng,lat])
         .setPopup(popup)

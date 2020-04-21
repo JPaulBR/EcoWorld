@@ -70,12 +70,12 @@ export class ActualizarCentroPage implements OnInit {
       this.lat = res.lat;
       this.lng = res.long;
       this.items=[
-        {valor:"Plastic",img:"https://image.flaticon.com/icons/svg/2636/2636407.svg",selected:res.plastico},
-        {valor:"Aluminum",img:"https://image.flaticon.com/icons/svg/542/542003.svg",selected:res.aluminio},
-        {valor:"Paper",img:"https://image.flaticon.com/icons/svg/876/876158.svg",selected:res.papel},
+        {valor:"Plástico",img:"https://image.flaticon.com/icons/svg/2636/2636407.svg",selected:res.plastico},
+        {valor:"Aluminio",img:"https://image.flaticon.com/icons/svg/542/542003.svg",selected:res.aluminio},
+        {valor:"Papel",img:"https://image.flaticon.com/icons/svg/876/876158.svg",selected:res.papel},
         {valor:"Tetra pack",img:"https://image.flaticon.com/icons/svg/723/723447.svg",selected:res.tetra},
-        {valor:"Glass",img:"https://image.flaticon.com/icons/svg/1855/1855765.svg",selected:res.vidrio},
-        {valor:"Battery",img:"https://image.flaticon.com/icons/svg/349/349767.svg",selected:res.bateria},
+        {valor:"Vidrio",img:"https://image.flaticon.com/icons/svg/1855/1855765.svg",selected:res.vidrio},
+        {valor:"Batería",img:"https://image.flaticon.com/icons/svg/349/349767.svg",selected:res.bateria},
       ];
     });
   }
@@ -131,11 +131,11 @@ export class ActualizarCentroPage implements OnInit {
     var vidrio= this.items[4].selected;
     var bateria= this.items[5].selected;
     if (!plastico && !aluminio && !papel && !tetra && !vidrio && !bateria){
-      this.presentAlert("Enter at least one type of material.");
+      this.presentAlert("Ingrese al menos un tipo de material.");
       return false;
     }
     else if (this.schedule===undefined || this.phone===undefined){
-      this.presentAlert("Empty fields.");
+      this.presentAlert("Espacios vacíos.");
       return false;
     }
     else{
@@ -145,7 +145,7 @@ export class ActualizarCentroPage implements OnInit {
 
   async presentLoading() {
     const loading = await this.loadingController.create({
-      message: 'Updating...',
+      message: 'Actualizando...',
       duration: 2000
     });
     await loading.present();

@@ -10,26 +10,26 @@
         <ion-icon slot="icon-only" name="save" style="color: white;"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Add a campaign</ion-title>
+    <ion-title>Agregar un centro</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
 
   <ion-item (click)="goToMap()">
-    <ion-label position="floating">Place</ion-label>
-    <ion-input [(ngModel)]="place" placeholder="Choose the place" readonly></ion-input>
+    <ion-label position="floating">Lugar</ion-label>
+    <ion-input [(ngModel)]="place" placeholder="Escoger el lugar" readonly></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="floating">schedule</ion-label>
-    <ion-textarea [(ngModel)]="schedule" placeholder="Example: Monday 10:00-13:00 - Friday 11:00:14:00"></ion-textarea>
+    <ion-label position="floating">Horario</ion-label>
+    <ion-textarea [(ngModel)]="schedule" placeholder="Ejemplo: Lunes 10:00-13:00 - Viernes 11:00:14:00"></ion-textarea>
   </ion-item>
   <ion-item>
-    <ion-label position="floating">Phone</ion-label>
+    <ion-label position="floating">Teléfono</ion-label>
     <ion-input [(ngModel)]="phone" type="phone"></ion-input>
   </ion-item>
   <div class="ion-text-center">
-    <h4>Materials</h4>
+    <h4>Materiales</h4>
   </div>
   <ion-list>
     <ion-item *ngFor="let item of items" >

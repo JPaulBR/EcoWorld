@@ -1,0 +1,19 @@
+.myClass3 {
+    background-color: lightyellow; 
+    height: 100%;
+    width: 100%;
+  }
+  
+  #mapa-mapbox3 {
+    position: absolute; top: 0; bottom: 0; width: 100%;
+  }
+
+  .marker1 {
+    display: block;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    width: 38px;
+    height: 38px;
+  }

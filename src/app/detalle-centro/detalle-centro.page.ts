@@ -74,7 +74,7 @@ export class DetalleCentroPage implements OnInit {
 
   openImage(url:string){
     var photoUrl = url;
-    var title = "Profile image";
+    var title = "Imagen de perfil";
     this.viewer.show(photoUrl,title);
   }
 
@@ -112,15 +112,15 @@ export class DetalleCentroPage implements OnInit {
           this.apt.updateUser(usuario,res[0].key);
         });
         this.apt.updatePointForUser(list.key,lista);
-        this.presentSnackBar("DONE","success");
+        this.presentSnackBar("Realizado","success");
         this.route.navigate(['/pagina-centros']);
       }
       else{
-        this.presentSnackBar("without changes","dark");
+        this.presentSnackBar("Sin cambios","dark");
       }
     }
     else{
-      this.presentSnackBar("Not selected user","danger");
+      this.presentSnackBar("Noha escogido el usuario","danger");
     }
   }
 

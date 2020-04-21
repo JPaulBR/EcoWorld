@@ -29,6 +29,11 @@ export class UsuarioService {
     ));
   }
 
+  addcomments(msj:any){
+    var listaComentarios = this.db2.collection<Appointment>('comentarios');
+    return listaComentarios.add(msj);
+  }
+
   getUsers(){
     return this.db2.collection<Appointment>('usuario').snapshotChanges().pipe(map(
       actions=>{
@@ -68,16 +73,6 @@ export class UsuarioService {
     ));
     return usuarios;
   }
-  /*getUserById(id:number){
-    var valor = false;
-    this.db2.collection("usuario", ref => ref.where('id', '==', id)).get().toPromise().then(function(querySnapshot){
-      querySnapshot.forEach(function(doc) {
-        console.log(doc.id, " => ", doc.data().apellido);
-        valor = true;
-      });
-    });
-    return valor;
-  }*/
 
   getUserByCredential(email:string,password:string){
     var listaUsuarios = this.db2.collection<any>('usuario',ref => ref.where('email', '==', email).where('contra', '==', password));

@@ -5,10 +5,11 @@
         <ion-icon slot="icon-only" name="menu" style="color: white;"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Campaings</ion-title>
+    <ion-title>Centros</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <ion-spinner name="circles" *ngIf="spinner" style="margin: auto; display: block;color: #32be8f; margin-top: 4%;"></ion-spinner>
   <div *ngIf="hide2">
     <ion-card *ngFor="let i of listCenters">
       <ion-item-sliding >
@@ -58,9 +59,9 @@
     <ion-card >
     <img class="centrar" src="assets/images/permisson.png" alt="ion">
     <ion-card-header>
-      <ion-card-title class="ion-text-center">Information</ion-card-title>
+      <ion-card-title class="ion-text-center">Información</ion-card-title>
     </ion-card-header>
-    <ion-card-content>If you like create a new campaing just contact us. <img (click)="openWhatsApp()" style="width: 20px;" src="https://image.flaticon.com/icons/svg/733/733585.svg"> </ion-card-content>
+    <ion-card-content>Si desea crear una nueva campaña, contáctenos. <img (click)="openWhatsApp()" style="width: 20px;" src="https://image.flaticon.com/icons/svg/733/733585.svg"> </ion-card-content>
     </ion-card>
   </div> 
 </ion-content>

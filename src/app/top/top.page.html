@@ -10,6 +10,7 @@
 </ion-header>
 
 <ion-content>
+  <ion-spinner name="circles" *ngIf="spinner" style="margin: auto; display: block;color: #32be8f; margin-top: 4%;"></ion-spinner>
   <ion-card *ngFor="let i of listUsers; let j = index">
     <ion-item>
       <div class="container">

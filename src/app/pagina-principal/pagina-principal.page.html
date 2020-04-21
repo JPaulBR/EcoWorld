@@ -5,11 +5,11 @@
         <ion-icon slot="icon-only" name="menu" style="color: white;"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Home</ion-title>
+    <ion-title>Inicio</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-spinner name="circles" *ngIf="spinner"></ion-spinner>
+  <ion-spinner name="circles" *ngIf="spinner" style="margin: auto; display: block;color: #32be8f; margin-top: 4%;"></ion-spinner>
     <ion-card *ngFor="let i of listNews" [routerLink]="['/detalleN',i.key]">
       <ion-item no-lines color="success">
         <ion-avatar slot="start">

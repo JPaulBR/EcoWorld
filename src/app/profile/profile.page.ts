@@ -30,12 +30,12 @@ export class ProfilePage implements OnInit {
   nameIcon = 'eye-off';
   isActiveToggleTextPassword: Boolean = true;
   items= [
-    {valor:"Plastic",img:"https://image.flaticon.com/icons/svg/2636/2636407.svg",cant:0},
-    {valor:"Aluminum",img:"https://image.flaticon.com/icons/svg/542/542003.svg",cant:0},
-    {valor:"Paper",img:"https://image.flaticon.com/icons/svg/876/876158.svg", cant: 0},
+    {valor:"Plástico",img:"https://image.flaticon.com/icons/svg/2636/2636407.svg",cant:0},
+    {valor:"Aluminio",img:"https://image.flaticon.com/icons/svg/542/542003.svg",cant:0},
+    {valor:"Papel",img:"https://image.flaticon.com/icons/svg/876/876158.svg", cant: 0},
     {valor:"Tetra pack",img:"https://image.flaticon.com/icons/svg/723/723447.svg",cant: 0},
-    {valor:"Glass",img:"https://image.flaticon.com/icons/svg/1855/1855765.svg", cant:0},
-    {valor:"Battery",img:"https://image.flaticon.com/icons/svg/349/349767.svg",cant:0},
+    {valor:"Vidrio",img:"https://image.flaticon.com/icons/svg/1855/1855765.svg", cant:0},
+    {valor:"Batería",img:"https://image.flaticon.com/icons/svg/349/349767.svg",cant:0},
   ];
 
   constructor(private menuCtrl:MenuController,public viewer: PhotoViewer,
@@ -71,13 +71,13 @@ export class ProfilePage implements OnInit {
   updateData(){
     if (this.name===undefined || this.lastName ===undefined || this.email===undefined || 
       this.password === undefined){
-      this.presentSnackBar("Empty fields","danger");
+      this.presentSnackBar("Espacios vacíos","danger");
     }
     else if (this.name === "" || this.lastName === "" || this.email === "" || this.password === ""){
-      this.presentSnackBar("Empty fields","danger");
+      this.presentSnackBar("Espacios vacíos","danger");
     }
     else if (!this.validateEmail(this.email)){
-      this.presentSnackBar("Invalid email","danger");
+      this.presentSnackBar("Correo inválido","danger");
     }
     else{
       var lista = {
@@ -91,7 +91,7 @@ export class ProfilePage implements OnInit {
         reciclado : this.reciclado  
       }
       this.apt.updateUser(lista,this.key).then(res=>{
-        this.presentSnackBar("DONE","success");
+        this.presentSnackBar("Realizado","success");
       });
     }
   }
@@ -112,7 +112,7 @@ export class ProfilePage implements OnInit {
 
   openImage(){
     var photoUrl = this.image;
-    var title = "Profile image";
+    var title = "Imagen de perfil";
     this.viewer.show(photoUrl,title);
   }
 

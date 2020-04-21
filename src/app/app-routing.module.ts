@@ -29,7 +29,13 @@ const routes: Routes = [
   {path: 'agregar-centro/:id',loadChildren: () => import('./agregar-centro/agregar-centro.module').then( m => m.AgregarCentroPageModule)},
   {path: 'ventana-mapa2',loadChildren: () => import('./ventana-mapa2/ventana-mapa2.module').then( m => m.VentanaMapa2PageModule)},
   {path: 'ventana-mapa2/:id/:id1',loadChildren: () => import('./ventana-mapa2/ventana-mapa2.module').then( m => m.VentanaMapa2PageModule)},
-  {path: 'bienvenida',loadChildren: () => import('./bienvenida/bienvenida.module').then( m => m.BienvenidaPageModule)}
+  {path: 'bienvenida',loadChildren: () => import('./bienvenida/bienvenida.module').then( m => m.BienvenidaPageModule)},
+  {path: 'pagina-enviar',loadChildren: () => import('./pagina-enviar/pagina-enviar.module').then( m => m.PaginaEnviarPageModule)},
+  {path: 'pagina-cargar',loadChildren: () => import('./pagina-cargar/pagina-cargar.module').then( m => m.PaginaCargarPageModule)},
+  {path: 'ventana-mapa3',loadChildren: () => import('./ventana-mapa3/ventana-mapa3.module').then( m => m.VentanaMapa3PageModule)}
+
+
+
 
 
 

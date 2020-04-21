@@ -17,26 +17,21 @@ export class PaginaCentrosPage implements OnInit {
   hide:boolean;
   prueba = false;
   hide2:boolean;
-  houses=[
-    {lugar:"San Blas, Cartago", horario:"Lunes a Jueves 9:30-15:00", material:"Plástico"},
-    {lugar:"Paraiso, Cartago", horario:"Lunes a Jueves 9:30-15:00", material:"Plástico", img:"https://image.flaticon.com/icons/svg/967/967811.svg"},
-    {lugar:"Taras, Cartago", horario:"Lunes a Jueves 9:30-15:00", material:"Plástico", img:"https://image.flaticon.com/icons/svg/967/967811.svg"},
-    {lugar:"Turrialba, Cartago", horario:"Lunes a Jueves 9:30-15:00", material:"Plástico", img:"https://image.flaticon.com/icons/svg/967/967811.svg"},
-    {lugar:"El Carmen, Cartago", horario:"Lunes a Jueves 9:30-15:00", material:"Plástico", img:"https://image.flaticon.com/icons/svg/967/967811.svg"}
-  ]
+  spinner: boolean;
 
   constructor(private menuCtrl:MenuController, private storage: Storage, private apt: UsuarioService, 
     private apt2: CentrosService,public toastCtrl: ToastController) {}
 
   ngOnInit() {
-    this.hide=true;
+    this.spinner = true;
+    this.hide=false;
     this.hide2=false;
     this.storage.get('email').then((val) => {
-      console.log("email: ",val);
       this.apt.getUserByEmail2(val).subscribe(dato =>{
         this.listUser = dato;
         this.listUser.forEach(element => {
           this.hide2 = element.permiso;
+          this.spinner = false;
         });
         if (!this.hide2){
           this.hide=true;
@@ -63,7 +58,7 @@ export class PaginaCentrosPage implements OnInit {
 
   deleteCampaign(ide:string){
     this.apt2.deleteCampaign(ide);
-    this.verSnackBar("Deleted successfully","danger");
+    this.verSnackBar("Borrado exitosamente","danger");
   }
 
   async verSnackBar(msj,tColor){
