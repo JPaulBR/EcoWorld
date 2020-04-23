@@ -97,6 +97,7 @@ export class PaginaRegistrarPage implements OnInit {
           this.userForm.value.permiso = false;
           this.userForm.value.reciclado = 0;
           //this.userForm.reset();
+          this.aptService.createPointsForUser(this.userForm.value.id);
           this.aptService.addUser(this.userForm.value).then(res => {
             this.verSnackBar("Registrado exitosamente","success");
             this.router.navigate(['/home']);

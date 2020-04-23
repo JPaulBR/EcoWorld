@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController,PopoverController, ToastController } from '@ionic/angular';
 import { UsuarioService } from '../tablas/usuarios/usuario.service';
 import {PhotoViewer} from '@ionic-native/photo-viewer/ngx';
 
@@ -13,7 +13,8 @@ export class TopPage implements OnInit {
   listUsers: any;
   spinner: boolean;
 
-  constructor(private menuCtrl:MenuController,private apt: UsuarioService,public viewer: PhotoViewer) { }
+  constructor(private menuCtrl:MenuController,private apt: UsuarioService,public toastCtrl: ToastController,
+    public viewer: PhotoViewer,public popoverController: PopoverController) { }
 
   ngOnInit() {
     this.spinner = true;
@@ -31,6 +32,20 @@ export class TopPage implements OnInit {
     var photoUrl = url;
     var title = "Profile image";
     this.viewer.show(photoUrl,title);
+  }
+
+  getTotal(tot:string){
+    var msj = "Total reciclado: "+tot+" kg";
+    this.presentSnackBar(msj,"success");
+  } 
+  
+  async presentSnackBar(msj,tColor){
+    let toast = await this.toastCtrl.create({
+      message: msj,
+      duration: 2000,
+      color: tColor
+    });
+    toast.present();
   }
 
 }

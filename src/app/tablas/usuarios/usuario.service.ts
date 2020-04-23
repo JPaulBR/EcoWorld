@@ -132,7 +132,8 @@ export class UsuarioService {
       cantPaper: 0,
       cantPlastico: 0,
       cantTetra: 0,
-      cantVidrio:0
+      cantVidrio:0,
+      acumulado: 0
     };
     return lista.add(update);
   }

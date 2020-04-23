@@ -54,15 +54,7 @@ export class DetalleCentroPage implements OnInit {
           this.usuario.urlFoto = this.image;
         }
         this.apt.getUserByIdForPoints(parseInt(this.texto)).subscribe(res=>{
-          if (res.length>0){
-            this.puntosUsuario = res[0];
-          }
-          else{
-            this.apt.createPointsForUser(parseInt(this.texto));
-            this.apt.getUserByIdForPoints(parseInt(this.texto)).subscribe(val=>{
-              this.puntosUsuario = val[0];
-            });
-          }
+          this.puntosUsuario = res[0];
         });
       }
       else{
@@ -120,7 +112,7 @@ export class DetalleCentroPage implements OnInit {
       }
     }
     else{
-      this.presentSnackBar("Noha escogido el usuario","danger");
+      this.presentSnackBar("No ha escogido el usuario","danger");
     }
   }
 
