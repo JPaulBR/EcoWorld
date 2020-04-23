@@ -5,6 +5,11 @@
         <ion-icon slot="icon-only" name="menu" style="color: white;"></ion-icon>
       </ion-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="save()">
+        <ion-icon slot="icon-only" name="save" style="color: white;"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>Enviar material</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -24,7 +29,7 @@
     <ion-radio-group>
       <ion-item>
         <ion-label>Efectivo</ion-label>
-        <ion-radio value="1"></ion-radio>
+        <ion-radio (click)="click()"></ion-radio>
       </ion-item>
       <ion-item (click)="show()">
         <ion-label>Tarjeta de crédito/débito</ion-label>
@@ -32,7 +37,4 @@
       </ion-item>
     </ion-radio-group>
   </ion-card>
-  <ion-button (click)="save()" class="ion-padding" style="margin-top: 7%;" shape="block" fill="solid" expand="block" id="btn">
-    Buscar 
-  </ion-button>
 </ion-content>

@@ -21,7 +21,7 @@ export class PaginaRegistrarPage implements OnInit {
   Bookings = [];
   image: any;
   urlImage: string;
-  textoBoton: string = "Sign up";
+  textoBoton: string = "Registrarse";
   cambioImagenPerfil: boolean = false;
   spinner: boolean;
   presentarSnack: boolean;
@@ -72,11 +72,13 @@ export class PaginaRegistrarPage implements OnInit {
       this.verSnackBar("Espacios vacíos","danger");
       this.spinner = false;
       this.textoBoton = "Registrarse";
+      this.buttonDisabled = false;
     }
     else if (!this.validateEmail(email)){
       this.verSnackBar("Correo inválido","danger");
       this.spinner = false;
       this.textoBoton = "Registrarse";
+      this.buttonDisabled = false;
     }
     else{
       this.aptService.getUsers().subscribe(async res=>{
@@ -99,6 +101,7 @@ export class PaginaRegistrarPage implements OnInit {
             this.verSnackBar("Registrado exitosamente","success");
             this.router.navigate(['/home']);
             this.spinner = false;
+            this.buttonDisabled = false;
           }).catch(error => console.log(error));
           this.presentarSnack = true;
         }
@@ -106,6 +109,7 @@ export class PaginaRegistrarPage implements OnInit {
           this.verSnackBar2("Correo o id existente","danger",this.presentarSnack);
           this.spinner = false;
           this.textoBoton = "Registrarse";
+          this.buttonDisabled = false;
         }
       });
     }

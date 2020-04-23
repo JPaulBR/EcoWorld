@@ -20,7 +20,6 @@ export class AgregarCentroPage implements OnInit {
   items:any;
   lat:string;
   lng: string;
-  v2:any;
   urlAdress1: string = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
   urlAdress2: string = ".json?access_token="+environment.mapboxKey;
 
@@ -28,12 +27,12 @@ export class AgregarCentroPage implements OnInit {
     public alertController: AlertController,public toastCtrl: ToastController,
     public route:Router,private activatedRoute: ActivatedRoute,private http:HttpClient) { 
     this.items=[
-      {valor:"Plastic",img:"https://image.flaticon.com/icons/svg/2636/2636407.svg",selected:false},
-      {valor:"Aluminum",img:"https://image.flaticon.com/icons/svg/542/542003.svg",selected:false},
-      {valor:"Paper",img:"https://image.flaticon.com/icons/svg/876/876158.svg",selected:false},
+      {valor:"Plástico",img:"https://image.flaticon.com/icons/svg/2636/2636407.svg",selected:false},
+      {valor:"Aluminio",img:"https://image.flaticon.com/icons/svg/542/542003.svg",selected:false},
+      {valor:"Papel",img:"https://image.flaticon.com/icons/svg/876/876158.svg",selected:false},
       {valor:"Tetra pack",img:"https://image.flaticon.com/icons/svg/723/723447.svg",selected:false},
-      {valor:"Glass",img:"https://image.flaticon.com/icons/svg/1855/1855765.svg",selected:false},
-      {valor:"Battery",img:"https://image.flaticon.com/icons/svg/349/349767.svg",selected:false},
+      {valor:"Vidrio",img:"https://image.flaticon.com/icons/svg/1855/1855765.svg",selected:false},
+      {valor:"Batería",img:"https://image.flaticon.com/icons/svg/349/349767.svg",selected:false},
     ];
   }
 
@@ -50,7 +49,6 @@ export class AgregarCentroPage implements OnInit {
         })
       }
     });
-    console.log(this.v2);
   }
 
   goToMap(){

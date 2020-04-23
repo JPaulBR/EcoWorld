@@ -8,6 +8,7 @@ import { MenuController, AlertController, NavController } from '@ionic/angular';
 })
 export class PaginaEnviarPage implements OnInit {
 
+  radioE:boolean=false;
   public form = [
     { val: 'Plástico', isChecked: false },
     { val: 'Aluminio', isChecked: false },
@@ -41,8 +42,31 @@ export class PaginaEnviarPage implements OnInit {
   }
 
   save(){
-    //guardar datos 
-    this.navCtrl.navigateRoot("/pagina-cargar");
+    //guardar datos
+    var num = 0; 
+    for (var i = 0; i<this.form.length; i++){
+      if (this.form[i].isChecked){
+        num++;
+      }
+    }
+    if (num===0){
+      this.presentAlert("Ingrese al menos un tipo de material.");
+    }
+    else if (!this.radioE){
+      this.presentAlert("Seleccione el método de pago.");
+    }
+    else{
+      this.navCtrl.navigateRoot("/pagina-cargar");
+    }
+  }
+
+  click(){
+    if (this.radioE){
+      this.radioE = false;
+    }
+    else{
+      this.radioE = true;
+    }
   }
 
 }

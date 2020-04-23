@@ -29,7 +29,7 @@ export class HomePage {
     private navCtrl: NavController, private emailComposer: EmailComposer,
     public menuCtrl: MenuController) {
     this.spinner = false;
-    this.textBtn = "LOGIN";
+    this.textBtn = "Iniciar sesión";
     this.buttonDisabled = false;
   }
 

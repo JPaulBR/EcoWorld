@@ -39,6 +39,7 @@ export class PaginaReciclajePage implements OnInit {
         center: [lng, lat], // starting position lng lat
         zoom: 13.5 // starting zoom
       });
+      this.mapa.addControl(new mapboxgl.NavigationControl());
       this.spinner = false;
       var start = [lng,lat];
       this.createOriginDestiny(start);

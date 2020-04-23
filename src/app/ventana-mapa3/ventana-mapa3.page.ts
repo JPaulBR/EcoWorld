@@ -33,6 +33,7 @@ export class VentanaMapa3Page implements OnInit {
         center: [lng, lat], // starting position lng lat
         zoom: 13.5 // starting zoom
       });
+      this.mapa.addControl(new mapboxgl.NavigationControl());
       this.storage.get('email').then(res=>{
         this.apt2.getUserByEmail2(res).subscribe(dato=>{
           var photo = dato[0].urlFoto;
@@ -42,7 +43,7 @@ export class VentanaMapa3Page implements OnInit {
       });
       var lng1 = -83.03168162521428;
       var lat1 = 9.987411215113582;
-      this.createMarker(lng1,lat1,"https://image.flaticon.com/icons/svg/2825/2825532.svg","Voy de camino");
+      this.createMarker(lng1,lat1,"https://image.flaticon.com/icons/svg/1554/1554633.svg","Voy de camino");
       this.createRoute([lng,lat],[lng1,lat1]);
     });
   }
@@ -53,6 +54,10 @@ export class VentanaMapa3Page implements OnInit {
     im.src = img;
     im.style.width = "25px";
     im.style.height = "25px";
+    if (msj==="Estoy aquí"){
+      el.appendChild(im);
+      im = el;
+    }
     var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(msj);
     new mapboxgl.Marker(im)
       .setLngLat([lng,lat])

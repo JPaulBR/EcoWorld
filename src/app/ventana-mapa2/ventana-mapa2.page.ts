@@ -47,6 +47,7 @@ export class VentanaMapa2Page implements OnInit {
       center: [lng, lat], // starting position lng lat
       zoom: 14.5 // starting zoom 
     });
+    this.mapa2.addControl(new mapboxgl2.NavigationControl());
     this.latlng = lng+","+lat;
     this.addMarker(lng,lat);
   }
