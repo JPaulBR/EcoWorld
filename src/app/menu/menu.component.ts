@@ -14,9 +14,6 @@ export class MenuComponent implements OnInit {
   ngOnInit() {}
 
   click(page:string){
-    if (page==="/home"){
-      this.storage.set("email","-1");
-    }
     this.navCtrl.navigateRoot(page);
   }
 

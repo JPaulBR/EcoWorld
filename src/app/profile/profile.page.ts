@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController, PopoverController, ToastController } from '@ionic/angular';
+import { MenuController, PopoverController, ToastController, NavController } from '@ionic/angular';
 import { PopupComponent } from '../popup/popup.component';
 import { Camera } from '@ionic-native/camera/ngx';
 import {AngularFireStorage} from '@angular/fire/storage';
@@ -26,6 +26,7 @@ export class ProfilePage implements OnInit {
   urlImage:string;
   permiso: boolean;
   reciclado: number;
+  search:boolean = false;
   type = 'password';
   nameIcon = 'eye-off';
   isActiveToggleTextPassword: Boolean = true;
@@ -38,12 +39,15 @@ export class ProfilePage implements OnInit {
     {valor:"Batería",img:"https://image.flaticon.com/icons/svg/349/349767.svg",cant:0},
   ];
 
-  constructor(private menuCtrl:MenuController,public viewer: PhotoViewer,
+  constructor(private menuCtrl:MenuController,public viewer: PhotoViewer,private navCtrl: NavController,
     public popoverController: PopoverController,private camera: Camera,public toastCtrl: ToastController,
     private storage: AngularFireStorage,private storageIonic:Storage, private apt:UsuarioService) { }
 
   ngOnInit() {
     this.storageIonic.get('email').then(res=>{
+      if (res==="jpbr25@yahoo.com"){
+        this.search = true;
+      }
       this.apt.getUserByEmail2(res).subscribe(val=>{
         this.key = val[0].key;
         this.id = val[0].id;
@@ -219,6 +223,10 @@ export class ProfilePage implements OnInit {
      this.nameIcon = "eye-off";
      this.type = "password";
     }
+  }
+
+  goToSearchUser(){
+    this.navCtrl.navigateRoot("/pagina-usuarios");
   }
 
 }

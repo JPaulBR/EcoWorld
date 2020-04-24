@@ -10,7 +10,8 @@
 </ion-header>
 <ion-content>
   <ion-spinner name="circles" *ngIf="spinner" style="margin: auto; display: block;color: #32be8f; margin-top: 4%;"></ion-spinner>
-    <ion-card *ngFor="let i of listNews" [routerLink]="['/detalleN',i.key]">
+    <ion-card *ngFor="let i of listNews" (click)="goToPage(i.fuente)">
+
       <ion-item no-lines color="success">
         <ion-avatar slot="start">
           <img src={{i.fotoEmpresa}}>
@@ -26,4 +27,9 @@
       </ion-card-header>
       <ion-card-content>{{i.miniDescripcion}}</ion-card-content>
     </ion-card>
+    <ion-fab *ngIf="hide" vertical="bottom" horizontal="end" slot="fixed">  
+      <ion-fab-button color="success" (click)="presentAlertPrompt()">  
+        <ion-icon name="add"></ion-icon>  
+      </ion-fab-button>  
+    </ion-fab>
 </ion-content>

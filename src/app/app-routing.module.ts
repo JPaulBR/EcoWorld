@@ -16,8 +16,6 @@ const routes: Routes = [
   {path: 'pagina-registrar',loadChildren: () => import('./pagina-registrar/pagina-registrar.module').then( m => m.PaginaRegistrarPageModule)},
   {path: 'profile',loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)},
   {path: 'detalle-centro',loadChildren: () => import('./detalle-centro/detalle-centro.module').then( m => m.DetalleCentroPageModule)},
-  {path: 'detalle-noticias',loadChildren: () => import('./detalle-noticias/detalle-noticias.module').then( m => m.DetalleNoticiasPageModule)},
-  {path: 'detalleN/:id',loadChildren: () => import('./detalle-noticias/detalle-noticias.module').then( m => m.DetalleNoticiasPageModule)},
   {path: 'paginaPrincipal/:id',loadChildren: () => import('./pagina-principal/pagina-principal.module').then( m => m.PaginaPrincipalPageModule)},
   {path: 'detalle-centro/:id',loadChildren: () => import('./detalle-centro/detalle-centro.module').then( m => m.DetalleCentroPageModule)},
   {path: 'actualizar-centro',loadChildren: () => import('./actualizar-centro/actualizar-centro.module').then( m => m.ActualizarCentroPageModule)},
@@ -32,7 +30,9 @@ const routes: Routes = [
   {path: 'bienvenida',loadChildren: () => import('./bienvenida/bienvenida.module').then( m => m.BienvenidaPageModule)},
   {path: 'pagina-enviar',loadChildren: () => import('./pagina-enviar/pagina-enviar.module').then( m => m.PaginaEnviarPageModule)},
   {path: 'pagina-cargar',loadChildren: () => import('./pagina-cargar/pagina-cargar.module').then( m => m.PaginaCargarPageModule)},
-  {path: 'ventana-mapa3',loadChildren: () => import('./ventana-mapa3/ventana-mapa3.module').then( m => m.VentanaMapa3PageModule)}
+  {path: 'ventana-mapa3',loadChildren: () => import('./ventana-mapa3/ventana-mapa3.module').then( m => m.VentanaMapa3PageModule)},
+  {path: 'pagina-usuarios',loadChildren: () => import('./pagina-usuarios/pagina-usuarios.module').then( m => m.PaginaUsuariosPageModule)}
+
 
 
 

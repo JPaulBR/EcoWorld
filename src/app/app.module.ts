@@ -24,6 +24,7 @@ import { HttpClientModule} from "@angular/common/http";
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import {EmailComposer} from '@ionic-native/email-composer/ngx';
 import { SMS } from '@ionic-native/sms/ngx';
+import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
 
 @NgModule({
   declarations: [AppComponent,PopupComponent],
@@ -46,6 +47,7 @@ import { SMS } from '@ionic-native/sms/ngx';
     ScreenOrientation,
     EmailComposer,
     SMS,
+    InAppBrowser,
     Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

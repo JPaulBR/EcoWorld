@@ -30,4 +30,9 @@ export class NoticiasService {
     return this.db2.collection<News>('noticias').doc(id).valueChanges();
   }
 
+  addNew(news:any){
+    var listaComentarios = this.db2.collection<any>('noticias');
+    return listaComentarios.add(news);
+  }
+
 }

@@ -34,14 +34,6 @@ export class HomePage {
   }
 
   ngOnInit() {
-    this.storage.get("email").then(res=>{
-      if (res==="-1" || res===null || res===undefined){
-        
-      }
-      else{
-        this.navCtrl.navigateRoot("/pagina-principal");
-      }
-    });
   }
 
   ionViewWillEnter() {

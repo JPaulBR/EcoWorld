@@ -5,6 +5,11 @@
         <ion-icon slot="icon-only" name="menu" style="color: white;"></ion-icon>
       </ion-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="goToSearchUser()">
+        <ion-icon *ngIf="search" slot="icon-only" name="people" style="color: white;"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -43,7 +48,7 @@
   </ion-card>
   <ion-card>
     <div class="ion-text-center">
-      <h5>Información</h5>
+      <h5>Materiales reciclados</h5>
     </div>
     <ion-list>
       <ion-item *ngFor="let item of items">
