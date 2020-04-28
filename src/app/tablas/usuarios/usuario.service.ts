@@ -30,8 +30,20 @@ export class UsuarioService {
   }
 
   addcomments(msj:any){
-    var listaComentarios = this.db2.collection<Appointment>('comentarios');
+    var listaComentarios = this.db2.collection<any>('comentarios');
     return listaComentarios.add(msj);
+  }
+
+  getComments(){
+    return this.db2.collection<any>('comentarios').snapshotChanges().pipe(map(
+      actions=>{
+        return actions.map(a =>{
+          const data = a.payload.doc.data() as any;
+          const key = a.payload.doc.id;
+          return {key, ...data};
+        });
+      }
+    ));
   }
 
   getUsers(){
@@ -96,11 +108,18 @@ export class UsuarioService {
     return this.listaUsuarios.doc(id).update(apt);
   }
 
+  deleteUser(id:string){
+    return this.listaUsuarios.doc(id).delete();
+  }
+
+  deletePoints(email:string){
+    var listaUsuariosConPuntos = this.db2.collection<any>('puntosXusuario');
+    return listaUsuariosConPuntos.doc(email).delete();
+  }
 
   createUser(apt: Appointment) {
     this.bookingListRef = this.firebase.list('/usuario');
     return this.bookingListRef.push({
-      id: apt.id,
       nombre: apt.nombre,
       apellido: apt.apellido,
       email: apt.email,
@@ -138,7 +157,7 @@ export class UsuarioService {
     return lista.add(update);
   }
 
-  getUserByIdForPoints(id:number){
+  getUserByIdForPoints(id:string){
     return this.db2.collection<any>('puntosXusuario',ref => ref.where('id', '==', id)).snapshotChanges().pipe(map(
       actions=>{
         return actions.map(a =>{

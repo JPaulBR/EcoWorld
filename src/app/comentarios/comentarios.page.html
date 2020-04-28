@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-title>Comentarios</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="arrow-back" style="color: white;"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card class="ion-padding" *ngFor =" let i of comentarios">
+    <ion-label>
+      <h3><strong>{{i.usuario}}</strong>   {{i.fecha}}</h3>
+      <p>{{i.comentario}}</p>
+    </ion-label>
+  </ion-card>
+</ion-content>

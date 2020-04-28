@@ -13,16 +13,23 @@
 <ion-content>
   <ion-spinner name="circles" *ngIf="spinner" style="margin: auto; display: block;color: #32be8f; margin-top: 4%;"></ion-spinner>
   <ion-card *ngFor="let i of listUsers | filtros:textSearch">
-    <ion-item>
-      <ion-avatar slot="start">
-        <img  (click)="openImage(i.urlFoto)" src={{i.urlFoto}}>
-      </ion-avatar>
-      <div class="container">
-        <div class="container" class="ion-padding-start" (click)="getTotal(i.reciclado)">
-          <p>{{i.nombre}} {{i.apellido}}</p>
+    <ion-item-sliding >
+      <ion-item>
+        <ion-avatar slot="start">
+          <img  (click)="openImage(i.urlFoto)" src={{i.urlFoto}}>
+        </ion-avatar>
+        <div class="container">
+          <div class="container" class="ion-padding-start" (click)="getTotal(i.reciclado)">
+            <p>{{i.nombre}} {{i.apellido}}</p>
+          </div>
         </div>
-      </div>
-      <ion-checkbox slot="end" color="dark" checked="{{i.permiso}}" (click)="update(i.id,i.permiso,i.key)"></ion-checkbox>
-    </ion-item>
+        <ion-checkbox slot="end" color="dark" checked="{{i.permiso}}" (click)="update(i.id,i.permiso,i.key)"></ion-checkbox>
+      </ion-item>
+      <ion-item-options side="start" (click)="deleteCampaign(i.key,i.email)">
+        <ion-item-option color="danger" expandable>
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-card>
 </ion-content>

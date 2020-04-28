@@ -39,7 +39,6 @@ export class PaginaRegistrarPage implements OnInit {
     public fb: FormBuilder) {
     this.image = "https://image.flaticon.com/icons/svg/1177/1177568.svg";
     this.userForm = new FormGroup({
-      id: new FormControl('',[Validators.required]),
       nombre: new FormControl('',Validators.required),
       apellido: new FormControl('',Validators.required),
       email: new FormControl('',[Validators.required,Validators.email,Validators.pattern(".+\@.+\..+")]),
@@ -63,12 +62,11 @@ export class PaginaRegistrarPage implements OnInit {
     this.buttonDisabled = true;
     this.spinner = true;
     this.textoBoton = " ";
-    var id : number =  this.userForm.value.id;
     var nombre : string =  this.userForm.value.nombre;
     var apellido: string =  this.userForm.value.apellido;
     var email: string =  this.userForm.value.email;
     var contra: string = this.userForm.value.contra;
-    if (id===undefined || nombre==='' || apellido==='' || email===''){
+    if (nombre==='' || apellido==='' || email===''){
       this.verSnackBar("Espacios vacíos","danger");
       this.spinner = false;
       this.textoBoton = "Registrarse";
@@ -84,7 +82,7 @@ export class PaginaRegistrarPage implements OnInit {
       this.aptService.getUsers().subscribe(async res=>{
         var flag: boolean = true
         res.forEach(element=>{
-          if (element.id===id || element.email === email){
+          if (element.email === email){
             flag= false;
             return;
           }
@@ -96,11 +94,11 @@ export class PaginaRegistrarPage implements OnInit {
           }
           this.userForm.value.permiso = false;
           this.userForm.value.reciclado = 0;
-          //this.userForm.reset();
-          this.aptService.createPointsForUser(this.userForm.value.id);
+          this.aptService.createPointsForUser(this.userForm.value.email);
           this.aptService.addUser(this.userForm.value).then(res => {
             this.verSnackBar("Registrado exitosamente","success");
             this.router.navigate(['/home']);
+
             this.spinner = false;
             this.buttonDisabled = false;
           }).catch(error => console.log(error));

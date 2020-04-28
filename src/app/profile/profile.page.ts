@@ -16,7 +16,6 @@ import { element } from 'protractor';
 export class ProfilePage implements OnInit {
 
   key: string;
-  id:number;
   name: string;
   lastName:string;
   email: string;
@@ -50,7 +49,6 @@ export class ProfilePage implements OnInit {
       }
       this.apt.getUserByEmail2(res).subscribe(val=>{
         this.key = val[0].key;
-        this.id = val[0].id;
         this.name = val[0].nombre;
         this.lastName = val[0].apellido;
         this.email = val[0].email;
@@ -58,7 +56,7 @@ export class ProfilePage implements OnInit {
         this.image = val[0].urlFoto;
         this.permiso = val[0].permiso;
         this.reciclado = val[0].reciclado;
-        this.apt.getUserByIdForPoints(this.id).subscribe(resp=>{
+        this.apt.getUserByIdForPoints(this.email).subscribe(resp=>{
           if (resp.length>0){
             this.items[0].cant = Number(resp[0].cantPlastico.toFixed(2));
             this.items[1].cant = Number(resp[0].cantAluminio.toFixed(2));
@@ -85,7 +83,6 @@ export class ProfilePage implements OnInit {
     }
     else{
       var lista = {
-        id : this.id,
         nombre : this.name,
         apellido : this.lastName,
         email : this.email,

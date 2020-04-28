@@ -34,6 +34,7 @@ export class HomePage {
   }
 
   ngOnInit() {
+    this.storage.set('email', "null");
   }
 
   ionViewWillEnter() {

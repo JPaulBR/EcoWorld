@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 import { UsuarioService } from '../tablas/usuarios/usuario.service';
 import {PhotoViewer} from '@ionic-native/photo-viewer/ngx';
 
@@ -13,7 +13,8 @@ export class PaginaUsuariosPage implements OnInit {
   listUsers: any;
   spinner: boolean;
   textSearch="";
-  constructor(private navCtrl: NavController,private apt: UsuarioService,public viewer: PhotoViewer) { }
+  constructor(private navCtrl: NavController,private apt: UsuarioService,
+    public viewer: PhotoViewer,public toastCtrl: ToastController) { }
 
   ngOnInit() {
     this.spinner = true
@@ -50,6 +51,19 @@ export class PaginaUsuariosPage implements OnInit {
   buscar(event){
     var texto = event.detail.value;
     this.textSearch = texto;
+  }
+
+  deleteCampaign(ide:string,email:string){
+    this.apt.deleteUser(ide);
+  }
+
+  async verSnackBar(msj,tColor){
+    let toast = await this.toastCtrl.create({
+      message: msj,
+      duration: 3000,
+      color: tColor
+    });
+    toast.present();
   }
 
 }

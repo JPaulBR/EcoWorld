@@ -45,7 +45,7 @@ export class DetalleCentroPage implements OnInit {
 
   buscar(event){
     this.texto = event.detail.value;
-    this.apt.getUserById(parseInt(this.texto)).subscribe(val=>{
+    this.apt.getUserByEmail(this.texto).subscribe(val=>{
       if (val.length>0){
         this.encontrado = true;
         this.noEncontrado = false;
@@ -53,7 +53,7 @@ export class DetalleCentroPage implements OnInit {
         if (this.usuario.urlFoto === "null"){
           this.usuario.urlFoto = this.image;
         }
-        this.apt.getUserByIdForPoints(parseInt(this.texto)).subscribe(res=>{
+        this.apt.getUserByIdForPoints(this.texto).subscribe(res=>{
           this.puntosUsuario = res[0];
         });
       }
@@ -90,18 +90,9 @@ export class DetalleCentroPage implements OnInit {
           cantBateria: bateria,
           acumulado: total
         }
-        this.apt.getUserById(parseInt(this.texto)).subscribe(res=>{
-          var usuario={
-            id: res[0].id,
-            nombre: res[0].nombre,
-            apellido: res[0].apellido,
-            email: res[0].email,
-            contra: res[0].contra,
-            urlFoto: res[0].urlFoto,
-            permiso: res[0].permiso,
-            reciclado: total
-          }
-          this.apt.updateUser(usuario,res[0].key);
+        this.apt.getUserByEmail(this.texto).subscribe(res=>{
+          res[0].reciclado = total;
+          this.apt.updateUser(res[0],res[0].id);
         });
         this.apt.updatePointForUser(list.key,lista);
         this.presentSnackBar("Realizado","success");

@@ -31,7 +31,11 @@ const routes: Routes = [
   {path: 'pagina-enviar',loadChildren: () => import('./pagina-enviar/pagina-enviar.module').then( m => m.PaginaEnviarPageModule)},
   {path: 'pagina-cargar',loadChildren: () => import('./pagina-cargar/pagina-cargar.module').then( m => m.PaginaCargarPageModule)},
   {path: 'ventana-mapa3',loadChildren: () => import('./ventana-mapa3/ventana-mapa3.module').then( m => m.VentanaMapa3PageModule)},
-  {path: 'pagina-usuarios',loadChildren: () => import('./pagina-usuarios/pagina-usuarios.module').then( m => m.PaginaUsuariosPageModule)}
+  {path: 'pagina-usuarios',loadChildren: () => import('./pagina-usuarios/pagina-usuarios.module').then( m => m.PaginaUsuariosPageModule)},  {
+    path: 'comentarios',
+    loadChildren: () => import('./comentarios/comentarios.module').then( m => m.ComentariosPageModule)
+  }
+
 
 
 

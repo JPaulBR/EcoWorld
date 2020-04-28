@@ -5,6 +5,11 @@
         <ion-icon slot="icon-only" name="menu" style="color: white;"></ion-icon>
       </ion-button>
     </ion-buttons>
+    <ion-buttons *ngIf="hide1" slot="end">
+      <ion-button (click)="goToComentaries()">
+        <ion-icon slot="icon-only" name="chatbox-ellipses" style="color: white;"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>Acerca de</ion-title>
   </ion-toolbar>
 </ion-header>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuController, AlertController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { UsuarioService } from '../tablas/usuarios/usuario.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-about',
@@ -10,10 +11,17 @@ import { UsuarioService } from '../tablas/usuarios/usuario.service';
 })
 export class AboutPage implements OnInit {
 
+  hide1: boolean = false;
   constructor(private menuCtrl:MenuController,private alertCtrl:AlertController,
+    private router: Router,
     public toastCtrl: ToastController,private storage: Storage,private apt:UsuarioService) { }
 
   ngOnInit() {
+    this.storage.get('email').then(res=>{
+      if (res==="jpbr25@yahoo.com"){
+        this.hide1 = true;
+      }
+    });
   }
 
   toggleMenu(){
@@ -75,6 +83,10 @@ export class AboutPage implements OnInit {
       color: tColor
     });
     toast.present();
+  }
+
+  goToComentaries(){
+    this.router.navigate(['/comentarios']);
   }
 
 }
