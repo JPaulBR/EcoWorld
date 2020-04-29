@@ -60,7 +60,7 @@ export class PaginaReciclajePage implements OnInit {
         })
       })
       this.storage.get('email').then(res=>{
-        this.apt2.getUserByEmail2(res).subscribe(dato=>{
+        this.apt2.getUserByEmail(res).subscribe(dato=>{
           var photo = dato[0].urlFoto;
           var msj = "I'm here";
           this.createMarker(lng,lat,photo,msj);

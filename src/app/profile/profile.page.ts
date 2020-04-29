@@ -44,11 +44,11 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {
     this.storageIonic.get('email').then(res=>{
-      if (res==="jpbr25@yahoo.com"){
+      if (res==="jpaulbr97@gmail.com"){
         this.search = true;
       }
-      this.apt.getUserByEmail2(res).subscribe(val=>{
-        this.key = val[0].key;
+      this.apt.getUserByEmail(res).subscribe(val=>{
+        this.key = val[0].id;
         this.name = val[0].nombre;
         this.lastName = val[0].apellido;
         this.email = val[0].email;
@@ -93,6 +93,8 @@ export class ProfilePage implements OnInit {
       }
       this.apt.updateUser(lista,this.key).then(res=>{
         this.presentSnackBar("Realizado","success");
+      }).catch(res=>{
+        this.presentSnackBar(res,"danger");
       });
     }
   }

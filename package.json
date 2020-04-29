@@ -23,6 +23,7 @@
     "@ionic-native/camera": "^5.22.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/email-composer": "^5.24.0",
+    "@ionic-native/facebook": "^5.24.0",
     "@ionic-native/full-screen-image": "^5.23.0",
     "@ionic-native/geolocation": "^5.23.0",
     "@ionic-native/google-maps": "^5.5.0",
@@ -41,6 +42,7 @@
     "cordova-android": "8.1.0",
     "cordova-plugin-camera": "^4.1.0",
     "cordova-plugin-email-composer": "^0.9.2",
+    "cordova-plugin-facebook4": "^6.4.0",
     "cordova-plugin-geolocation": "^4.0.2",
     "cordova-plugin-googlemaps": "^2.6.2",
     "cordova-plugin-inappbrowser": "^3.2.0",
@@ -116,7 +118,13 @@
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
       "cordova-sms-plugin": {},
-      "cordova-plugin-inappbrowser": {}
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-facebook4": {
+        "APP_ID": "226076095389734",
+        "APP_NAME": "EcoWorld",
+        "FACEBOOK_HYBRID_APP_EVENTS": "false",
+        "FACEBOOK_ANDROID_SDK_VERSION": "5.13.0"
+      }
     },
     "platforms": [
       "android"

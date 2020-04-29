@@ -6,6 +6,10 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Storage } from '@ionic/storage';
 import {EmailComposer} from '@ionic-native/email-composer/ngx';
 import { SMS } from '@ionic-native/sms/ngx';
+import {Facebook,FacebookLoginResponse} from '@ionic-native/facebook/ngx';
+import { Appointment } from '../tablas/usuarios/usuario';
+import { FormGroup, FormControl } from '@angular/forms';
+import { format } from 'util';
 
 @Component({
   selector: 'app-home',
@@ -22,19 +26,56 @@ export class HomePage {
   type = 'password';
   nameIcon = 'eye-off';
   buttonDisabled: boolean;
+  userRegister: any;
 
   constructor(public route:Router, private alertCtrl:AlertController,
     public toastCtrl: ToastController,private aptService: UsuarioService,
     private db2: AngularFirestore,private storage: Storage,private sms: SMS,
     private navCtrl: NavController, private emailComposer: EmailComposer,
-    public menuCtrl: MenuController) {
+    public menuCtrl: MenuController,private facebook:Facebook,
+    private apt: UsuarioService) {
     this.spinner = false;
     this.textBtn = "Iniciar sesión";
     this.buttonDisabled = false;
+
   }
 
   ngOnInit() {
     this.storage.set('email', "null");
+  }
+
+  registerFacebook(){
+    this.buttonDisabled = true;
+    this.facebook.login(["email","public_profile"]).then((response:FacebookLoginResponse)=>{
+      this.facebook.api('me?fields=id,name,email,first_name,last_name,picture.width(720).height(720).as(picture_large)',[]).then(profile=>{
+        var email = profile["email"];
+        if (email===undefined || email===null || email===""){
+          this.presentSnackBar("Ha ocurrido un error","danger");
+        }
+        this.apt.getUserByEmail(email).subscribe(res=>{
+          if (res.length===0){
+            this.userRegister = {
+              nombre: profile["first_name"],
+              apellido: profile["last_name"],
+              email: profile["email"],
+              contra: "YOUR_PASSWORD_FACEBOOK",
+              urlFoto: profile["picture_large"]["data"]["url"],
+              permiso: false,
+              reciclado: 0,
+            };
+            this.apt.addUser2(this.userRegister).then(res=>{
+              this.apt.createPointsForUser(email).then(r=>{
+                this.buttonDisabled = false;
+              });
+            }).catch(res=>{
+              alert(res);
+            });
+          }
+          this.saveEmail(email);
+          this.route.navigate(['/pagina-principal']);
+        });
+      })
+    });
   }
 
   ionViewWillEnter() {

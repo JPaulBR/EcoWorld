@@ -72,20 +72,6 @@ export class UsuarioService {
     return usuarios;
   }
 
-  getUserById(id:number){
-    var listaUsuarios = this.db2.collection<any>('usuario',ref => ref.where('id', '==', id));
-    var usuarios = listaUsuarios.snapshotChanges().pipe(map(
-      actions=>{
-        return actions.map(a =>{
-          const data = a.payload.doc.data() as Appointment;
-          const key = a.payload.doc.id;
-          return {key, ...data};
-        });
-      }
-    ));
-    return usuarios;
-  }
-
   getUserByCredential(email:string,password:string){
     var listaUsuarios = this.db2.collection<any>('usuario',ref => ref.where('email', '==', email).where('contra', '==', password));
     var usuarios = listaUsuarios.snapshotChanges().pipe(map(
@@ -101,6 +87,10 @@ export class UsuarioService {
   }
 
   addUser(apt:Appointment){
+    return this.listaUsuarios.add(apt);
+  }
+
+  addUser2(apt:any){
     return this.listaUsuarios.add(apt);
   }
 
@@ -127,22 +117,10 @@ export class UsuarioService {
       url: apt.urlFoto,
       permiso: apt.permiso,
       reciclado: 0
-    })
+    });
   }
 
-  getUserByEmail2(email: string){
-    return this.db2.collection<Appointment>('usuario',ref => ref.where('email', '==', email)).snapshotChanges().pipe(map(
-      actions=>{
-        return actions.map(a =>{
-          const data = a.payload.doc.data() as Appointment;
-          const key = a.payload.doc.id;
-          return {key, ...data};
-        });
-      }
-    ));
-  }
-
-  createPointsForUser(ide:number) {
+  createPointsForUser(ide:string) {
     var lista = this.db2.collection<any>('puntosXusuario');
     var update = {
       id: ide,

@@ -28,7 +28,7 @@ export class PaginaUsuariosPage implements OnInit {
     this.navCtrl.navigateRoot("/profile");
   }
 
-  update(id:number,check:boolean,key:string){
+  update(check:boolean,key:string){
     var valor = true;
     if (check){
       valor= false;
@@ -38,6 +38,7 @@ export class PaginaUsuariosPage implements OnInit {
         element.permiso = valor;
         this.apt.updateUser(element,key).then(res=>{console.log("done")});
         return;
+
       }
     });
   }
@@ -53,7 +54,7 @@ export class PaginaUsuariosPage implements OnInit {
     this.textSearch = texto;
   }
 
-  deleteCampaign(ide:string,email:string){
+  deleteUser(ide:string,email:string){
     this.apt.deleteUser(ide);
   }
 

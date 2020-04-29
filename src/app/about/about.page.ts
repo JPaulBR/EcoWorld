@@ -18,7 +18,7 @@ export class AboutPage implements OnInit {
 
   ngOnInit() {
     this.storage.get('email').then(res=>{
-      if (res==="jpbr25@yahoo.com"){
+      if (res==="jpaulbr97@gmail.com"){
         this.hide1 = true;
       }
     });
@@ -58,7 +58,7 @@ export class AboutPage implements OnInit {
 
   sendData(txt:string){
     this.storage.get("email").then(res=>{
-      this.apt.getUserByEmail2(res).subscribe(val=>{
+      this.apt.getUserByEmail(res).subscribe(val=>{
         var dateFormat = require('dateformat');
         var today = Date.now();
         var now  = dateFormat(today, "dddd, mmmm dS, yyyy, h:MM:ss TT");

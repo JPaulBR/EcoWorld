@@ -35,7 +35,7 @@ export class VentanaMapa3Page implements OnInit {
       });
       this.mapaS.addControl(new mapboxgl4.NavigationControl());
       this.storage.get('email').then(res=>{
-        this.apt2.getUserByEmail2(res).subscribe(dato=>{
+        this.apt2.getUserByEmail(res).subscribe(dato=>{
           var photo = dato[0].urlFoto;
           var msj = "Estoy aquí";
           this.createMarker(lng,lat,photo,msj);

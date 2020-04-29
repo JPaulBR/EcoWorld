@@ -24,6 +24,10 @@
         {{textBtn}}
         <ion-spinner name="circles" *ngIf="spinner"></ion-spinner>
       </ion-button>
+      <ion-button expand="block" (click)="registerFacebook()" class="btnFacebook" [disabled]="buttonDisabled">
+        <ion-icon name="logo-facebook" class="ion-padding-end" ></ion-icon>
+        Iniciar con Facebook
+      </ion-button>
       <ion-label style="margin-top: 5%;" class="ion-text-center">
         <u (click)="register()">No tiene cuenta? Registrese</u>
       </ion-label>

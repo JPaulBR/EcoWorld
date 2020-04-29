@@ -32,9 +32,8 @@ export class PaginaPrincipalPage implements OnInit {
       this.spinner = false;
     });
     this.storage.get('email').then(res=>{
-      if (res==="jpbr25@yahoo.com"){
+      if (res==="jpaulbr97@gmail.com"){
         this.hide = true;
-        console.log("entra");
       }
     });
   }

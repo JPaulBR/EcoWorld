@@ -27,7 +27,7 @@ export class PaginaCentrosPage implements OnInit {
     this.hide=false;
     this.hide2=false;
     this.storage.get('email').then((val) => {
-      this.apt.getUserByEmail2(val).subscribe(dato =>{
+      this.apt.getUserByEmail(val).subscribe(dato =>{
         this.listUser = dato;
         this.listUser.forEach(element => {
           this.hide2 = element.permiso;

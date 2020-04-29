@@ -23,9 +23,9 @@
             <p>{{i.nombre}} {{i.apellido}}</p>
           </div>
         </div>
-        <ion-checkbox slot="end" color="dark" checked="{{i.permiso}}" (click)="update(i.id,i.permiso,i.key)"></ion-checkbox>
+        <ion-checkbox slot="end" color="dark" checked="{{i.permiso}}" (click)="update(i.permiso,i.key)"></ion-checkbox>
       </ion-item>
-      <ion-item-options side="start" (click)="deleteCampaign(i.key,i.email)">
+      <ion-item-options side="start" (click)="deleteUser(i.key,i.email)">
         <ion-item-option color="danger" expandable>
           <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-item-option>
