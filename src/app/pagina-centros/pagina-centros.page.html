@@ -56,12 +56,12 @@
     </ion-fab-button>  
   </ion-fab>
   <div *ngIf="hide" class="center">
-    <ion-card >
+    <ion-card (click)="openMail()">
     <img class="centrar" src="assets/images/permisson.png" alt="ion">
     <ion-card-header>
       <ion-card-title class="ion-text-center">Información</ion-card-title>
     </ion-card-header>
-    <ion-card-content>Si desea crear una nueva campaña, contáctenos. <img (click)="openWhatsApp()" style="width: 20px;" src="https://image.flaticon.com/icons/svg/733/733585.svg"> </ion-card-content>
+    <ion-card-content>Si desea crear una nueva campaña, contáctenos. <ion-icon name="mail"></ion-icon> </ion-card-content>
     </ion-card>
   </div> 
 </ion-content>
