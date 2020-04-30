@@ -3,6 +3,7 @@ import { MenuController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { UsuarioService } from '../tablas/usuarios/usuario.service';
 import { CentrosService } from '../tablas/centros/centros.service';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
 @Component({
   selector: 'app-pagina-centros',
@@ -20,7 +21,7 @@ export class PaginaCentrosPage implements OnInit {
   spinner: boolean;
 
   constructor(private menuCtrl:MenuController, private storage: Storage, private apt: UsuarioService, 
-    private apt2: CentrosService,public toastCtrl: ToastController) {}
+    private apt2: CentrosService,public toastCtrl: ToastController,private emailComposer: EmailComposer) {}
 
   ngOnInit() {
     this.spinner = true;
@@ -52,8 +53,17 @@ export class PaginaCentrosPage implements OnInit {
     this.menuCtrl.toggle();
   }
 
-  openWhatsApp(){
-    window.open('https://api.whatsapp.com/send?phone=${+50689441001}');
+  openMail(){
+    let email = {
+      to: 'jpbr25@yahoo.com',
+      cc: '',
+      subject: 'Permiso',
+      body: 'Hola, me gustaría ser anfitrión de un centro de campaña.',
+      isHtml: true
+    }
+    // Send a text message using default options
+    this.emailComposer.open(email);
+   //window.open('https://api.whatsapp.com/send?phone=${+50689441001}'); 
   }
 
   deleteCampaign(ide:string){
