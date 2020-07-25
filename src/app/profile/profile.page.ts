@@ -6,7 +6,7 @@ import {AngularFireStorage} from '@angular/fire/storage';
 import { Storage } from '@ionic/storage';
 import { UsuarioService } from '../tablas/usuarios/usuario.service';
 import {PhotoViewer} from '@ionic-native/photo-viewer/ngx';
-import { element } from 'protractor';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-profile',
@@ -52,7 +52,7 @@ export class ProfilePage implements OnInit {
         this.name = val[0].nombre;
         this.lastName = val[0].apellido;
         this.email = val[0].email;
-        this.password = val[0].contra;
+        this.password =  this.convertPassword(false,val[0].contra);
         this.image = val[0].urlFoto;
         this.permiso = val[0].permiso;
         this.reciclado = val[0].reciclado;
@@ -86,7 +86,7 @@ export class ProfilePage implements OnInit {
         nombre : this.name,
         apellido : this.lastName,
         email : this.email,
-        contra : this.password,
+        contra : this.convertPassword(true,this.password),
         urlFoto : this.image,
         permiso : this.permiso,
         reciclado : this.reciclado  
@@ -226,6 +226,17 @@ export class ProfilePage implements OnInit {
 
   goToSearchUser(){
     this.navCtrl.navigateRoot("/pagina-usuarios");
+  }
+
+  convertPassword(type:boolean,password:string){
+    if (type){
+      var conversionEncryptOutput = CryptoJS.AES.encrypt(password.trim(), "nullnone").toString();
+      return conversionEncryptOutput;
+    }
+    else{
+      var conversionDecryptOutput = CryptoJS.AES.decrypt(password.trim(), "nullnone").toString(CryptoJS.enc.Utf8);
+      return conversionDecryptOutput;
+    }
   }
 
 }

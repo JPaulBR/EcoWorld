@@ -7,9 +7,7 @@ import { Storage } from '@ionic/storage';
 import {EmailComposer} from '@ionic-native/email-composer/ngx';
 import { SMS } from '@ionic-native/sms/ngx';
 import {Facebook,FacebookLoginResponse} from '@ionic-native/facebook/ngx';
-import { Appointment } from '../tablas/usuarios/usuario';
-import { FormGroup, FormControl } from '@angular/forms';
-import { format } from 'util';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-home',
@@ -100,21 +98,45 @@ export class HomePage {
       this.buttonDisabled = false;
     }
     else{
-      this.aptService.getUserByCredential(this.email,this.password).subscribe(data=>{
-        if (data.length>0){
+      this.existsUser();
+    }
+  }
+
+  existsUser(){
+    this.apt.getUserByEmail(this.email).subscribe(res1=>{
+      var flag = false;
+      if (res1.length>0){
+        flag=true;
+        var pass=res1[0].contra;
+        var decrypt = this.convertPassword(false,pass);
+        this.validateCredentials(decrypt,pass);
+      }
+      else{
+        if (!flag){
+          this.presentSnackBar("Correo no registrado","danger");
           this.spinner = false;
           this.textBtn = "Iniciar sesión";
           this.buttonDisabled = false;
-          this.route.navigate(['/pagina-principal']);
-          this.saveEmail(this.email);
         }
-        else{
-          this.presentSnackBar("Usuario no encontrado","danger");
-          this.spinner = false;
-          this.textBtn = "Iniciar sesión";
-          this.buttonDisabled = false;
-        }
+      }
+    });
+  }
+
+  validateCredentials(decrypt:string,pass:string){
+    if (decrypt===this.password){
+      this.apt.getUserByCredential(this.email,pass).subscribe(res=>{
+        this.saveEmail(this.email);
+        this.spinner = false;
+        this.textBtn = "Iniciar sesión";
+        this.buttonDisabled = false;
+        this.route.navigate(['/pagina-principal']);
       });
+    }
+    else{
+      this.presentSnackBar("Contraseña incorrecta","danger");
+      this.spinner = false;
+      this.textBtn = "Iniciar sesión";
+      this.buttonDisabled = false;   
     }
   }
 
@@ -141,7 +163,7 @@ export class HomePage {
       inputs: [
         {
           name: 'email',
-          placeholder: 'Phone number',
+          placeholder: 'Correo',
           type: 'email'
         },
       ],
@@ -154,15 +176,10 @@ export class HomePage {
           text: 'Send',
           handler: data => {
             if (data.email==='') {
-              // invalid login
               this.presentSnackBar("Put an valid email.","danger");
             }
             else {
-              // valid login
-              //this.sendEmail(data.email);
               this.sendMsj();
-              //console.log("crear función de enviar email");
-              //this.presentSnackBar("Email sent","success");
             }
           }
         }
@@ -182,20 +199,7 @@ export class HomePage {
   }
 
   sendEmail(mail:string){
-    /*let email = {
-      to: mail,
-      cc: 'jpaulbr97@gmail.com',
-      attachments: [
-        'https://image.flaticon.com/icons/svg/46/46510.svg'
-      ],
-      subject: 'Recover password',
-      body: 'Hi, have a nice day. This is your new password: '+this.makePassword(10)+" You can change the password whenever you want.",
-      isHtml: true
-    } 
-    // Send a text message using default options
-    this.emailComposer.open(email).then(res=>{
-      this.presentSnackBar("Sent email","success");
-    });*/
+    this.presentSnackBar("Servidor no disponible","success")
   }
 
   makePassword(length:number) {
@@ -214,15 +218,26 @@ export class HomePage {
    }) ;
  }
 
- showPass(){
-   if (this.nameIcon==="eye-off"){
-     this.nameIcon = "eye";
-     this.type = "text";
-   }
-   else{
-    this.nameIcon = "eye-off";
-    this.type = "password";
-   }
- }
+  showPass(){
+    if (this.nameIcon==="eye-off"){
+      this.nameIcon = "eye";
+      this.type = "text";
+    }
+    else{
+      this.nameIcon = "eye-off";
+      this.type = "password";
+    }
+  }
+
+  convertPassword(type:boolean,password:string){
+    if (type){
+      var conversionEncryptOutput = CryptoJS.AES.encrypt(password.trim(), "nullnone").toString();
+      return conversionEncryptOutput;
+    }
+    else{
+      var conversionDecryptOutput = CryptoJS.AES.decrypt(password.trim(), "nullnone").toString(CryptoJS.enc.Utf8);
+      return conversionDecryptOutput;
+    }
+  }
 
 }

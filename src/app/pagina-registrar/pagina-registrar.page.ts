@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { UsuarioService } from './../tablas/usuarios/usuario.service';
-import {Observable} from 'rxjs';
 import { ToastController, AlertController, PopoverController, Platform, MenuController } from '@ionic/angular';
 import { Camera } from '@ionic-native/camera/ngx';
 import { PopupComponent } from '../popup/popup.component';
 import {AngularFireStorage} from '@angular/fire/storage';
-import { map } from 'rxjs/operators';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-pagina-registrar',
@@ -92,6 +91,7 @@ export class PaginaRegistrarPage implements OnInit {
           if (this.urlImage===undefined){
             this.userForm.value.urlFoto = "https://image.flaticon.com/icons/svg/1177/1177568.svg";
           }
+          this.userForm.value.contra = this.convertPassword(true,this.userForm.value.contra);
           this.userForm.value.permiso = false;
           this.userForm.value.reciclado = 0;
           this.aptService.createPointsForUser(this.userForm.value.email);
@@ -235,6 +235,17 @@ export class PaginaRegistrarPage implements OnInit {
     else{
      this.nameIcon = "eye-off";
      this.type = "password";
+    }
+  }
+
+  convertPassword(type:boolean,password:string){
+    if (type){
+      var conversionEncryptOutput = CryptoJS.AES.encrypt(password.trim(), "nullnone").toString();
+      return conversionEncryptOutput;
+    }
+    else{
+      var conversionDecryptOutput = CryptoJS.AES.decrypt(password.trim(), "nullnone").toString(CryptoJS.enc.Utf8);
+      return conversionDecryptOutput;
     }
   }
 
