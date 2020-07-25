@@ -48,7 +48,7 @@ export class ProfilePage implements OnInit {
         this.search = true;
       }
       this.apt.getUserByEmail(res).subscribe(val=>{
-        this.key = val[0].id;
+        this.key = val[0].key;
         this.name = val[0].nombre;
         this.lastName = val[0].apellido;
         this.email = val[0].email;

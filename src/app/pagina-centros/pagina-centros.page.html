@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="success">
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="toggleMenu()">
         <ion-icon slot="icon-only" name="menu" style="color: white;"></ion-icon>
@@ -51,7 +51,7 @@
     </ion-card>
   </div>
   <ion-fab *ngIf="hide2" vertical="bottom" horizontal="end" slot="fixed">  
-    <ion-fab-button color="success" [routerLink]="['/','agregar-centro']">  
+    <ion-fab-button [routerLink]="['/','agregar-centro']">  
       <ion-icon name="add"></ion-icon>  
     </ion-fab-button>  
   </ion-fab>

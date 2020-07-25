@@ -18,7 +18,7 @@
         <ion-input [(ngModel)]="password" placeholder="Contraseña" type={{type}}></ion-input>
         <ion-icon name={{nameIcon}} slot="end" color="medium" (click)="showPass()"></ion-icon>
       </ion-item>
-      <ion-label *ngIf="forget" class="forget-password" (click)="presentPrompt()" >Forget password</ion-label>
+      <ion-label class="forget-password" (click)="presentPrompt()" >Olvide la contraseña</ion-label>
       <div linespace></div>
       <ion-button id="btn" expand="block" (click)="login()" [disabled]="buttonDisabled">
         {{textBtn}}

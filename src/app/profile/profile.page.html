@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="success">
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="toggleMenu()">
         <ion-icon slot="icon-only" name="menu" style="color: white;"></ion-icon>
@@ -38,7 +38,7 @@
       <ion-input [(ngModel)]="password" placeholder="Contraseña" type={{type}}></ion-input>
       <ion-icon name={{nameIcon}} slot="end" color="medium" (click)="showPass()"></ion-icon>
     </ion-item>
-    <ion-button (click)="updateData()" color="success" style="margin-top: 2%;" shape="block" fill="solid" expand="block" id="btn">
+    <ion-button (click)="updateData()" style="margin-top: 2%;" shape="block" fill="solid" expand="block" id="btn">
       Guardar 
     </ion-button>
   </ion-card>

@@ -9,7 +9,7 @@ import { NavController } from '@ionic/angular';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(private storage:Storage,private navCtrl: NavController) { }
+  constructor(private storage:Storage,private navCtrl: NavController) {}
 
   ngOnInit() {}
 

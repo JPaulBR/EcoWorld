@@ -63,7 +63,7 @@ export class PaginaCentrosPage implements OnInit {
     }
     // Send a text message using default options
     this.emailComposer.open(email);
-   //window.open('https://api.whatsapp.com/send?phone=${+50689441001}'); 
+    //window.open('https://api.whatsapp.com/send?phone=${+50689441001}'); 
   }
 
   deleteCampaign(ide:string){

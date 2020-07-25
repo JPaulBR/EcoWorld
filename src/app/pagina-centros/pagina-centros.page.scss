@@ -4,6 +4,16 @@
   display: block;
 }
 
+ion-toolbar{
+  --background: #38d39f;
+  --color: white;
+}
+
+ion-fab-button{
+  --background: #38d39f;
+  --color: white;
+}
+
 .center{
   height: 100%;
   display: flex;
