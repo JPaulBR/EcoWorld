@@ -9,9 +9,21 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <div class="ion-text-center ion-padding-top">
+    <div class="dropdown">
+      <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{opcion}}
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" (click)="filterNews('All')">Todas las noticias</a>
+        <a class="dropdown-item" (click)="filterNews('Nacionales')">Nacionales</a>
+        <a class="dropdown-item" (click)="filterNews('Internacionales')">Internacionales</a>
+        <a class="dropdown-item" (click)="filterNews('Consejos')">Consejos</a>
+      </div>
+    </div>
+  </div>
   <ion-spinner name="circles" *ngIf="spinner" style="margin: auto; display: block;color: #32be8f; margin-top: 4%;"></ion-spinner>
     <ion-card *ngFor="let i of listNews" (click)="goToPage(i.fuente)">
-
       <ion-item no-lines >
         <ion-avatar slot="start">
           <img src={{i.fotoEmpresa}}>

@@ -12,6 +12,7 @@ import { Storage } from '@ionic/storage';
 })
 export class PaginaPrincipalPage implements OnInit {
 
+  opcion:string = "Todas las noticias";
   public listNews: any = [];
   spinner: boolean;
   hide:boolean = false;
@@ -27,15 +28,36 @@ export class PaginaPrincipalPage implements OnInit {
 
   ngOnInit() {
     this.spinner = true;
-    this.apt.getNews().subscribe(dato =>{
-      this.listNews = dato;
-      this.spinner = false;
-    });
+    this.allNews()
     this.storage.get('email').then(res=>{
       if (res==="jpaulbr97@gmail.com"){
         this.hide = true;
       }
     });
+  }
+
+  allNews(){
+    this.listNews = null;
+    this.apt.getNews().subscribe(dato =>{
+      this.listNews = dato;
+      this.spinner=false;
+    });
+  }
+
+  filterNews(value:string){
+    this.listNews = null;
+    this.spinner = true;
+    if (value==="All"){
+      this.allNews();
+      this.opcion = "Todas las noticias"
+    }
+    else{
+      this.apt.searchNew(value).subscribe(dato=>{
+        this.listNews = dato;
+        this.spinner = false;
+        this.opcion = value;
+      });
+    }
   }
 
   toggleMenu(){
