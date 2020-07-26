@@ -8,6 +8,7 @@ import {EmailComposer} from '@ionic-native/email-composer/ngx';
 import { SMS } from '@ionic-native/sms/ngx';
 import {Facebook,FacebookLoginResponse} from '@ionic-native/facebook/ngx';
 import * as CryptoJS from 'crypto-js';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @Component({
   selector: 'app-home',
@@ -31,11 +32,11 @@ export class HomePage {
     private db2: AngularFirestore,private storage: Storage,private sms: SMS,
     private navCtrl: NavController, private emailComposer: EmailComposer,
     public menuCtrl: MenuController,private facebook:Facebook,
-    private apt: UsuarioService) {
+    private apt: UsuarioService, private screenOrientation: ScreenOrientation) {
     this.spinner = false;
     this.textBtn = "Iniciar sesión";
     this.buttonDisabled = false;
-
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
   }
 
   ngOnInit() {
@@ -159,7 +160,7 @@ export class HomePage {
   //present a popup (modal form)
   async presentPrompt() {
     let alert = await this.alertCtrl.create({
-      header: 'Forget Password',
+      header: 'Recuperación de contraseña',
       inputs: [
         {
           name: 'email',
@@ -176,7 +177,7 @@ export class HomePage {
           text: 'Send',
           handler: data => {
             if (data.email==='') {
-              this.presentSnackBar("Put an valid email.","danger");
+              this.presentSnackBar("Ingrese un correo válido.","danger");
             }
             else {
               this.sendMsj();

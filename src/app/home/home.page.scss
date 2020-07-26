@@ -4,6 +4,19 @@
   margin-left: -300px; /* Restamos la mitad de la anchura del objeto con un margin-left */
 }
 
+.footer{
+  left: 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.imgFooter {
+  position: relative;
+  display: block;
+  float: left;
+}
+
 .login-header{
   background:#00FA9A;// #00FF7F;
 }

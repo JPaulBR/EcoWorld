@@ -13,11 +13,11 @@
   <ion-spinner name="circles" *ngIf="spinner" style="margin: auto; display: block;color: #32be8f; margin-top: 4%;"></ion-spinner>
   <ion-card *ngFor="let i of listUsers; let j = index">
     <ion-item>
-      <div class="container">
-        <div class="container">
+      <div class="containerBox">
+        <div class="containerBox">
           <h2>{{j+1}}</h2>
         </div>
-        <div class="container" class="ion-padding-start" (click)="getTotal(i.reciclado)">
+        <div class="containerBox" class="ion-padding-start" (click)="getTotal(i.reciclado)">
           <p>{{i.nombre}} {{i.apellido}}</p>
         </div>
       </div>

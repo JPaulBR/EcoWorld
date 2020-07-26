@@ -59,6 +59,7 @@ export class AboutPage implements OnInit {
   sendData(txt:string){
     this.storage.get("email").then(res=>{
       this.apt.getUserByEmail(res).subscribe(val=>{
+        var require: any;
         var dateFormat = require('dateformat');
         var today = Date.now();
         var now  = dateFormat(today, "dddd, mmmm dS, yyyy, h:MM:ss TT");

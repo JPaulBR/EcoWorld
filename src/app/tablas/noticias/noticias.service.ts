@@ -35,4 +35,16 @@ export class NoticiasService {
     return listaComentarios.add(news);
   }
 
+  searchNew(value:string){
+    return this.db2.collection<any>('noticias',ref => ref.where('categoria', '==', value)).snapshotChanges().pipe(map(
+      actions=>{
+        return actions.map(a =>{
+          const data = a.payload.doc.data();
+          const key = a.payload.doc.id;
+          return {key, ...data};
+        });
+      }
+    ));
+  }
+
 }
