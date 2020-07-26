@@ -9,6 +9,7 @@ import { SMS } from '@ionic-native/sms/ngx';
 import {Facebook,FacebookLoginResponse} from '@ionic-native/facebook/ngx';
 import * as CryptoJS from 'crypto-js';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
 
 @Component({
   selector: 'app-home',
@@ -26,13 +27,15 @@ export class HomePage {
   nameIcon = 'eye-off';
   buttonDisabled: boolean;
   userRegister: any;
+  isKeyboardHide=true;
 
   constructor(public route:Router, private alertCtrl:AlertController,
     public toastCtrl: ToastController,private aptService: UsuarioService,
     private db2: AngularFirestore,private storage: Storage,private sms: SMS,
     private navCtrl: NavController, private emailComposer: EmailComposer,
     public menuCtrl: MenuController,private facebook:Facebook,
-    private apt: UsuarioService, private screenOrientation: ScreenOrientation) {
+    private apt: UsuarioService, private screenOrientation: ScreenOrientation,
+    public keyboard:Keyboard) {
     this.spinner = false;
     this.textBtn = "Iniciar sesión";
     this.buttonDisabled = false;
@@ -79,6 +82,15 @@ export class HomePage {
 
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
+    this.keyboard.onKeyboardWillShow().subscribe(()=>{
+      this.isKeyboardHide=false;
+      // console.log('SHOWK');
+    });
+
+    this.keyboard.onKeyboardWillHide().subscribe(()=>{
+      this.isKeyboardHide=true;
+      // console.log('HIDEK');
+    });
   }
 
   //validate user input

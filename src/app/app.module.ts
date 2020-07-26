@@ -26,6 +26,7 @@ import {EmailComposer} from '@ionic-native/email-composer/ngx';
 import { SMS } from '@ionic-native/sms/ngx';
 import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
 import { Facebook } from '@ionic-native/facebook/ngx';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { Facebook } from '@ionic-native/facebook/ngx';
     InAppBrowser,
     Camera,
     Facebook,
+    Keyboard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

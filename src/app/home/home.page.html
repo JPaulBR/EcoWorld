@@ -11,7 +11,7 @@
       </div>
       <ion-item transparent>
         <ion-icon name="person" color="medium"></ion-icon>
-        <ion-input [(ngModel)]="email" type="email" placeholder="Correo" type="text" ion-padding></ion-input>
+        <ion-input [(ngModel)]="email" placeholder="Correo" type="text" ion-padding></ion-input>
       </ion-item>
       <ion-item transparent>
         <ion-icon name="lock-closed" color="medium"></ion-icon>
@@ -33,7 +33,7 @@
       </ion-label>
     </div>
   </div>
-  <div class="footer">
+  <div *ngIf="isKeyboardHide" class="footer">
     <img class="imgFooter" src="assets/images/wave.svg"/>
   </div>
 </ion-content>
